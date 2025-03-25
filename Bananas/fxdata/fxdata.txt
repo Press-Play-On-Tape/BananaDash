@@ -1,0 +1,30 @@
+
+include "images.txt"
+
+namespace Constants
+
+    include "data/Stances.txt"
+    int16_t Palm_X[] = { -36, 31, 70, 100, -16, 27, 65, 110 };
+
+namespace_end 
+
+namespace Images
+
+    uint24_t PalmImages[] = { Tree1, Tree4, Tree3, Tree2, Tree5, Tree6, Tree7, Tree8 };
+
+namespace_end 
+
+
+
+namespace Level
+
+    uint8_t Level[] = { 28, 28, 3, 13, 1, 
+                        27, 14, 6, 10, 
+                        9, 15, 11,  };
+
+namespace_end 
+
+
+savesection  // Anything below here will be stored in the save block
+
+uint16_t 0xFFFF // Save state  end marker
