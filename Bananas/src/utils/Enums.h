@@ -24,7 +24,9 @@ enum class GameState : uint8_t {
 
     Title_Init,
     Title_Start,
-        Title,
+        Title_Play_Game = Title_Start,
+        Title_Sounds,
+        Title_Highs,
 	Title_End,
 
     PlayGame_Init,
@@ -33,6 +35,27 @@ enum class GameState : uint8_t {
     HighScore,
 };
 
+inline GameState &operator++(GameState &c) {
+  c = static_cast<GameState>( static_cast<uint8_t>(c) + 1 );
+  return c;
+}
+
+inline GameState operator++(GameState &c, int) {
+  GameState result = c;
+  ++c;
+  return result;
+}
+
+inline GameState &operator--( GameState & c ) {
+  c = static_cast<GameState>( static_cast<uint8_t>(c) - 1 );
+  return c;
+};
+
+inline GameState operator--( GameState & c, int ) {
+  GameState result = c;
+  --c;
+  return result;
+};
 
 enum Stance : uint16_t {
 
@@ -60,7 +83,15 @@ enum Stance : uint16_t {
             Player_Running_Jump_RH_05,
             Player_Running_Jump_RH_06,
             Player_Running_Jump_RH_07,
-        Player_End_RH = Player_Running_Jump_RH_07,
+            Player_Cliimbing_Vine_Up_1L_RH_00,
+            Player_Cliimbing_Vine_Up_1L_RH_01,
+            Player_Cliimbing_Vine_Up_1L_RH_02,
+            Player_Cliimbing_Vine_Up_1L_RH_03,
+            Player_Cliimbing_Vine_Down_1L_RH_00,
+            Player_Cliimbing_Vine_Down_1L_RH_01,
+            Player_Cliimbing_Vine_Down_1L_RH_02,
+            Player_Cliimbing_Vine_Down_1L_RH_03,
+        Player_End_RH = Player_Cliimbing_Vine_Down_1L_RH_03,
 
         Player_Start_LH,
             Player_Idle_LH = Player_Start_LH,

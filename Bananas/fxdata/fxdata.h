@@ -6,8 +6,8 @@ using uint24_t = __uint24;
 
 // Initialize FX hardware using  FX::begin(FX_DATA_PAGE); in the setup() function.
 
-constexpr uint16_t FX_DATA_PAGE  = 0xfef4;
-constexpr uint24_t FX_DATA_BYTES = 64293;
+constexpr uint16_t FX_DATA_PAGE  = 0xfeda;
+constexpr uint24_t FX_DATA_BYTES = 71076;
 
 constexpr uint16_t FX_SAVE_PAGE  = 0xfff0;
 constexpr uint24_t FX_SAVE_BYTES = 2;
@@ -16,35 +16,37 @@ namespace Images
 {
   constexpr uint24_t PPOT = 0x000000;
   constexpr uint24_t Title = 0x003002;
-  constexpr uint24_t Player = 0x003C04;
-  constexpr uint24_t Tree1 = 0x007806;
-  constexpr uint24_t Tree2 = 0x007D60;
-  constexpr uint24_t Tree3 = 0x008092;
-  constexpr uint24_t Tree4 = 0x008304;
-  constexpr uint24_t Tree5 = 0x00858E;
-  constexpr uint24_t Tree6 = 0x008896;
-  constexpr uint24_t Tree7 = 0x008A00;
-  constexpr uint24_t Tree8 = 0x008C66;
-  constexpr uint24_t Foreground = 0x008DBE;
-  constexpr uint24_t Background = 0x00A5C0;
-  constexpr uint24_t Levels = 0x00B1C2;
+  constexpr uint24_t Player = 0x005404;
+  constexpr uint24_t Tree1 = 0x009006;
+  constexpr uint24_t Tree2 = 0x009560;
+  constexpr uint24_t Tree3 = 0x009892;
+  constexpr uint24_t Tree4 = 0x009B04;
+  constexpr uint24_t Tree5 = 0x009D8E;
+  constexpr uint24_t Tree6 = 0x00A096;
+  constexpr uint24_t Tree7 = 0x00A200;
+  constexpr uint24_t Tree8 = 0x00A466;
+  constexpr uint24_t Foreground = 0x00A5BE;
+  constexpr uint24_t Background = 0x00BDC0;
+  constexpr uint24_t LowerOnly = 0x00C9C2;
+  constexpr uint24_t UpperOnly = 0x00E4C4;
+  constexpr uint24_t Both = 0x00F006;
 }
 
 namespace Constants
 {
-  constexpr uint24_t StanceImgIdx = 0x00F9C4;
-  constexpr uint24_t SubsititueStance = 0x00F9EF;
-  constexpr uint24_t StanceDetails = 0x00FA45;
-  constexpr uint24_t Palm_X = 0x00FAF1;
+  constexpr uint24_t StanceImgIdx = 0x011408;
+  constexpr uint24_t SubsititueStance = 0x01143B;
+  constexpr uint24_t StanceDetails = 0x0114A1;
+  constexpr uint24_t Palm_X = 0x01156D;
 }
 
 namespace Images
 {
-  constexpr uint24_t PalmImages = 0x00FB01;
+  constexpr uint24_t PalmImages = 0x01157D;
 }
 
 namespace Level
 {
-  constexpr uint24_t Level = 0x00FB19;
+  constexpr uint24_t Level = 0x011595;
 }
 

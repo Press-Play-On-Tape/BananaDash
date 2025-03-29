@@ -8,7 +8,7 @@ void titleScreen_Activate() {
 
     // gameStats.resetGame();
 
-    world.setGameState(GameState::Title);
+    world.setGameState(GameState::Title_Start);
 
 }
 
@@ -19,31 +19,35 @@ void titleScreen_Activate() {
 void titleScreen_Update() {
 
     const uint8_t justPressed = getJustPressedButtons();
-    const uint8_t justpressedPressed = getPressedButtons();
+    const uint8_t pressed = getPressedButtons();
 
-
-    // Restart ?
-
-    // if (pressed & DOWN_BUTTON) {
-
-    //     if (titleScreenVars.restart < UPLOAD_DELAY) {
-    //         titleScreenVars.restart++;
-    //     }
-    //     else {
-    //         arduboy.exitToBootloader();
-    //     }
-
-    // }
-    // else {
-    //     titleScreenVars.restart = 0;
-    // }
 
 
     // Handle other input ..
 
+    if (justPressed & UP_BUTTON && world.getGameState() != GameState::Title_Play_Game) {
+    
+        world.decGameState();
+
+    }
+
+    if (justPressed & DOWN_BUTTON  && world.getGameState() != GameState::Title_Highs) {
+    
+        world.incGameState();
+
+    }
+   
 
     if (justPressed & A_BUTTON || justPressed & B_BUTTON) {
-        world.setGameState(GameState::PlayGame_Init); 
+
+        switch (world.getGameState()) {
+        
+            case GameState::Title_Play_Game:
+                world.setGameState(GameState::PlayGame_Init); 
+                break;
+            
+        }
+
     }
 
 
@@ -55,7 +59,8 @@ void titleScreen_Update() {
 //
 void titleScreen_Render() {
 
-    SpritesU::drawOverwriteFX(0, 0, Images::Title, currentPlane);
+    uint8_t idx = static_cast<uint8_t>(world.getGameState()) - static_cast<uint8_t>(GameState::Title_Play_Game);
+    SpritesU::drawOverwriteFX(0, 0, Images::Title, (idx * 3) + currentPlane);
 
 
 }

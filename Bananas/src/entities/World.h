@@ -40,6 +40,18 @@ struct World {
 
         void setPalm(uint8_t idx, int16_t val) { this->palm[idx] = val; }
 
+        void incGameState() {
+
+            this->gameState++;
+
+        }
+
+        void decGameState() {
+
+            this->gameState--;
+
+        }
+        
         void incFrameCount() {
 
             this->frameCount++;

@@ -95,6 +95,18 @@ void playGame_Update() {
 
                     }
 
+                    if (pressed & UP_BUTTON) {
+
+                        player.pushSequence(Stance::Player_Cliimbing_Vine_Up_1L_RH_00, Stance::Player_Cliimbing_Vine_Up_1L_RH_03);
+                    
+                    }
+
+                    if (pressed & DOWN_BUTTON) {
+
+                        player.pushSequence(Stance::Player_Cliimbing_Vine_Down_1L_RH_00, Stance::Player_Cliimbing_Vine_Down_1L_RH_03);
+                    
+                    }
+
                     if (pressed & RIGHT_BUTTON) {
 
                         if (player.getDirection() == Direction::Right) {
@@ -107,9 +119,8 @@ void playGame_Update() {
                     }
 
                     if (pressed & LEFT_BUTTON) {
-Serial.println("L");
+
                         if (player.getDirection() == Direction::Left) {
-Serial.println("L2");
                             player.pushSequence(Stance::Player_Walk_LH_00, Stance::Player_Walk_LH_03);
                         }
                         else {
@@ -252,7 +263,21 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
         uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
 
-        SpritesU::drawPlusMaskFX((i * 16) + world.getForeground(), 10, 16, 48, Images::Levels, (levelIdx * 3) + currentPlane);
+        switch (levelIdx) {
+        
+            case 0 ... 19:
+                SpritesU::drawPlusMaskFX((i * 16) + world.getForeground(), 10, 16, 48, Images::LowerOnly, (levelIdx * 3) + currentPlane);
+                break;
+
+            case 20 ... 39:
+                SpritesU::drawPlusMaskFX((i * 16) + world.getForeground(), 10, 16, 48, Images::Both, ((levelIdx - 20) * 3) + currentPlane);
+                break;
+
+            case 40 ... 59:
+                SpritesU::drawPlusMaskFX((i * 16) + world.getForeground(), 10, 16, 48, Images::UpperOnly, ((levelIdx - 40) * 3) + currentPlane);
+                break;
+
+        }
 
     }
 

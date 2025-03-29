@@ -141,4 +141,6 @@ convert_header(IMAGES + 'Background/Tree8.png',                                 
 convert_header(IMAGES + 'Background/Foreground.png',                                              BASE + 'Images.hpp', 'Foreground', 4)
 convert_header(IMAGES + 'Background/Background.png',                                              BASE + 'Images.hpp', 'Background', 4)
 
-convert_header(IMAGES + 'Background/Levels.png',                                              BASE + 'Images.hpp', 'Levels', 4, 16, 48)
+convert_header(IMAGES + 'Levels/LowerOnly.png',                                                   BASE + 'Images.hpp', 'LowerOnly', 4, 16, 48)
+convert_header(IMAGES + 'Levels/UpperOnly.png',                                                   BASE + 'Images.hpp', 'UpperOnly', 4, 16, 48)
+convert_header(IMAGES + 'Levels/Both.png',                                                        BASE + 'Images.hpp', 'Both', 4, 16, 48)
