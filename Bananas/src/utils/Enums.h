@@ -13,6 +13,20 @@ struct StanceDetails {
 };
 
 
+enum class EntityType : uint8_t {
+    None,
+    Player,
+    Barrel,
+};
+
+enum class ItemType : uint8_t {
+    None,
+    Banana,
+    Banana_Hidden,
+    Puff,
+};
+
+
 enum class GameState : uint8_t {
 
     SplashScreen_Start,
@@ -83,22 +97,43 @@ enum Stance : uint16_t {
             Player_Running_Jump_RH_05,
             Player_Running_Jump_RH_06,
             Player_Running_Jump_RH_07,
-            Player_Cliimbing_Vine_Up_1L_RH_00,
-            Player_Cliimbing_Vine_Up_1L_RH_01,
-            Player_Cliimbing_Vine_Up_1L_RH_02,
-            Player_Cliimbing_Vine_Up_1L_RH_03,
-            Player_Cliimbing_Vine_Down_1L_RH_00,
-            Player_Cliimbing_Vine_Down_1L_RH_01,
-            Player_Cliimbing_Vine_Down_1L_RH_02,
-            Player_Cliimbing_Vine_Down_1L_RH_03,
-        Player_End_RH = Player_Cliimbing_Vine_Down_1L_RH_03,
+            Player_Climbing_Vine_Up_RH_00,
+            Player_Climbing_Vine_Up_RH_01,
+            Player_Climbing_Vine_Up_RH_02,
+            Player_Climbing_Vine_Up_RH_03,
+            Player_Climbing_Vine_Down_RH_00,
+            Player_Climbing_Vine_Down_RH_01,
+            Player_Climbing_Vine_Down_RH_02,
+            Player_Climbing_Vine_Down_RH_03,
+
+            Player_Falling_1L_A_RH_00,
+            Player_Falling_1L_A_RH_01,
+            Player_Falling_1L_A_RH_02,
+            Player_Falling_1L_A_RH_03,
+            Player_Falling_1L_A_RH_04,
+            Player_Falling_1L_A_RH_05,
+            Player_Falling_1L_A_RH_06,
+            Player_Falling_1L_A_RH_07,
+
+            Player_Falling_1L_B_RH_00,
+            Player_Falling_1L_B_RH_01,
+            Player_Falling_1L_B_RH_02,
+            Player_Falling_1L_B_RH_03,
+            Player_Falling_1L_B_RH_04,
+            Player_Falling_1L_B_RH_05,
+            Player_Falling_1L_B_RH_06,
+            Player_Falling_1L_B_RH_07,
+
+        Player_End_RH = Player_Falling_1L_B_RH_07,
 
         Player_Start_LH,
             Player_Idle_LH = Player_Start_LH,
+
             Player_Walk_LH_00,
             Player_Walk_LH_01,
             Player_Walk_LH_02,
             Player_Walk_LH_03,
+
             Player_Standing_Jump_LH_00,
             Player_Standing_Jump_LH_01,
             Player_Standing_Jump_LH_02,
@@ -107,6 +142,7 @@ enum Stance : uint16_t {
             Player_Standing_Jump_LH_05,
             Player_Standing_Jump_LH_06,
             Player_Standing_Jump_LH_07,
+
             Player_Running_Jump_LH_00,
             Player_Running_Jump_LH_01,
             Player_Running_Jump_LH_02,
@@ -115,9 +151,84 @@ enum Stance : uint16_t {
             Player_Running_Jump_LH_05,
             Player_Running_Jump_LH_06,
             Player_Running_Jump_LH_07,
-        Player_End_LH = Player_Running_Jump_LH_07,
 
-    Player_End,
+            Player_Climbing_Vine_Up_LH_00,
+            Player_Climbing_Vine_Up_LH_01,
+            Player_Climbing_Vine_Up_LH_02,
+            Player_Climbing_Vine_Up_LH_03,
+
+            Player_Climbing_Vine_Down_LH_00,
+            Player_Climbing_Vine_Down_LH_01,
+            Player_Climbing_Vine_Down_LH_02,
+            Player_Climbing_Vine_Down_LH_03,     
+
+            Player_Falling_1L_A_LH_00,
+            Player_Falling_1L_A_LH_01,
+            Player_Falling_1L_A_LH_02,
+            Player_Falling_1L_A_LH_03,
+            Player_Falling_1L_A_LH_04,
+            Player_Falling_1L_A_LH_05,
+            Player_Falling_1L_A_LH_06,
+            Player_Falling_1L_A_LH_07,
+
+            Player_Falling_1L_B_LH_00,
+            Player_Falling_1L_B_LH_01,
+            Player_Falling_1L_B_LH_02,
+            Player_Falling_1L_B_LH_03,
+            Player_Falling_1L_B_LH_04,
+            Player_Falling_1L_B_LH_05,
+            Player_Falling_1L_B_LH_06,
+            Player_Falling_1L_B_LH_07,
+
+        Player_End_LH = Player_Falling_1L_B_LH_07,
+
+    Player_End = Player_End_LH,
+
+    Enemy_Start,
+
+        Enemy_Start_RH = Enemy_Start,
+
+            Enemy_Idle_RH = Enemy_Start_RH,
+            Enemy_Walking_RH_00,
+            Enemy_Walking_RH_01,
+            Enemy_Walking_RH_02,
+            Enemy_Walking_RH_03,
+            Enemy_Falling_1L_RH_00,
+            Enemy_Falling_1L_RH_01,
+            Enemy_Falling_1L_RH_02,
+            Enemy_Falling_1L_RH_03,
+            Enemy_Falling_1L_RH_04,
+            Enemy_Falling_1L_RH_05,
+            Enemy_Falling_1L_RH_06,
+            Enemy_Falling_1L_RH_07,
+
+        Enemy_End_RH = Enemy_Falling_1L_RH_07,
+
+        Enemy_Start_LH,
+
+            Enemy_Idle_LH = Enemy_Start_LH,
+            Enemy_Walking_LH_00,
+            Enemy_Walking_LH_01,
+            Enemy_Walking_LH_02,
+            Enemy_Walking_LH_03,
+            Enemy_Falling_1L_LH_00,
+            Enemy_Falling_1L_LH_01,
+            Enemy_Falling_1L_LH_02,
+            Enemy_Falling_1L_LH_03,
+            Enemy_Falling_1L_LH_04,
+            Enemy_Falling_1L_LH_05,
+            Enemy_Falling_1L_LH_06,
+            Enemy_Falling_1L_LH_07,
+
+        Enemy_End_LH = Enemy_Falling_1L_LH_07,
+
+        Enemy_Fall_1L_00,
+        Enemy_Fall_1L_01,
+        Enemy_Fall_1L_02,
+        Enemy_Fall_1L_03,
+        Enemy_Fall_1L_04,
+        Enemy_Fall_1L_05,
+        Enemy_Fall_1L_06,
 
     None,
 

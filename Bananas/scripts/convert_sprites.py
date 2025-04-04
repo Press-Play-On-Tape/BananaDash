@@ -141,6 +141,13 @@ convert_header(IMAGES + 'Background/Tree8.png',                                 
 convert_header(IMAGES + 'Background/Foreground.png',                                              BASE + 'Images.hpp', 'Foreground', 4)
 convert_header(IMAGES + 'Background/Background.png',                                              BASE + 'Images.hpp', 'Background', 4)
 
-convert_header(IMAGES + 'Levels/LowerOnly.png',                                                   BASE + 'Images.hpp', 'LowerOnly', 4, 16, 48)
+convert_header(IMAGES + 'Levels/LowerOnly.png',                                                   BASE + 'Images.hpp', 'LowerOnly', 4, 16, 24)
 convert_header(IMAGES + 'Levels/UpperOnly.png',                                                   BASE + 'Images.hpp', 'UpperOnly', 4, 16, 48)
-convert_header(IMAGES + 'Levels/Both.png',                                                        BASE + 'Images.hpp', 'Both', 4, 16, 48)
+convert_header(IMAGES + 'Levels/Both.png',                                                        BASE + 'Images.hpp', 'Both', 4, 16, 40)
+
+convert_header(IMAGES + 'Titles/HUD_Banana.png',                                                  BASE + 'Images.hpp', 'HUD_Banana', 4, 35, 8)
+convert_header(IMAGES + 'Titles/HUD_Time.png',                                                    BASE + 'Images.hpp', 'HUD_Time', 4, 26, 8)
+
+convert_header(IMAGES + 'Banana.png',                                                             BASE + 'Images.hpp', 'Banana', 4)
+convert_header(IMAGES + 'Puff.png',                                                               BASE + 'Images.hpp', 'Puff', 4, 16, 16)
+convert_header(IMAGES + 'Barrel.png',                                                             BASE + 'Images.hpp', 'Barrel', 4, 16, 16)

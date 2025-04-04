@@ -41,6 +41,8 @@ World &world = cookie.world;
 uint8_t currentPlane;
 uint8_t titleCounter = 0;
 
+Rect gPlayerRect;
+Rect gBananaRect;
 
 void setup(void) {
 

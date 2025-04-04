@@ -15,20 +15,24 @@ class Player {
         Stance toStance = Stance::None;
         uint8_t y;
         uint8_t imageIdx;
+        int8_t velocityX;
 
     public:
 
         Stance getStance()                                  { return this->stance; }
         uint8_t getImageIdx()                               { return this->imageIdx; }
         uint8_t getY()                                      { return this->y; }
+        int8_t getVelocityX()                               { return this->velocityX; }
       
         void setStance(Stance val)                          { this->stance = val; }
         void setImageIdx(uint8_t val)                       { this->imageIdx = val; }
         void setY(uint8_t val)                              { this->y = val; }
+        void setVelocityX(int8_t val)                       { this->velocityX = val; }
 
         void reset() {
 
             this->y = 46;
+            this->velocityX = 0;
             // this->setPosition(0);
             // this->setJumpPosition(0);
             // this->dead = false;

@@ -7,6 +7,70 @@
 #include "src/utils/SpritesU.hpp"
 
 
+void launchPuff(Item &item) {
+
+    Item &puff = world.getItem(0);
+
+    puff.setX(item.getX());
+    puff.setY(item.getY());
+    puff.setFrame(0);
+    puff.setData(0);
+    item.setCounter(3);
+
+}
+
+
+bool isAlignedWithTile() {
+
+    return (world.getForeground() % 16) == 0;
+
+}
+
+bool isAlignedWithLevel() {
+
+    return ((world.getPlayer().getY() - 46) % 16) == 0;
+
+}
+
+
+// bool isAtRightOfTile() {
+
+//     int16_t x = world.getForeground() % 16;
+
+//     return x == -8;
+
+// }
+
+// bool isAtLeftOfTile() {
+
+//     int16_t x = world.getForeground() % 16;
+
+//     return x == -8;
+
+// }
+
+uint8_t getTile(int8_t offset) {
+
+    int8_t xOffset = world.getPlayer().getDirection() == Direction::Left ? -4 : 0;
+    int16_t i = (-(world.getForeground() - 8 - xOffset) / 16) + offset;
+    if (i < 0) return 255;
+
+    uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
+    return tile;
+
+}
+
+
+uint8_t getEnemyTile(int16_t enemyX, int8_t offset) {
+
+    int16_t i = (enemyX / 16) + offset;
+    if (i < 0) return 255;
+
+    uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
+    return tile;
+
+}
+
 uint8_t getJustPressedButtons() {
 
     a.pollButtons();

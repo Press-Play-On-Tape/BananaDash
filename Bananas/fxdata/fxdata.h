@@ -6,8 +6,8 @@ using uint24_t = __uint24;
 
 // Initialize FX hardware using  FX::begin(FX_DATA_PAGE); in the setup() function.
 
-constexpr uint16_t FX_DATA_PAGE  = 0xfeda;
-constexpr uint24_t FX_DATA_BYTES = 71076;
+constexpr uint16_t FX_DATA_PAGE  = 0xfe38;
+constexpr uint24_t FX_DATA_BYTES = 112522;
 
 constexpr uint16_t FX_SAVE_PAGE  = 0xfff0;
 constexpr uint24_t FX_SAVE_BYTES = 2;
@@ -27,26 +27,31 @@ namespace Images
   constexpr uint24_t Tree8 = 0x00A466;
   constexpr uint24_t Foreground = 0x00A5BE;
   constexpr uint24_t Background = 0x00BDC0;
-  constexpr uint24_t LowerOnly = 0x00C9C2;
-  constexpr uint24_t UpperOnly = 0x00E4C4;
-  constexpr uint24_t Both = 0x00F006;
+  constexpr uint24_t LowerOnly = 0x00C3C2;
+  constexpr uint24_t UpperOnly = 0x00D264;
+  constexpr uint24_t Both = 0x00DFE6;
+  constexpr uint24_t HUD_Banana = 0x011BE8;
+  constexpr uint24_t HUD_Time = 0x016DF2;
+  constexpr uint24_t Banana = 0x01AAE4;
+  constexpr uint24_t Puff = 0x01ABA6;
+  constexpr uint24_t Barrel = 0x01B0E8;
 }
 
 namespace Constants
 {
-  constexpr uint24_t StanceImgIdx = 0x011408;
-  constexpr uint24_t SubsititueStance = 0x01143B;
-  constexpr uint24_t StanceDetails = 0x0114A1;
-  constexpr uint24_t Palm_X = 0x01156D;
+  constexpr uint24_t StanceImgIdx = 0x01B3EA;
+  constexpr uint24_t SubsititueStance = 0x01B466;
+  constexpr uint24_t StanceDetails = 0x01B55E;
+  constexpr uint24_t Palm_X = 0x01B74E;
 }
 
 namespace Images
 {
-  constexpr uint24_t PalmImages = 0x01157D;
+  constexpr uint24_t PalmImages = 0x01B75E;
 }
 
 namespace Level
 {
-  constexpr uint24_t Level = 0x011595;
+  constexpr uint24_t Level = 0x01B776;
 }
 
