@@ -326,7 +326,7 @@ void playGame_Update() {
                         // if (collide(playerRect, bananaRect)) {
                             item.setCounter(5);
                             launchPuff(item);
-                            world.setTime(world.getTime() + (5*16));
+                            world.incTime(5 * 16);
                             world.setBananas(world.getBananas() + 1);
                         }
 

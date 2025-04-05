@@ -84,9 +84,6 @@ struct World {
             
             this->foreground = this->foreground + val;
             this->player.setVelocityX(val);
-            // for (uint8_t i = 0; i <= 3; i++) {
-            //     this->incPalm(i, val);
-            // }
             
         }
         
@@ -98,13 +95,25 @@ struct World {
 
             this->background += val;
 
-            // if (this->background == 128 || this->background == -128) {
-            //     this->background = 0;
-            // }
+
             if (this->background >= 256 || this->background <= -256) {
                 this->background = 0;
             }
 
+        }
+
+        void incTime(int8_t val) {
+            
+            if (this->time + val <= (99 * 16)) {
+            Serial.print (this->time);
+            Serial.print (" ");
+            Serial.println(this->time + val);
+                this->time = this->time + val;
+            }
+            else {
+                this->time = (99 * 16);
+            }
+            
         }
 
         void incPalm(uint8_t idx, int8_t val) {
@@ -333,7 +342,9 @@ struct World {
 
                     switch (tileL) {
                     
-                        case 11:
+                        case 11:                // Crate
+                        case 12:                // Barrel
+
                             return false;
 
                         case 255:
@@ -345,7 +356,6 @@ struct World {
                             
                                 case EntityType::Barrel:
                                     return true;
-
 
                             }
 
@@ -363,29 +373,11 @@ struct World {
                     switch (tile) {
                     
                         case 0:
-                            switch (entityType) {
-                            
-                                case EntityType::Player:
-                                // return true;
-                                    return (abs(x % 16) < 12 ? true : false);
-                            
-                                case EntityType::Barrel:
-                                    return (abs(x % 16) < 12 ? true : false);
-                                    // return true;
-
-
-                            }
-                            break;
+                            return (abs(x % 16) < 12 ? true : false);
                     
                         case 1:
-                            switch (entityType) {
-                           
-                                case EntityType::Player:
-                                    return true;
-                                    // return true;
 
-
-                            }
+                            if (entityType == EntityType::Player) { return true; }
                             break;
 
                         case 26:                // On 2 level Vine
@@ -399,35 +391,15 @@ struct World {
                         case 3:
                         case 38:
 
-                            switch (entityType) {
-                            
-                                case EntityType::Player:
-                                    return false;
-                            
-                                case EntityType::Barrel:
-                                    return (abs(x % 16) == 8 ? false : true);
-
-
-                            }
-
+                            if (entityType == EntityType::Player) { return false; }
+                            if (entityType == EntityType::Barrel) { return (abs(x % 16) == 8 ? false : true); }
                             break;
 
                         case 254:
                         case 255:
 
-                            switch (entityType) {
-                            
-                                case EntityType::Player:
-                                    // return (abs(x % 16) == 0 ? false : true);
-                                    return false;
-                            
-                                case EntityType::Barrel:
-                                    // return (abs(x % 16) == 8 ? false : true);
-                                    return true;
-
-
-                            }
-
+                            if (entityType == EntityType::Player) { return false; }
+                            if (entityType == EntityType::Barrel) { return true; }
                             break;
 
                         default:
@@ -442,21 +414,16 @@ struct World {
                         case 23:
                         case 40 ... 59:
                         case 255:
-                            return false;
 
-                        // case 38:
-                        //     return (abs(x % 16) == 8 ? false : true);
+                            return false;
 
                         case 3:
 
-                            if (entityType == EntityType::Player) {
-
-                                return (abs(x % 16) == 8 ? false : true);
-
-                            }
+                            if (entityType == EntityType::Player) { return (abs(x % 16) == 8 ? false : true); }
                             break;
 
                         default:
+
                             return true;
 
                     }
@@ -469,14 +436,10 @@ struct World {
 
                         case 20:
 
-                            // if (entityType == EntityType::Player) {
-
-                                return (abs(x % 16) < 12 ? true : false);
-
-                            // }
-                            break;
+                            return (abs(x % 16) < 12 ? true : false);
 
                         case 21:
+
                             return true;
 
                         case 24:
@@ -489,40 +452,16 @@ struct World {
                             break;
 
                         case 33:
-                            // return ((this->getForeground() % 16) >= -8);
-                            switch (entityType) {
-                            
-                                case EntityType::Player:
-                                    return (abs(x % 16) <= 8);
 
-                                    // return true;
-                            
-                                case EntityType::Barrel:
-                                    // return (abs(x % 16) >= 4);
-                                    return true;
-
-                            }
-
+                            if (entityType == EntityType::Player) { return abs(x % 16) <= 8; }
+                            if (entityType == EntityType::Barrel) { return true; }
                             break;
 
                     }
-Serial.println("a");
+
                     switch (tileL) {
                     
                         case 0 ... 19:
-                            
-                            switch (entityType) {
-                            
-                                case EntityType::Player:
-                                    return false;
-                            
-                                case EntityType::Barrel:
-                                    return false;
-
-                            }
-
-                            break;
-
                         case 24:
                         case 35:
                         case 43:
@@ -530,26 +469,11 @@ Serial.println("a");
                         case 45:
                         case 254:
                         case 255:
+
                             return false;
 
-                        // case 33:
-                        //     // return ((this->getForeground() % 16) >= -8);
-                        //     switch (entityType) {
-                            
-                        //         case EntityType::Player:
-                        //             Serial.print("L30 ");
-                        //             Serial.println(abs(x % 16));
-                        //             return (abs(x % 16) > 0);
-                            
-                        //         // case EntityType::Barrel:
-                        //         //     return (abs(x % 16) >= 8);
-
-                        //     }
-
-                        //     break;
-
                         default:
-                        Serial.println("CWL T");
+
                             return true;
 
                     }
@@ -582,22 +506,11 @@ Serial.println("a");
 
                     switch (tile) {
                                                 
+                        case 3:
+                        case 38:
                         case 254:
                         case 255:
                             return true;
-
-                        case 3:
-                        case 38:
-
-                            if (entityType == EntityType::Player) {
-                                return true;
-                            }
-
-                            if (entityType == EntityType::Barrel) {
-                                return true;
-                            }
-
-                            break;
 
                         default:
                             break;
@@ -606,23 +519,20 @@ Serial.println("a");
 
                     switch (tileL) {
 
+                        case 10:
+                        case 37:
                         case 254:
                         case 255:
+
                             return true;
 
                         case 3:
 
-                            if (entityType == EntityType::Player) {
-                                return true;
-                            }
-
+                            if (entityType == EntityType::Player) { return true; }
                             break;
-                    
-                        case 10:
-                        case 37:
-                            return true;
 
                         default:
+
                             return false;
 
                     }
@@ -635,13 +545,10 @@ Serial.println("a");
 
                         case 24:
 
-                            // if (entityType == EntityType::Player) {
-                                return true;
-                            // }
-
-                            break;
+                            return true;
 
                         default:
+
                             break;
 
                     }
@@ -651,11 +558,13 @@ Serial.println("a");
                     switch (tileL) {
                     
                         case 1:
-                        case 10: //Barrel
+                        case 10: 
                         case 33:
+
                             return true;
 
                         default:
+
                             return false;
 
                     }
@@ -663,6 +572,7 @@ Serial.println("a");
                     break;
 
                 default:
+
                     return false;
             
             }
@@ -688,12 +598,14 @@ Serial.println("a");
 
                     switch (tileR) {
                     
-                        case 11:
+                        case 11:        // Crate
+                        case 12:        // Barrel
                         case 255:
                        
                             return false;
 
                         default:
+
                             return true;
 
                     }
@@ -704,51 +616,27 @@ Serial.println("a");
 
                     switch (tile) {
                         
+                        case 4:
+                        case 23:
                         case 26:                // On 2 level Vine
                         case 36:                // On 2 level Ladder
+                        case 254:             
+                        case 255:             
+
                             return false;
 
                         case 2:
 
-                            if (entityType == EntityType::Barrel) {
-                                return (abs(x % 16) < 8 ? true : false);
-                            }
-
-                            if (entityType == EntityType::Player) {
-                                return true;
-                                // return (abs(x % 16) < 8 ? true : false);
-                            }
-
+                            if (entityType == EntityType::Player) { return true; }
+                            if (entityType == EntityType::Barrel) { return (abs(x % 16) < 8 ? true : false); }
                             break;
-
-                        case 4:
-
-                            if (entityType == EntityType::Barrel) {
-                                return false;
-                            }
-
-                            if (entityType == EntityType::Player) {
-                                return false;
-                            }
-
-                            break;
-
-                        case 23:
-                            // Serial.println(this->foreground % 16);
-                            return false;
 
                         case 39:
-                            // if (entityType == EntityType::Barrel) {
-                                return true;
-                            // }
 
-                            break;
-                        
-                        case 254:             
-                        case 255:             
-                            return false;
+                            return true;
 
                         default:
+
                             break;
 
                     }
@@ -760,9 +648,11 @@ Serial.println("a");
                         case 11:
                         case 40 ... 59:
                         case 255:
+
                             return false;
 
                         default:
+
                             return true;
 
                     }
@@ -774,50 +664,29 @@ Serial.println("a");
                     switch (tile) {
                     
                         case 0 ... 19:
+                        case 254:
+                        case 255:
+
                             return false;
 
                         case 21:
 
-                            if (entityType == EntityType::Player) {
-                                return true;
-                            }
-
-                            if (entityType == EntityType::Barrel) {
-                                return true;
-                                // return (abs(x % 16) > 0 ? true : false);
-                            }
-                            return false;
+                            return true;
 
                         case 22:
 
-                            if (entityType == EntityType::Player) {
-                                return true;
-                            }
-
-                            if (entityType == EntityType::Barrel) {
-                                return (abs(x % 16) != 8 ? true : false);
-                            }
-
+                            if (entityType == EntityType::Player) { return true; }
+                            if (entityType == EntityType::Barrel) { return (abs(x % 16) != 8 ? true : false); }
                             break;
 
                         case 39:
 
-                            if (entityType == EntityType::Player) {
-                                return (abs(x % 16) <= 8 ? true : false);
-                            }
-
-                            if (entityType == EntityType::Barrel) {
-                                return false;
-                            }
-
+                            if (entityType == EntityType::Player) { return (abs(x % 16) <= 8 ? true : false); }
+                            if (entityType == EntityType::Barrel) { return false; }
                             break;
 
-
-                        case 254:
-                        case 255:
-                            return false;
-
                         default:
+
                             break;
 
                     }
@@ -830,9 +699,11 @@ Serial.println("a");
                         case 43:
                         case 44:
                         case 45:
+
                             return false;
 
                         default:
+
                             return true;
 
                     }
@@ -872,25 +743,15 @@ Serial.println("a");
 
                         case 2:
 
-                            if (entityType == EntityType::Barrel) {
-                                return true;
-                            }
- 
+                            if (entityType == EntityType::Barrel) { return true; }
                             break;
 
                         case 4:
 
-                            if (entityType == EntityType::Barrel) {
-                                return true;
-                            }
-
-                            if (entityType == EntityType::Player) {
-                                return true;
-                            }
-
-                           break;
+                            return true;
 
                         default:
+
                             break;
 
                     }
@@ -914,37 +775,18 @@ Serial.println("a");
                     switch (tile) {
                     
                         case 0 ... 19:
-                            return true;
-
-                        // case 4:
-
-                        //     if (entityType == EntityType::Player) {
-                        //         return true;
-                        //     }
-
-                        //     break;
-
                         case 39:
 
-                            if (entityType == EntityType::Player) {
-                                return true;
-                            }
-
-                            if (entityType == EntityType::Barrel) {
-                                return true;
-                            }
-                            
-                            break;
+                            return true;
 
                         case 22:
 
-                            if (entityType == EntityType::Barrel) {
-                                return true;
-                            }
-
-                            return false;
+                            if (entityType == EntityType::Player) { return false; }
+                            if (entityType == EntityType::Barrel) { return true; }
+                            break;
 
                         default:
+
                             break;
 
                     }
@@ -973,9 +815,11 @@ Serial.println("a");
             switch (this->player.getY()) {
             
                 case 46:        // Level 1.0
+
                     return true;
             
                 case 38:        // Level 1.5
+
                     return false;
             
                 case 30:        // Level 2.0
@@ -992,9 +836,11 @@ Serial.println("a");
                     }
             
                 case 22:        // Level 2.5
+
                     return false;
             
                 case 14:        // Level 3.0
+
                     return true;
 
             }
