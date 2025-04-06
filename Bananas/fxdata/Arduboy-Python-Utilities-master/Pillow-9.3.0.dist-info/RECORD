@@ -76,7 +76,7 @@ PIL/MpoImagePlugin.py,sha256=pPaOUvPDkH1t4Lnl3a5Ov1fTmV9HdoFmEgeA5sojSFg,5873
 PIL/MspImagePlugin.py,sha256=ftTl14BpW1i3os_OUfusc7t4tRzBP4RrLxp76Sf9X4I,5527
 PIL/PSDraw.py,sha256=96uX-it9Ey3Vm5Okhiv7ScgU0G4AtVKIlTAEMAszp1E,6525
 PIL/PaletteFile.py,sha256=ISA3e-HKblD35giP43i9CklSzgmi3m_92u3v4cNopWg,1105
-PIL/PalmImagePlugin.py,sha256=lTVwwSPFrQ-IPFGU8_gRCMZ1Lb73cuVhQ-nkx1Q0oqc,9108
+PIL/TreeImagePlugin.py,sha256=lTVwwSPFrQ-IPFGU8_gRCMZ1Lb73cuVhQ-nkx1Q0oqc,9108
 PIL/PcdImagePlugin.py,sha256=cnBm_xKcpLGT6hZ8QKai9Up0gZERMxZwhDXl1hQtBm0,1476
 PIL/PcfFontFile.py,sha256=jKeM3rmhdnYVzO2lutLi26CJm4nq4gBYeUv5qEuEV_c,6363
 PIL/PcxImagePlugin.py,sha256=D-R5lhxIQ_pQkfQMqWFz6pPPVnvAK3xH1b5zfw46N-c,5940
@@ -164,7 +164,7 @@ PIL/__pycache__/MpoImagePlugin.cpython-310.pyc,,
 PIL/__pycache__/MspImagePlugin.cpython-310.pyc,,
 PIL/__pycache__/PSDraw.cpython-310.pyc,,
 PIL/__pycache__/PaletteFile.cpython-310.pyc,,
-PIL/__pycache__/PalmImagePlugin.cpython-310.pyc,,
+PIL/__pycache__/TreeImagePlugin.cpython-310.pyc,,
 PIL/__pycache__/PcdImagePlugin.cpython-310.pyc,,
 PIL/__pycache__/PcfFontFile.cpython-310.pyc,,
 PIL/__pycache__/PcxImagePlugin.cpython-310.pyc,,

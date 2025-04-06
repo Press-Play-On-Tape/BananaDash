@@ -6,8 +6,8 @@ using uint24_t = __uint24;
 
 // Initialize FX hardware using  FX::begin(FX_DATA_PAGE); in the setup() function.
 
-constexpr uint16_t FX_DATA_PAGE  = 0xfe38;
-constexpr uint24_t FX_DATA_BYTES = 112522;
+constexpr uint16_t FX_DATA_PAGE  = 0xfe5a;
+constexpr uint24_t FX_DATA_BYTES = 103832;
 
 constexpr uint16_t FX_SAVE_PAGE  = 0xfff0;
 constexpr uint24_t FX_SAVE_BYTES = 2;
@@ -17,41 +17,43 @@ namespace Images
   constexpr uint24_t PPOT = 0x000000;
   constexpr uint24_t Title = 0x003002;
   constexpr uint24_t Player = 0x005404;
-  constexpr uint24_t Tree1 = 0x009006;
-  constexpr uint24_t Tree2 = 0x009560;
-  constexpr uint24_t Tree3 = 0x009892;
-  constexpr uint24_t Tree4 = 0x009B04;
-  constexpr uint24_t Tree5 = 0x009D8E;
-  constexpr uint24_t Tree6 = 0x00A096;
-  constexpr uint24_t Tree7 = 0x00A200;
-  constexpr uint24_t Tree8 = 0x00A466;
-  constexpr uint24_t Foreground = 0x00A5BE;
-  constexpr uint24_t Background = 0x00BDC0;
-  constexpr uint24_t LowerOnly = 0x00C3C2;
-  constexpr uint24_t UpperOnly = 0x00D264;
-  constexpr uint24_t Both = 0x00DFE6;
-  constexpr uint24_t HUD_Banana = 0x011BE8;
-  constexpr uint24_t HUD_Time = 0x016DF2;
-  constexpr uint24_t Banana = 0x01AAE4;
-  constexpr uint24_t Puff = 0x01ABA6;
-  constexpr uint24_t Barrel = 0x01B0E8;
+  constexpr uint24_t Tree1 = 0x006306;
+  constexpr uint24_t Tree2 = 0x006860;
+  constexpr uint24_t Tree3 = 0x006B92;
+  constexpr uint24_t Tree4 = 0x006E04;
+  constexpr uint24_t Tree5 = 0x00708E;
+  constexpr uint24_t Tree6 = 0x007396;
+  constexpr uint24_t Tree7 = 0x007500;
+  constexpr uint24_t Tree8 = 0x007766;
+  constexpr uint24_t Foreground = 0x0078BE;
+  constexpr uint24_t Background = 0x0090C0;
+  constexpr uint24_t LowerOnly = 0x0096C2;
+  constexpr uint24_t UpperOnly = 0x00A564;
+  constexpr uint24_t Both = 0x00B2E6;
+  constexpr uint24_t HUD_Banana = 0x00EEE8;
+  constexpr uint24_t HUD_Time = 0x0140F2;
+  constexpr uint24_t Banana = 0x017DE4;
+  constexpr uint24_t Puff = 0x017EA6;
+  constexpr uint24_t Barrel = 0x0183E8;
+  constexpr uint24_t Bird = 0x0186EA;
+  constexpr uint24_t Spider = 0x018C2C;
 }
 
 namespace Constants
 {
-  constexpr uint24_t StanceImgIdx = 0x01B3EA;
-  constexpr uint24_t SubsititueStance = 0x01B466;
-  constexpr uint24_t StanceDetails = 0x01B55E;
-  constexpr uint24_t Palm_X = 0x01B74E;
+  constexpr uint24_t StanceImgIdx = 0x018F2E;
+  constexpr uint24_t SubsititueStance = 0x019010;
+  constexpr uint24_t StanceDetails = 0x0191D4;
+  constexpr uint24_t Tree_X = 0x01955C;
 }
 
 namespace Images
 {
-  constexpr uint24_t PalmImages = 0x01B75E;
+  constexpr uint24_t TreeImages = 0x01956C;
 }
 
 namespace Level
 {
-  constexpr uint24_t Level = 0x01B776;
+  constexpr uint24_t Level = 0x019584;
 }
 

@@ -110,4 +110,25 @@ class Item {
 
         }
 
+        Rect getRect(int16_t worldOffset) {
+        
+            Rect rect;
+
+            switch (this->getItemType()) {
+        
+                case ItemType::Banana:
+
+                    rect.x = 55 + worldOffset;
+                    rect.y = this->getY();
+                    rect.width = 10;
+                    rect.height = 10;
+
+                    break;
+
+            }
+
+            return rect;
+
+        }
+
 };

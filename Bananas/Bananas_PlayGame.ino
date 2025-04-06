@@ -48,7 +48,7 @@ void playGame_Init() {
     world.setBananas(0);
 
     for (uint8_t i = 0; i < 8; i++) {
-        world.setPalm(i, FX::readIndexedUInt16(Constants::Palm_X, i));
+        world.setTree(i, FX::readIndexedUInt16(Constants::Tree_X, i));
     }
 
     world.getItem(0).setItemType(ItemType::Puff);
@@ -66,6 +66,21 @@ void playGame_Init() {
     world.getEnemy(0).pushSequence(Stance::Enemy_Fall_1L_00, Stance::Enemy_Fall_1L_06);
     world.getEnemy(0).setCounter(20);
 
+
+    world.getEnemy(1).setEntityType(EntityType::Bird);
+    world.getEnemy(1).setY(28);
+    world.getEnemy(1).setX(160 - 16);
+    world.getEnemy(1).setStance(Stance::Enemy_Flying_LH_00);
+    world.getEnemy(1).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
+    world.getEnemy(1).setCounter(0);
+
+
+    world.getEnemy(2).setEntityType(EntityType::Spider);
+    world.getEnemy(2).setY(49);
+    world.getEnemy(2).setX(160 - 16);
+    world.getEnemy(2).setStance(Stance::Enemy_Spider_L1_00);
+    world.getEnemy(2).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    world.getEnemy(2).setCounter(0);
 
     world.setForeground(-64);
 
@@ -100,16 +115,16 @@ void playGame_Update() {
                         switch (player.getStance()) {
 
                             case Stance::Player_Idle_RH:
-                                player.pushSequence(Stance::Player_Standing_Jump_RH_00, Stance::Player_Standing_Jump_RH_07);
+                                player.pushSequence(Stance::Player_Standing_Jump_RH_00, Stance::Player_Standing_Jump_RH_11);
                                 break;
 
                             case Stance::Player_Idle_LH:
-                                player.pushSequence(Stance::Player_Standing_Jump_LH_00, Stance::Player_Standing_Jump_LH_07);
+                                player.pushSequence(Stance::Player_Standing_Jump_LH_00, Stance::Player_Standing_Jump_LH_11);
                                 break;
 
                             case Stance::Player_Walk_RH_01:
                             case Stance::Player_Walk_RH_03:
-                                player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_07);
+                                player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_11);
                                 break;
 
                             case Stance::Player_Walk_LH_01:
@@ -134,15 +149,41 @@ void playGame_Update() {
                     
                     }
 
-                    else if (pressed & DOWN_BUTTON && isAlignedWithTile()) {
+                    else if (pressed & DOWN_BUTTON) {
 
-                        if (world.canClimbDown(tile)) {
+                        if (isAlignedWithTile() && world.canClimbDown(tile)) {
+
                             if (player.getDirection() == Direction::Right) {
                                 player.pushSequence(Stance::Player_Climbing_Vine_Down_RH_00, Stance::Player_Climbing_Vine_Down_RH_03);
                             }
                             else {
                                 player.pushSequence(Stance::Player_Climbing_Vine_Down_LH_00, Stance::Player_Climbing_Vine_Down_LH_03);
                             }
+
+                        }
+                        else {
+
+                            if (player.getDirection() == Direction::Right) {
+
+                                if (player.getStance() != Stance::Player_Idle_RH && player.getStance() != Stance::Player_Lying_RH) {
+                                    player.push(Stance::Player_Idle_RH);
+                                }
+                                else {
+                                    player.push(Stance::Player_Lying_RH);
+                                }
+
+                            }
+                            else {
+
+                                if (player.getStance() != Stance::Player_Idle_LH && player.getStance() != Stance::Player_Lying_LH) {
+                                    player.push(Stance::Player_Idle_LH);
+                                }
+                                else {
+                                    player.push(Stance::Player_Lying_LH);
+                                }
+
+                            }
+
                         }
                     
                     }
@@ -228,7 +269,7 @@ void playGame_Update() {
         else {
 
             if (pressed & A_BUTTON && (player.getStance() == Stance::Player_Walk_RH_01 || player.getStance() == Stance::Player_Walk_RH_03)) {
-                player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_07, true);
+                player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_11, true);
             }
 
             if (pressed & A_BUTTON && (player.getStance() == Stance::Player_Walk_LH_01 || player.getStance() == Stance::Player_Walk_LH_03)) {
@@ -242,7 +283,7 @@ void playGame_Update() {
         Point offset;
         uint16_t stance = player.getStance();
 
-        if (!player.isEmpty() || player.hasStagedSequence()) {
+        if (!player.isEmpty()) {
 
             stance = playGame_PopEntry(player);
 
@@ -255,49 +296,82 @@ void playGame_Update() {
 
                 case Stance::Player_Walk_RH_01:
                 case Stance::Player_Walk_RH_03:
-                case Stance::Player_Standing_Jump_RH_07:
-                case Stance::Player_Running_Jump_RH_07:
+                case Stance::Player_Standing_Jump_RH_11:
+                case Stance::Player_Running_Jump_RH_11:
+                case Stance::Player_Falling_1L_A_RH_07:
+                case Stance::Player_Falling_1L_B_RH_07:                    
+
                     player.setStance(Stance::Player_Idle_RH);
                     player.setVelocityX(0);
+                    
                     break;
 
                 case Stance::Player_Climbing_Vine_Up_RH_03:
+                    
                     if (!world.canClimbUp(tile)) {
                         player.setStance(Stance::Player_Idle_RH);
                         player.setVelocityX(0);
                     }
+                    
                     break;
 
                 case Stance::Player_Climbing_Vine_Down_RH_03:
+                    
                     if (!world.canClimbDown(tile)) {
                         player.setStance(Stance::Player_Idle_RH);
                         player.setVelocityX(0);
                     }
+                    
+                    break;
+
+                case Stance::Player_Lying_RH:
+
+                    if (!(pressed & DOWN_BUTTON)) {
+                        player.setStance(Stance::Player_Idle_RH);
+                        player.setVelocityX(0);
+                    }
+
                     break;
 
                 case Stance::Player_Walk_LH_01:
                 case Stance::Player_Walk_LH_03:
-                case Stance::Player_Standing_Jump_LH_07:
+                case Stance::Player_Standing_Jump_LH_11:
                 case Stance::Player_Running_Jump_LH_07:
                 case Stance::Player_Falling_1L_A_LH_07:
                 case Stance::Player_Falling_1L_B_LH_07:
+                    
                     player.setStance(Stance::Player_Idle_LH);
                     player.setVelocityX(0);
+                    
                     break;
 
                 case Stance::Player_Climbing_Vine_Up_LH_03:
+                    
                     if (!world.canClimbUp(tile)) {
                         player.setStance(Stance::Player_Idle_LH);
                         player.setVelocityX(0);
                     }
+                    
                     break;
 
                 case Stance::Player_Climbing_Vine_Down_LH_03:
+                    
                     if (!world.canClimbDown(tile)) {
                         player.setStance(Stance::Player_Idle_LH);
                         player.setVelocityX(0);
                     }
+                    
                     break;
+
+                case Stance::Player_Lying_LH:
+
+                    if (!(pressed & DOWN_BUTTON)) {
+                        player.setStance(Stance::Player_Idle_LH);
+                        player.setVelocityX(0);
+                    }
+                    
+                    break;
+
 
             }
 
@@ -308,9 +382,11 @@ void playGame_Update() {
 
         // Has the player collided with an item?
 
+        Rect playerRect = player.getRect(world.getXOffset());
+        gPlayerRect = playerRect;
+
         for (uint8_t i = 0; i < Constants::Item_Count; i++) {
         
-            Rect playerRect = { 57 + world.getXOffset(), player.getY() + 1, 10, 12 };
             Item &item = world.getItem(i);
 
             
@@ -320,18 +396,19 @@ void playGame_Update() {
             
                 case ItemType::Banana:
                     {
-                        Rect bananaRect = { 55 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 10 , 10};
+                        Rect bananaRect = item.getRect(item.getX() + world.getForeground() + world.getXOffset());
 
                         if (item.getCounter() == 0 && collide(playerRect, bananaRect)) {
-                        // if (collide(playerRect, bananaRect)) {
+
                             item.setCounter(5);
                             launchPuff(item);
                             world.incTime(5 * 16);
                             world.setBananas(world.getBananas() + 1);
+
                         }
 
-gPlayerRect = playerRect;
-gBananaRect = bananaRect;
+// gPlayerRect = playerRect;
+// gBananaRect = bananaRect;
 
                     }
                     break;
@@ -341,14 +418,6 @@ gBananaRect = bananaRect;
         }
 
 
-
-        // If a sequence has been staged then commit it now (and adjust the players position etc ..
-
-        if (player.commitSequence()) {
-
-            stance = playGame_PopEntry(player);
-
-        }
 
 
         // Handle falling and other special actions ..
@@ -404,20 +473,20 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
     // ____________________________________________________________________________________________________________________________________________________________________________________
     //
-    // Render palms ..
+    // Render trees ..
 
     for (uint8_t i = 4; i < 8; i++) {    
 
-        uint24_t palmIdx = FX::readIndexedUInt24(Images::PalmImages, i);
-        SpritesU::drawPlusMaskFX(world.getPalm(i) + world.getXOffset(), 15, palmIdx, currentPlane);
+        uint24_t treeIdx = FX::readIndexedUInt24(Images::TreeImages, i);
+        SpritesU::drawPlusMaskFX(world.getTree(i) + world.getXOffset(), 15, treeIdx, currentPlane);
 
     }
 
 
     for (uint8_t i = 0; i < 4; i++) {    
 
-        uint24_t palmIdx = FX::readIndexedUInt24(Images::PalmImages, i);
-        SpritesU::drawPlusMaskFX(world.getPalm(i) + world.getXOffset(), 14, palmIdx, currentPlane);
+        uint24_t treeIdx = FX::readIndexedUInt24(Images::TreeImages, i);
+        SpritesU::drawPlusMaskFX(world.getTree(i) + world.getXOffset(), 14, treeIdx, currentPlane);
 
     }
 
@@ -468,6 +537,27 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
         }
 
+        if (enemy.getEntityType() == EntityType::Bird) {
+
+            uint24_t imageIdx = getStanceImg(enemy.getStance());
+            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 14, 16, Images::Bird, (imageIdx * 3) + currentPlane);
+
+            gEnemyRect = enemy.getRect(55 + world.getForeground() + world.getXOffset());
+
+            // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
+
+        }
+
+        if (enemy.getEntityType() == EntityType::Spider) {
+
+            uint24_t imageIdx = getStanceImg(enemy.getStance());
+            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 16, 16, Images::Spider, (imageIdx * 3) + currentPlane);
+
+        
+            // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
+
+        }
+
     }
 
     SpritesU::drawPlusMaskFX(54 + world.getXOffset(), player.getY(), 16, 16, Images::Player, (player.getImageIdx() * 3) + currentPlane);
@@ -476,7 +566,7 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
     SpritesU::drawPlusMaskFX(101, 1, 26, 8, Images::HUD_Time, ((world.getTime() / 16) * 3) + currentPlane);
 
     // a.drawRect(gPlayerRect.x, gPlayerRect.y, gPlayerRect.width, gPlayerRect.height);
-    // a.drawRect(gBananaRect.x, gBananaRect.y, gBananaRect.width, gBananaRect.height);
+    // a.drawRect(gEnemyRect.x, gEnemyRect.y, gEnemyRect.width, gEnemyRect.height);
 
 
     Item &item = world.getItem(0);

@@ -51,7 +51,7 @@ _plugins = [
     "MpegImagePlugin",
     "MpoImagePlugin",
     "MspImagePlugin",
-    "PalmImagePlugin",
+    "TreeImagePlugin",
     "PcdImagePlugin",
     "PcxImagePlugin",
     "PdfImagePlugin",

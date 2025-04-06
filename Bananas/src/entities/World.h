@@ -21,7 +21,7 @@ struct World {
         int16_t background = 0;
         int16_t middleground = 0;
         int16_t foreground = 0;
-        int16_t palm[8];
+        int16_t tree[8];
         int8_t xOffset = 0;
         uint16_t time;
         uint16_t bananas;
@@ -50,9 +50,9 @@ struct World {
         void setXOffset(int16_t val)                    { this->xOffset = val; }
 
 
-        int16_t getPalm(uint8_t idx) { return this->palm[idx]; }
+        int16_t getTree(uint8_t idx) { return this->tree[idx]; }
 
-        void setPalm(uint8_t idx, int16_t val) { this->palm[idx] = val; }
+        void setTree(uint8_t idx, int16_t val) { this->tree[idx] = val; }
 
         void incGameState() {
 
@@ -90,7 +90,7 @@ struct World {
         void incBackground(int8_t val) {
 
             for (uint8_t i = 4; i <= 7; i++) {
-                this->incPalm(i, val);
+                this->incTree(i, val);
             }
 
             this->background += val;
@@ -105,9 +105,6 @@ struct World {
         void incTime(int8_t val) {
             
             if (this->time + val <= (99 * 16)) {
-            Serial.print (this->time);
-            Serial.print (" ");
-            Serial.println(this->time + val);
                 this->time = this->time + val;
             }
             else {
@@ -116,21 +113,21 @@ struct World {
             
         }
 
-        void incPalm(uint8_t idx, int8_t val) {
+        void incTree(uint8_t idx, int8_t val) {
 
-            this->palm[idx] = this->palm[idx] + val;
+            this->tree[idx] = this->tree[idx] + val;
 
             if (idx < 4) {
 
-                if (this->palm[idx] <= -64) {
-                    this->palm[idx] = this->palm[idx] + 128 + 64;
+                if (this->tree[idx] <= -64) {
+                    this->tree[idx] = this->tree[idx] + 128 + 64;
                 }
 
             }
             else {
 
-                if (this->palm[idx] <= -43) {
-                    this->palm[idx] = this->palm[idx] + 128 + 43;
+                if (this->tree[idx] <= -43) {
+                    this->tree[idx] = this->tree[idx] + 128 + 43;
                 }
             
             }
@@ -145,7 +142,7 @@ struct World {
             // }
 
             for (uint8_t i = 0; i <= 3; i++) {
-                this->incPalm(i, val);
+                this->incTree(i, val);
             }
             
             this->middleground = this->middleground + val;

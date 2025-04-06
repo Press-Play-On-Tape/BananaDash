@@ -11,8 +11,6 @@ class Player {
 
         Stack <Stance, Constants::StackSize_Player> stack;
         Stance stance = Stance::Player_Idle_RH;
-        Stance fromStance = Stance::None;
-        Stance toStance = Stance::None;
         uint8_t y;
         uint8_t imageIdx;
         int8_t velocityX;
@@ -63,6 +61,87 @@ class Player {
 
         }
 
+        Rect getRect(int8_t worldOffset) {
+
+            Rect rect;
+
+            switch (this->getStance()) {
+
+                case Stance::Player_Idle_RH:
+                    rect.x = 57 +worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 10;
+                    rect.height = 11;
+                    break;
+
+                case Stance::Player_Lying_RH:
+                    rect.x = 56 +worldOffset;
+                    rect.y = this->getY() + 6;
+                    rect.width = 13;
+                    rect.height = 6;
+                    break;
+
+                case Stance::Player_Standing_Jump_RH_00 ... Stance::Player_Standing_Jump_RH_11:
+                case Stance::Player_Running_Jump_RH_00 ... Stance::Player_Running_Jump_RH_11:
+                case Stance::Player_Walk_RH_00 ... Stance::Player_Walk_RH_03:
+                case Stance::Player_Falling_1L_A_RH_00 ... Stance::Player_Falling_1L_B_RH_07:
+                    rect.x = 54 +worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 16;
+                    rect.height = 11;
+                    break;
+
+                case Stance::Player_Climbing_Vine_Up_RH_00 ... Stance::Player_Climbing_Vine_Down_RH_03:
+                    rect.x = 55 +worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 14;
+                    rect.height = 12;
+                    break;
+
+                case Stance::Player_Idle_LH:
+                    rect.x = 56 +worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 10;
+                    rect.height = 11;
+                    break;
+
+                case Stance::Player_Lying_LH:
+                    rect.x = 56 +worldOffset;
+                    rect.y = this->getY() + 6;
+                    rect.width = 13;
+                    rect.height = 6;
+                    break;
+
+                case Stance::Player_Standing_Jump_LH_00 ... Stance::Player_Standing_Jump_LH_11:
+                case Stance::Player_Running_Jump_LH_00 ... Stance::Player_Running_Jump_LH_07:
+                case Stance::Player_Walk_LH_00 ... Stance::Player_Walk_LH_03:
+                case Stance::Player_Falling_1L_A_LH_00 ... Stance::Player_Falling_1L_B_LH_07:
+                    rect.x = 54 +worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 16;
+                    rect.height = 11;
+                    break;
+
+                case Stance::Player_Climbing_Vine_Up_LH_00 ... Stance::Player_Climbing_Vine_Down_LH_03:
+                    rect.x = 55 +worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 14;
+                    rect.height = 12;
+                    break;
+
+                default:
+                    rect.x = 54 +worldOffset;
+                    rect.y = this->getY();
+                    rect.width = 16;
+                    rect.height = 11;
+                    break;
+
+            }    
+
+            return rect;
+
+        }
+
         // Stack Methods ---------------------------------------
         
         bool isEmpty(void) {
@@ -110,34 +189,6 @@ class Player {
         void pushSequence(Stance fromStance, Stance toStance) {
 
             this->pushSequence(fromStance, toStance, false);
-
-        }
-
-        void stageSequence(Stance fromStance, Stance toStance) {
-
-            this->fromStance = fromStance;
-            this->toStance = toStance;
-
-        }
-
-        bool commitSequence() {
-
-            if (this->fromStance != Stance::None && this->toStance != Stance::None) {
-
-                this->pushSequence(this->fromStance, this->toStance, false);
-                this->fromStance = Stance::None;
-                this->toStance = Stance::None;
-                return true;
-
-            }
-
-            return false;
-
-        }
-
-        bool hasStagedSequence() {
-
-            return this->fromStance != Stance::None && this->toStance != Stance::None;
 
         }
 

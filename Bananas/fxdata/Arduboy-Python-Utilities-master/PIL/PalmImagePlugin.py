@@ -4,7 +4,7 @@
 #
 
 ##
-# Image plugin for Palm pixmap images (output only).
+# Image plugin for Tree pixmap images (output only).
 ##
 
 from . import Image, ImageFile
@@ -12,7 +12,7 @@ from ._binary import o8
 from ._binary import o16be as o16b
 
 # fmt: off
-_Palm8BitColormapValues = (
+_Tree8BitColormapValues = (
     (255, 255, 255), (255, 204, 255), (255, 153, 255), (255, 102, 255),
     (255,  51, 255), (255,   0, 255), (255, 255, 204), (255, 204, 204),
     (255, 153, 204), (255, 102, 204), (255,  51, 204), (255,   0, 204),
@@ -82,19 +82,19 @@ _Palm8BitColormapValues = (
 
 # so build a prototype image to be used for palette resampling
 def build_prototype_image():
-    image = Image.new("L", (1, len(_Palm8BitColormapValues)))
-    image.putdata(list(range(len(_Palm8BitColormapValues))))
+    image = Image.new("L", (1, len(_Tree8BitColormapValues)))
+    image.putdata(list(range(len(_Tree8BitColormapValues))))
     palettedata = ()
-    for colormapValue in _Palm8BitColormapValues:
+    for colormapValue in _Tree8BitColormapValues:
         palettedata += colormapValue
-    palettedata += (0, 0, 0) * (256 - len(_Palm8BitColormapValues))
+    palettedata += (0, 0, 0) * (256 - len(_Tree8BitColormapValues))
     image.putpalette(palettedata)
     return image
 
 
-Palm8BitColormapImage = build_prototype_image()
+Tree8BitColormapImage = build_prototype_image()
 
-# OK, we now have in Palm8BitColormapImage,
+# OK, we now have in Tree8BitColormapImage,
 # a "P"-mode image with the right palette
 #
 # --------------------------------------------------------------------
@@ -108,14 +108,14 @@ _COMPRESSION_TYPES = {"none": 0xFF, "rle": 0x01, "scanline": 0x00}
 # --------------------------------------------------------------------
 
 ##
-# (Internal) Image save plugin for the Palm format.
+# (Internal) Image save plugin for the Tree format.
 
 
 def _save(im, fp, filename):
 
     if im.mode == "P":
 
-        # we assume this is a color Palm image with the standard colormap,
+        # we assume this is a color Tree image with the standard colormap,
         # unless the "info" dict has a "custom-colormap" field
 
         rawmode = "P"
@@ -126,7 +126,7 @@ def _save(im, fp, filename):
         if im.encoderinfo.get("bpp") in (1, 2, 4):
             # this is 8-bit grayscale, so we shift it to get the high-order bits,
             # and invert it because
-            # Palm does greyscale from white (0) to black (1)
+            # Tree does greyscale from white (0) to black (1)
             bpp = im.encoderinfo["bpp"]
             im = im.point(
                 lambda x, shift=8 - bpp, maxval=(1 << bpp) - 1: maxval - (x >> shift)
@@ -134,11 +134,11 @@ def _save(im, fp, filename):
         elif im.info.get("bpp") in (1, 2, 4):
             # here we assume that even though the inherent mode is 8-bit grayscale,
             # only the lower bpp bits are significant.
-            # We invert them to match the Palm.
+            # We invert them to match the Tree.
             bpp = im.info["bpp"]
             im = im.point(lambda x, maxval=(1 << bpp) - 1: maxval - (x & maxval))
         else:
-            raise OSError(f"cannot write mode {im.mode} as Palm")
+            raise OSError(f"cannot write mode {im.mode} as Tree")
 
         # we ignore the palette here
         im.mode = "P"
@@ -147,14 +147,14 @@ def _save(im, fp, filename):
 
     elif im.mode == "1":
 
-        # monochrome -- write it inverted, as is the Palm standard
+        # monochrome -- write it inverted, as is the Tree standard
         rawmode = "1;I"
         bpp = 1
         version = 0
 
     else:
 
-        raise OSError(f"cannot write mode {im.mode} as Palm")
+        raise OSError(f"cannot write mode {im.mode} as Tree")
 
     #
     # make sure image data is available
@@ -189,7 +189,7 @@ def _save(im, fp, filename):
     fp.write(o16b(offset))
     fp.write(o8(transparent_index))
     fp.write(o8(compression_type))
-    fp.write(o16b(0))  # reserved by Palm
+    fp.write(o16b(0))  # reserved by Tree
 
     # now write colormap if necessary
 
@@ -220,8 +220,8 @@ def _save(im, fp, filename):
 #
 # --------------------------------------------------------------------
 
-Image.register_save("Palm", _save)
+Image.register_save("Tree", _save)
 
-Image.register_extension("Palm", ".palm")
+Image.register_extension("Tree", ".tree")
 
-Image.register_mime("Palm", "image/palm")
+Image.register_mime("Tree", "image/tree")

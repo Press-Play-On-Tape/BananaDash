@@ -151,3 +151,5 @@ convert_header(IMAGES + 'Titles/HUD_Time.png',                                  
 convert_header(IMAGES + 'Banana.png',                                                             BASE + 'Images.hpp', 'Banana', 4)
 convert_header(IMAGES + 'Puff.png',                                                               BASE + 'Images.hpp', 'Puff', 4, 16, 16)
 convert_header(IMAGES + 'Barrel.png',                                                             BASE + 'Images.hpp', 'Barrel', 4, 16, 16)
+convert_header(IMAGES + 'Bird.png',                                                               BASE + 'Images.hpp', 'Bird', 4, 14, 16)
+convert_header(IMAGES + 'Spider.png',                                                             BASE + 'Images.hpp', 'Spider', 4, 16, 16)

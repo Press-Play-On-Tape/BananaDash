@@ -4,13 +4,13 @@ include "images.txt"
 namespace Constants
 
     include "data/Stances.txt"
-    int16_t Palm_X[] = { -36, 31, 70, 100, -16, 27, 65, 110 };
+    int16_t Tree_X[] = { -36, 31, 70, 100, -16, 27, 65, 110 };
 
 namespace_end 
 
 namespace Images
 
-    uint24_t PalmImages[] = { Tree1, Tree4, Tree3, Tree2, Tree5, Tree6, Tree7, Tree8 };
+    uint24_t TreeImages[] = { Tree1, Tree4, Tree3, Tree2, Tree5, Tree6, Tree7, Tree8 };
 
 namespace_end 
 

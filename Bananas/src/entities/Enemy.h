@@ -47,7 +47,7 @@ class Enemy {
 
             switch (this->getStance()) {
 
-                case Stance::Enemy_Walking_RH_00 ... Stance::Enemy_Walking_RH_03:
+                case Stance::Enemy_Rolling_RH_00 ... Stance::Enemy_Rolling_RH_03:
                     return Direction::Right;
 
                 default:
@@ -63,6 +63,54 @@ class Enemy {
 
         }
       	
+
+        Rect getRect(int16_t worldOffset) {
+
+            Rect rect;
+
+            switch (this->getEntityType()) {
+        
+                case EntityType::Barrel:
+
+                    rect.x = this->getX() + worldOffset;
+                    rect.y = this->getY() + 4;
+                    rect.width = 8;
+                    rect.height = 8;
+
+                    break;
+
+
+                case EntityType::Bird:
+
+                    switch (this->getStance()) {
+                    
+                        case Stance::Enemy_Flying_RH_00 ... Stance::Enemy_Flying_RH_19:
+
+                            rect.x = this->getX() + 2 + worldOffset;
+                            rect.y = this->getY() + 6;
+                            rect.width = 10;
+                            rect.height = 4;
+
+                            break;
+
+                        default:
+
+                            rect.x = this->getX() + 2 + worldOffset;
+                            rect.y = this->getY() + 6;
+                            rect.width = 10;
+                            rect.height = 4;
+
+                            break;
+
+                    }
+
+                    break;
+
+            }
+
+            return rect;
+        
+        }
         
         // Stack Methods ---------------------------------------
 
