@@ -241,8 +241,6 @@ struct World {
 
                     }
 
-                    break;
-
                 case Constants::Level_25:
                 case Constants::Level_20:
 
@@ -262,9 +260,8 @@ struct World {
 
                     }
 
-                    break;
-
                 default:
+
                     return false;
             
             }
@@ -295,8 +292,6 @@ struct World {
 
                     }
 
-                    break;
-
                 case Constants::Level_25:
                 case Constants::Level_30:
 
@@ -316,9 +311,8 @@ struct World {
 
                     }
 
-                    break;
-
                 default:
+
                     return false;
             
             }
@@ -354,7 +348,7 @@ struct World {
                         case 49:                // Crate
                         case 50:                // Barrel
 
-                            return false;
+                            return (entityType != EntityType::Player);
 
                         case 255:
 
@@ -366,11 +360,13 @@ struct World {
                                 case EntityType::Barrel:
                                     return true;
 
+                                default:
+                                    return true;
+
                             }
 
-                            break;
-
                         default:
+
                             break;
 
                     }
@@ -387,11 +383,13 @@ struct World {
                                 case EntityType::Barrel:
                                     return true;
 
+                                default:
+                                    return true;
+
                             }
 
-                            break;
-
                         default:
+
                             return true;
 
                     }
@@ -465,6 +463,7 @@ struct World {
                     
                         case 4:
                         case 11:
+                        case 12:
                         case 23:
                         case 60 ... 79:
                         case 255:
@@ -474,15 +473,13 @@ struct World {
                         case 3:
 
                             if (entityType == EntityType::Player) { return (abs(x % 16) == 8 ? false : true); }
-                            break;
+                            return false;
 
                         default:
 
                             return true;
 
                     }
-
-                    break;
 
                 case Constants::Level_30:
 
@@ -494,7 +491,7 @@ struct World {
                             return (abs(x % 16) < 12 ? true : false);
 
                         case 64:            // Crate
-                            return false;
+                            return (entityType != EntityType::Player);
 
                         case 21:
                         case 23:
@@ -533,12 +530,14 @@ struct World {
                                 return (abs(x % 16) == 8 ? false : true);
 
                             }
+
                             break;
 
                         case 33:
 
                             if (entityType == EntityType::Player) { return abs(x % 16) <= 8; }
                             if (entityType == EntityType::Barrel) { return true; }
+
                             break;
 
                     }
@@ -562,9 +561,8 @@ struct World {
 
                     }
 
-                    break;
-
                 default:
+
                     return false;
             
             }
@@ -614,15 +612,13 @@ struct World {
                         case 3:
 
                             if (entityType == EntityType::Player) { return true; }
-                            break;
+                            return false;
 
                         default:
 
                             return false;
 
                     }
-
-                    break;
 
                 case Constants::Level_30:
 
@@ -652,8 +648,6 @@ struct World {
                             return false;
 
                     }
-
-                    break;
 
                 default:
 
@@ -705,6 +699,134 @@ struct World {
             
         }
 
+
+        bool canJumpLeft(EntityType entityType, uint8_t y, uint8_t tileL2, uint8_t tileL, uint8_t tile) {
+
+            // #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CJL ");
+            DEBUG_PRINT(tileL2);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINT(tileL);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tile);
+            // #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+
+                    switch (tile) {
+
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL) {
+
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL2) {
+
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
+
+                            return false; 
+
+                        default:
+
+                        return true;
+
+                    }
+        
+                case Constants::Level_20:
+
+                    return true;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 64:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL) {
+
+                        case 64:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL2) {
+
+                        case 64:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return true;
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
         bool canFallLeft_Down_1Level(EntityType entityType, int16_t x, uint8_t y, uint8_t tileL, uint8_t tile) {
 
             // #ifdef DEBUG_FALLS
@@ -737,9 +859,10 @@ struct World {
                         case 4:
                         case 23:
                         case 26:
+                        case 41:
                         case 254:
                         case 255:
-Serial.println("a1");
+
                             return true; 
 
                         default:
@@ -755,17 +878,14 @@ Serial.println("a1");
                         case 26:
                         case 254:
                         case 255:
-Serial.println("a2");
 
                             return true; 
 
                         default:
 
-                            break;
+                            return false;
 
                     }
-
-                    return false;
 
                 case Constants::Level_30:
 
@@ -803,11 +923,9 @@ Serial.println("a2");
 
                         default:
 
-                            break;
+                            return false;
 
                     }
-
-                    return false;
 
                 default:
 
@@ -865,11 +983,9 @@ Serial.println("a2");
 
                         default:
 
-                            break;
+                            return false;
 
                     }
-
-                    return false;
 
                 default:
 
@@ -907,8 +1023,8 @@ Serial.println("a2");
                         case 49:        // Crate
                         case 50:        // Barrel
                         case 255:
-                       
-                            return false;
+                    
+                            return (entityType != EntityType::Player);
 
                         default:
 
@@ -919,7 +1035,7 @@ Serial.println("a2");
                     switch (tileR) {
 
                         case 255:
-                       
+                    
                             return false;
 
                         default:
@@ -927,8 +1043,6 @@ Serial.println("a2");
                             return true;
 
                     }
-
-                    break;
 
                 case Constants::Level_20:
 
@@ -984,6 +1098,7 @@ Serial.println("a2");
                         case 3:
                         case 4:
                         case 11:
+                        case 12:
                         case 60 ... 79:
                         case 255:
 
@@ -995,15 +1110,16 @@ Serial.println("a2");
 
                     }
 
-                    break;
-
                 case Constants::Level_30:
 
                     switch (tile) {
-                    
+
+                        case 64:            // Crate
+
+                            return (entityType != EntityType::Player);
+
                         case 0 ... 19:
                         case 63:
-                        case 64:            // Crate
                         case 254:
                         case 255:
                             return false;
@@ -1070,9 +1186,8 @@ Serial.println("a2");
 
                     }
 
-                    break;
-
                 default:
+
                     return false;
             
             }
@@ -1131,8 +1246,6 @@ Serial.println("a2");
 
                     }
 
-                    break;
-
                 case Constants::Level_30:
 
                     switch (tile) {
@@ -1164,8 +1277,6 @@ Serial.println("a2");
 
                     }
 
-                    break;
-
                 default:
                     return false;
             
@@ -1175,12 +1286,12 @@ Serial.println("a2");
 
         bool canFallRight_TwoLevels(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
 
-            #ifdef DEBUG_FALLS
+            //#ifdef DEBUG_FALLS
             DEBUG_PRINT("CFR2 ");
             DEBUG_PRINT(tile);
             DEBUG_PRINT(" ");
             DEBUG_PRINTLN(tileR);
-            #endif
+            //#endif
 
             switch (y) {
             
@@ -1197,18 +1308,17 @@ Serial.println("a2");
                     switch (tile) {
 
                         case 63:
-
+                            DEBUG_PRINTLN("63 true");
                             return true; 
 
                         default:
 
-                            break;
+                           return false;
 
                     }
 
-                    break;
-
                 default:
+
                     return false;
             
             }
@@ -1216,13 +1326,15 @@ Serial.println("a2");
         }
 
 
-        bool canJumpRight(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
+        bool canJumpRight(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR, uint8_t tileR2) {
 
             // #ifdef DEBUG_FALLS
             DEBUG_PRINT("CJR ");
             DEBUG_PRINT(tile);
             DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tileR);
+            DEBUG_PRINT(tileR);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tileR2);
             // #endif
 
             switch (y) {
@@ -1233,6 +1345,13 @@ Serial.println("a2");
 
                         case 10:
                         case 11:
+                        case 12:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
 
                             return false; 
 
@@ -1246,6 +1365,13 @@ Serial.println("a2");
 
                         case 10:
                         case 11:
+                        case 12:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
 
                             return false; 
 
@@ -1255,7 +1381,25 @@ Serial.println("a2");
 
                     }
 
-                    return true;
+                    switch (tileR2) {
+
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
+
+                            return false; 
+
+                        default:
+
+                           return true;
+
+                    }
             
                 case Constants::Level_20:
 
@@ -1287,7 +1431,17 @@ Serial.println("a2");
 
                     }
 
-                    return true;
+                    switch (tileR2) {
+
+                        case 64:
+
+                            return false; 
+
+                        default:
+
+                            return true;
+
+                    } 
 
                 default:
 
@@ -1335,7 +1489,7 @@ Serial.println("a2");
                     switch (tileR) {
 
                         case 3:
-                        case 63:
+                        // case 63:
                         case 65:
                         case 254:
                         case 255:
@@ -1344,11 +1498,9 @@ Serial.println("a2");
 
                         default:
 
-                            break;
+                            return false;
 
                     }
-
-                    return false;
 
                 default:
 
@@ -1385,6 +1537,7 @@ Serial.println("a2");
                         case 3:
                         case 4:
                         case 23:
+                        case 41:
                         case 254:
                         case 255:
 
@@ -1408,11 +1561,9 @@ Serial.println("a2");
 
                         default:
 
-                            break;
+                            return false;
 
                     }
-
-                    return false;
 
                 case Constants::Level_30:
 
@@ -1439,7 +1590,7 @@ Serial.println("a2");
 
                         case 3:
                         case 4:
-                        case 63:
+                        // case 63:
                         case 65:
                         case 254:
                         case 255:
@@ -1448,11 +1599,9 @@ Serial.println("a2");
 
                         default:
 
-                            break;
+                            return false;
 
                     }
-
-                    return false;
 
                 default:
 

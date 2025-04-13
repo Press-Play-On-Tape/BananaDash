@@ -343,7 +343,7 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
                                 }
                                 else if (world.canFallRight_TwoLevels(EntityType::Barrel, enemy.getY(), tile, tileR)) {
-
+Serial.println("here");
                                     enemy.pushSequence(Stance::Enemy_Falling_2L_RH_00, Stance::Enemy_Falling_2L_RH_11);
 
                                 }                                

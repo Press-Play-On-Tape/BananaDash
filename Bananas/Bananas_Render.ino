@@ -38,9 +38,6 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     //
     // Render level ..
     
-
-
-
     int16_t xMin = (- 55 - world.getForeground() -+ world.getXOffset()) / 16;
     int16_t xMax = xMin + 9;
 
@@ -72,7 +69,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
     // ____________________________________________________________________________________________________________________________________________________________________________________
     //
-    // Render items (bananas) ..
+    // Render items  ..
 
     for (uint8_t i = 0; i < Constants::Item_Count; i++) {    
 
@@ -87,6 +84,12 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
         if (item.getItemType() == ItemType::Heart) {
 
             SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 9, 8, Images::Heart, currentPlane);
+
+        }
+
+        if (item.getItemType() == ItemType::Fire) {
+
+            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (item.getFrame() * 3) + currentPlane);
 
         }
 

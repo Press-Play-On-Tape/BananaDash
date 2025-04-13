@@ -41,6 +41,7 @@ enum class ItemType : uint8_t {
     Banana_Hidden,
     Heart,
     Heart_Hidden,
+    Fire,
     Puff,
 };
 

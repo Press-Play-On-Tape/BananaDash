@@ -67,7 +67,12 @@ void playGame_Init() {
     world.getItem(0).setX(-800);
 
 
-    // launchBarrel(world.getEnemy(0));
+    launchBarrel(world.getEnemy(0));
+
+    world.getItem(1).setItemType(ItemType::Fire);
+    world.getItem(1).setY(42);
+    world.getItem(1).setX(96);
+
 /*
 
     world.getItem(1).setItemType(ItemType::Banana);
@@ -136,9 +141,11 @@ void playGame_Update() {
 
     world.incFrameCount();
 
-    uint8_t tile = getTile(0);
+    uint8_t tileL2 = getTile(-2);
     uint8_t tileL = getTile(-1);
+    uint8_t tile = getTile(0);
     uint8_t tileR = getTile(1);
+    uint8_t tileR2 = getTile(2);
 
     if (world.getFrameCount() % 3 == 0) {
 
@@ -170,7 +177,7 @@ void playGame_Update() {
                             case Stance::Player_Walk_RH_01:
                             case Stance::Player_Walk_RH_03:
 
-                                if (world.canJumpRight(EntityType::Player, player.getY(), tile, tileR)) {
+                                if (world.canJumpRight(EntityType::Player, player.getY(), tile, tileR, tileR2)) {
 
                                     player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_11);
 
@@ -179,7 +186,12 @@ void playGame_Update() {
 
                             case Stance::Player_Walk_LH_01:
                             case Stance::Player_Walk_LH_03:
-                                player.pushSequence(Stance::Player_Running_Jump_LH_00, Stance::Player_Running_Jump_LH_11);
+
+                                if (world.canJumpLeft(EntityType::Player, player.getY(), tileL2, tileL, tile)) {
+
+                                    player.pushSequence(Stance::Player_Running_Jump_LH_00, Stance::Player_Running_Jump_LH_11);
+
+                                }
                                 break;
 
                         }
@@ -551,8 +563,31 @@ Serial.println("Test");
 
                         }
 
-gPlayerRect = playerRect;
-gEnemyRect = heartRect;
+// gPlayerRect = playerRect;
+// gEnemyRect = heartRect;
+
+                    }
+                    break;
+
+
+                case ItemType::Fire:
+                    {
+                        if (healthCounter == 0) {
+                            
+                            Rect fireRect = item.getRect(item.getX() + world.getForeground() + world.getXOffset());
+
+                            if (collide(playerRect, fireRect)) {
+
+                                item.setCounter(5);
+                                Serial.println("Dead (Fire)");
+                                player.decHealth();
+                                healthCounter = Constants::Health_Counter_Max;
+                                healthFlash = true;
+
+                            }
+// gPlayerRect = playerRect;
+// gEnemyRect = fireRect;
+                        }
 
                     }
                     break;

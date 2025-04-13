@@ -33,6 +33,19 @@ class Item {
         void setCounter(uint16_t val)                   { this->counter = val; }
 
 
+        bool updateCounter(uint16_t maxVal) {
+
+            this->counter++;
+
+            if (this->counter == maxVal) {
+                this->counter = 0;
+                return true;
+            }
+
+            return false;
+
+        }
+
         void update() {
 
             switch (this->getItemType()) {
@@ -60,6 +73,13 @@ class Item {
                     break;
 
 
+                case ItemType::Fire:
+
+                    updateCounter(6 * 8);
+                    this->frame = this->counter >> 3;
+
+                    break;
+
                 default: break;
 
             }
@@ -85,6 +105,15 @@ class Item {
 
                     rect.x = 60 + worldOffset;
                     rect.y = this->getY() + 1;
+                    rect.width = 5;
+                    rect.height = 5;
+
+                    break;
+
+                case ItemType::Fire:
+
+                    rect.x = 63 + worldOffset;
+                    rect.y = this->getY() + 11;
                     rect.width = 5;
                     rect.height = 5;
 
