@@ -62,10 +62,13 @@ void playGame_Init() {
 
 
 
-
     world.getItem(0).setItemType(ItemType::Puff);
     world.getItem(0).setY(16);
     world.getItem(0).setX(-800);
+
+
+    // launchBarrel(world.getEnemy(0));
+/*
 
     world.getItem(1).setItemType(ItemType::Banana);
     world.getItem(1).setY(15);
@@ -115,7 +118,7 @@ void playGame_Init() {
 
 
 
-
+*/
 
     world.setForeground(-64);
 
@@ -166,7 +169,12 @@ void playGame_Update() {
 
                             case Stance::Player_Walk_RH_01:
                             case Stance::Player_Walk_RH_03:
-                                player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_11);
+
+                                if (world.canJumpRight(EntityType::Player, player.getY(), tile, tileR)) {
+
+                                    player.pushSequence(Stance::Player_Running_Jump_RH_00, Stance::Player_Running_Jump_RH_11);
+
+                                }
                                 break;
 
                             case Stance::Player_Walk_LH_01:
@@ -245,6 +253,16 @@ void playGame_Update() {
                                 }
 
                             }
+                            else if (world.canFallRight_TwoLevels(EntityType::Player, player.getY(), tile, tileR)) {
+
+                                if (player.getStance() == Stance::Player_Walk_RH_01) {
+                                    player.pushSequence(Stance::Player_Falling_2L_A_RH_00, Stance::Player_Falling_2L_A_RH_11);
+                                }
+                                else {
+                                    player.pushSequence(Stance::Player_Falling_2L_B_RH_00, Stance::Player_Falling_2L_B_RH_11);
+                                }
+
+                            }    
                             else if (world.canFallRight(EntityType::Player, player.getY(), tile, tileR)) {
 
                                 if (player.getStance() == Stance::Player_Walk_RH_01) {
@@ -281,6 +299,16 @@ void playGame_Update() {
                                 }
 
                             }
+                            else if (world.canFallLeft_TwoLevels(EntityType::Player, player.getY(), tileL, tile)) {
+
+                                if (player.getStance() == Stance::Player_Walk_LH_01) {
+                                    player.pushSequence(Stance::Player_Falling_2L_A_LH_00, Stance::Player_Falling_2L_A_LH_11);
+                                }
+                                else {
+                                    player.pushSequence(Stance::Player_Falling_2L_B_LH_00, Stance::Player_Falling_2L_B_LH_11);
+                                }
+
+                            }                                
                             else if (world.canFallLeft(EntityType::Player, player.getY(), tileL, tile)) {
 
                                 if (player.getStance() == Stance::Player_Walk_LH_01) {
@@ -329,6 +357,45 @@ void playGame_Update() {
 
             stance = playGame_PopEntry(player);
 
+
+            if (player.isEmpty()) {
+
+                switch (player.getStance()) {
+
+                    case Stance::Player_Running_Jump_RH_11:
+
+                        if (world.canFallRight_Down_2Levels(EntityType::Player, player.getY(), tile, tileR)) {
+    Serial.println("canFallRight_Down_2Levels");
+                            player.pushSequence(Stance::Player_Falling_2L_C_RH_00, Stance::Player_Falling_2L_C_RH_07);
+
+                        }
+                        else if (world.canFallRight_Down_1Level(EntityType::Player, world.getForeground(), player.getY(), tile, tileR)) {
+    Serial.println("canFallRight_Down_1Level");
+                            player.pushSequence(Stance::Player_Falling_2L_C_RH_04, Stance::Player_Falling_2L_C_RH_07);
+
+                        }
+
+                        break;
+
+                    case Stance::Player_Running_Jump_LH_11:
+Serial.println("Test");
+                        if (world.canFallLeft_Down_2Levels(EntityType::Player, player.getY(), tileL, tile)) {
+    Serial.println("canFallLeft_Down_2Levels");
+                            player.pushSequence(Stance::Player_Falling_2L_C_LH_00, Stance::Player_Falling_2L_C_LH_07);
+
+                        }
+                        else if (world.canFallLeft_Down_1Level(EntityType::Player, world.getForeground(), player.getY(), tileL, tile)) {
+    Serial.println("canFallLeft_Down_1Level");
+                            player.pushSequence(Stance::Player_Falling_2L_C_LH_04, Stance::Player_Falling_2L_C_LH_07);
+
+                        }
+
+                        break;                        
+
+                }
+
+            }
+
         }
         else {
         
@@ -342,9 +409,21 @@ void playGame_Update() {
                 case Stance::Player_Running_Jump_RH_11:
                 case Stance::Player_Falling_1L_A_RH_07:
                 case Stance::Player_Falling_1L_B_RH_07:                    
+                case Stance::Player_Falling_2L_A_RH_11:
+                case Stance::Player_Falling_2L_B_RH_11:
+                case Stance::Player_Falling_2L_C_RH_07:
 
-                    player.setStance(Stance::Player_Idle_RH);
-                    player.setVelocityX(0);
+                    // if (world.canFall_2Levels(EntityType::Player, player.getY(), tile, tileR)) {
+
+                    //     player.pushSequence(Stance::Player_Falling_2L_C_RH_00, Stance::Player_Falling_2L_C_RH_07);
+
+                    // }
+                    // else {
+
+                        player.setStance(Stance::Player_Idle_RH);
+                        player.setVelocityX(0);
+
+                    // }
                     
                     break;
 
@@ -381,7 +460,10 @@ void playGame_Update() {
                 case Stance::Player_Running_Jump_LH_11:
                 case Stance::Player_Falling_1L_A_LH_07:
                 case Stance::Player_Falling_1L_B_LH_07:
-                    
+                case Stance::Player_Falling_2L_A_LH_11:
+                case Stance::Player_Falling_2L_B_LH_11:
+                case Stance::Player_Falling_2L_C_LH_07:
+
                     player.setStance(Stance::Player_Idle_LH);
                     player.setVelocityX(0);
                     
@@ -413,7 +495,6 @@ void playGame_Update() {
                     }
                     
                     break;
-
 
             }
 
@@ -616,9 +697,9 @@ gEnemyRect = heartRect;
     world.update();
 
 
-    if (player.getHealth() == 0) {
-        world.setGameState(GameState::HighScore_Init);
-    }
+    // if (player.getHealth() == 0) {
+    //     world.setGameState(GameState::HighScore_Init);
+    // }
 
 }
 

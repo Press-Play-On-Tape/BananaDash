@@ -152,8 +152,6 @@ struct World {
 
         void update() {
 
-// Serial.println(this->player.getVelocityX());
-
             for (uint8_t i = 0; i < Constants::Item_Count; i++) {
 
                 Item &item = this->items[i];
@@ -234,6 +232,8 @@ struct World {
                         case 35:
                         case 36:
                         case 37:
+                        case 40:
+                        case 42:
                             return true;
 
                         default:
@@ -253,6 +253,8 @@ struct World {
                         case 34:
                         case 36:
                         case 37:
+                        case 43:
+                        case 44:
                             return true;
 
                         default:
@@ -284,6 +286,8 @@ struct World {
                         case 35:
                         case 36:
                         case 37:
+                        case 40:
+                        case 42:
                             return true;
 
                         default:
@@ -303,6 +307,8 @@ struct World {
                         case 34:
                         case 36:
                         case 37:
+                        case 43:
+                        case 44:
                             return true;
 
                         default:
@@ -337,13 +343,40 @@ struct World {
 
                 case Constants::Level_10:
 
-                    switch (tileL) {
+                    switch (tile) {
                     
                         case 11:                // Crate
                         case 12:                // Barrel
+                        case 45:                // Crate
+                        case 46:                // Barrel
+                        case 47:                // Crate
+                        case 48:                // Barrel
+                        case 49:                // Crate
+                        case 50:                // Barrel
 
                             return false;
 
+                        case 255:
+
+                            switch (entityType) {
+                            
+                                case EntityType::Player:
+                                    return false;
+                            
+                                case EntityType::Barrel:
+                                    return true;
+
+                            }
+
+                            break;
+
+                        default:
+                            break;
+
+                    }
+
+                    switch (tileL) {
+                    
                         case 255:
 
                             switch (entityType) {
@@ -381,12 +414,36 @@ struct World {
                         case 36:                // On 2 level Ladder
                             return false;
                     
+                        case 5:       
+                        case 6:       
+                        case 7:       
+                        case 8:       
+                        case 9:       
                         case 10:       
+                        case 20:       
+                        case 21:       
+                        case 22:
+                        case 24:
+                        case 25:
+                        case 27:
+                        case 28:
+                        case 29:
+                        case 30:
+                        case 31:
+                        case 32:
+                        case 33:
+                        case 34:
+                        case 35:       
                         case 37:       
+                        case 40:       
+                        case 42:       
+                        case 43:       
+                        case 44:       
                             return true;
 
                         case 3:
                         case 38:
+                        case 51:
 
                             if (entityType == EntityType::Player) { return false; }
                             if (entityType == EntityType::Barrel) { return (abs(x % 16) == 8 ? false : true); }
@@ -409,7 +466,7 @@ struct World {
                         case 4:
                         case 11:
                         case 23:
-                        case 40 ... 59:
+                        case 60 ... 79:
                         case 255:
 
                             return false;
@@ -432,10 +489,40 @@ struct World {
                     switch (tile) {
 
                         case 20:
+                        case 60:
 
                             return (abs(x % 16) < 12 ? true : false);
 
+                        case 64:            // Crate
+                            return false;
+
                         case 21:
+                        case 23:
+                        case 25:
+                        case 26:
+                        case 27:
+                        case 28:
+                        case 29:
+                        case 30:
+                        case 34:
+                        case 36:
+                        case 37:
+                        case 38:
+                        case 40:
+                        case 41:
+                        case 42:
+                        case 43:
+                        case 44:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
+                        case 51:
+                        case 61:
+                        case 66:
+                        case 67:
 
                             return true;
 
@@ -461,9 +548,9 @@ struct World {
                         case 0 ... 19:
                         case 24:
                         case 35:
-                        case 43:
-                        case 44:
-                        case 45:
+                        case 63:
+                        case 64:
+                        case 65:
                         case 254:
                         case 255:
 
@@ -486,12 +573,12 @@ struct World {
 
         bool canFallLeft(EntityType entityType, uint8_t y, uint8_t tileL, uint8_t tile) {
 
-            #ifdef DEBUG_FALLS
+            // #ifdef DEBUG_FALLS
             DEBUG_PRINT("CFL ");
             DEBUG_PRINT(tileL);
             DEBUG_PRINT(" ");
             DEBUG_PRINTLN(tile);
-            #endif
+            // #endif
 
             switch (y) {
             
@@ -505,6 +592,7 @@ struct World {
                                                 
                         case 3:
                         case 38:
+                        case 51:
                         case 254:
                         case 255:
                             return true;
@@ -538,8 +626,8 @@ struct World {
 
                 case Constants::Level_30:
 
-                    switch (tileL) {
-
+                    switch (tile) {
+                    
                         case 24:
 
                             return true;
@@ -550,13 +638,12 @@ struct World {
 
                     }
 
-                    break;
-
                     switch (tileL) {
                     
                         case 1:
                         case 10: 
                         case 33:
+                        case 35:
 
                             return true;
 
@@ -567,6 +654,222 @@ struct World {
                     }
 
                     break;
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
+
+        bool canFallLeft_TwoLevels(EntityType entityType, uint8_t y, uint8_t tileL, uint8_t tile) {
+
+            #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CFL2 ");
+            DEBUG_PRINT(tileL);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tile);
+            #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+
+                    return false;
+            
+                case Constants::Level_20:
+
+                    return false;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+                    
+                        case 60:
+                        case 65:
+                            return true; 
+
+                        default:
+
+                            return false;
+
+                    }
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
+        bool canFallLeft_Down_1Level(EntityType entityType, int16_t x, uint8_t y, uint8_t tileL, uint8_t tile) {
+
+            // #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CFLD 1L ");
+            DEBUG_PRINT(x);
+            DEBUG_PRINT(", abs(x%16)=");
+            DEBUG_PRINT(abs(x % 16));  
+            DEBUG_PRINT(", ");
+            DEBUG_PRINT(tileL);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tile);
+            // #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+
+                    return false;
+
+                case Constants::Level_20:
+
+                    switch (tile) {
+
+                        case 3:
+                        case 38:
+                        case 51:
+
+                            return abs(x % 16) == 0 || abs(x % 16) == 12;
+
+                        case 4:
+                        case 23:
+                        case 26:
+                        case 254:
+                        case 255:
+Serial.println("a1");
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL) {
+
+                        case 4:
+                        case 23:
+                        case 26:
+                        case 254:
+                        case 255:
+Serial.println("a2");
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return false;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 10:
+
+                            return x % 16 < 12;
+
+                        case 24:
+
+                            return x % 16 == 0;
+
+                        case 35:
+                        case 39:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL) {
+
+                        case 35:
+                        case 39:
+                        case 254:
+                        case 255:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return false;
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
+        bool canFallLeft_Down_2Levels(EntityType entityType, uint8_t y, uint8_t tileL, uint8_t tile) {
+
+            // #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CFLD 2L ");
+            DEBUG_PRINT(tileL);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tile);
+            // #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+                case Constants::Level_20:
+
+                    return false;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 3:
+                        case 4:
+                        case 63:
+                        case 65:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileL) {
+
+                        case 3:
+                        case 4:
+                        case 63:
+                        case 65:
+                        case 254:
+                        case 255:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return false;
 
                 default:
 
@@ -593,10 +896,28 @@ struct World {
 
                 case Constants::Level_10:
 
-                    switch (tileR) {
+                    switch (tile) {
                     
                         case 11:        // Crate
                         case 12:        // Barrel
+                        case 45:        // Crate
+                        case 46:        // Barrel
+                        case 47:        // Crate
+                        case 48:        // Barrel
+                        case 49:        // Crate
+                        case 50:        // Barrel
+                        case 255:
+                       
+                            return false;
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileR) {
+
                         case 255:
                        
                             return false;
@@ -628,7 +949,27 @@ struct World {
                             if (entityType == EntityType::Barrel) { return (abs(x % 16) != 8 ? true : false); }
                             break;
 
+                        case 1:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9:
+                        case 10:
+                        case 27:
+                        case 28:
+                        case 29:
+                        case 30:
+                        case 31:
+                        case 32:
+                        case 33:
+                        case 34:
+                        case 35:
                         case 39:
+                        case 40:
+                        case 42:
+                        case 43:
+                        case 44:
 
                             return true;
 
@@ -643,7 +984,7 @@ struct World {
                         case 3:
                         case 4:
                         case 11:
-                        case 40 ... 59:
+                        case 60 ... 79:
                         case 255:
 
                             return false;
@@ -661,12 +1002,36 @@ struct World {
                     switch (tile) {
                     
                         case 0 ... 19:
+                        case 63:
+                        case 64:            // Crate
                         case 254:
                         case 255:
-
                             return false;
 
                         case 21:
+                        case 23:
+                        case 26:
+                        case 32:
+                        case 33:
+                        case 34:
+                        case 36:
+                        case 37:
+                        case 38:
+                        case 40:
+                        case 41:
+                        case 42:
+                        case 43:
+                        case 44:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                        case 49:
+                        case 50:
+                        case 51:
+                        case 61:
+                        case 66:
+                        case 67:
 
                             return true;
 
@@ -693,9 +1058,9 @@ struct World {
                         case 0 ... 19:
                         case 34:
                         case 35:
-                        case 43:
-                        case 44:
-                        case 45:
+                        case 63:
+                        case 64:
+                        case 65:
 
                             return false;
 
@@ -716,12 +1081,12 @@ struct World {
 
         bool canFallRight(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
 
-            #ifdef DEBUG_FALLS
+            //#ifdef DEBUG_FALLS
             DEBUG_PRINT("CFR ");
             DEBUG_PRINT(tile);
             DEBUG_PRINT(" ");
             DEBUG_PRINTLN(tileR);
-            #endif
+            //#endif
 
             switch (y) {
             
@@ -734,6 +1099,7 @@ struct World {
                     switch (tile) {
                     
                         case 3:
+                        case 23:
                         case 254:
                         case 255:
                             return true;
@@ -807,19 +1173,308 @@ struct World {
             
         }
 
+        bool canFallRight_TwoLevels(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
+
+            #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CFR2 ");
+            DEBUG_PRINT(tile);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tileR);
+            #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+
+                    return false;
+            
+                case Constants::Level_20:
+
+                    return false;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 63:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    break;
+
+                default:
+                    return false;
+            
+            }
+            
+        }
+
+
+        bool canJumpRight(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
+
+            // #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CJR ");
+            DEBUG_PRINT(tile);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tileR);
+            // #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+
+                    switch (tile) {
+
+                        case 10:
+                        case 11:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileR) {
+
+                        case 10:
+                        case 11:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return true;
+            
+                case Constants::Level_20:
+
+                    return true;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 64:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileR) {
+
+                        case 64:
+
+                            return false; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return true;
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
+        bool canFallRight_Down_2Levels(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
+
+            // #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CFRD 2L ");
+            DEBUG_PRINT(tile);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tileR);
+            // #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+                case Constants::Level_20:
+
+                    return false;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 3:
+                        case 4:
+                        case 63:
+                        case 65:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileR) {
+
+                        case 3:
+                        case 63:
+                        case 65:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return false;
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
+
+        bool canFallRight_Down_1Level(EntityType entityType, int16_t x, uint8_t y, uint8_t tile, uint8_t tileR) {
+
+            // #ifdef DEBUG_FALLS
+            DEBUG_PRINT("CFRD 2L ");
+            DEBUG_PRINT(x);
+            DEBUG_PRINT(", abs(x%16)=");
+            DEBUG_PRINT(abs(x % 16));  
+            DEBUG_PRINT(", ");
+            DEBUG_PRINT(tile);
+            DEBUG_PRINT(" ");
+            DEBUG_PRINTLN(tileR);
+            // #endif
+
+            switch (y) {
+            
+                case Constants::Level_10:
+
+                    return false;
+
+                case Constants::Level_20:
+
+                    switch (tile) {
+
+                        case 3:
+                        case 4:
+                        case 23:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileR) {
+
+                        case 3:
+                        case 4:
+                        case 23:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return false;
+
+                case Constants::Level_30:
+
+                    switch (tile) {
+
+                        case 3:
+                        case 4:
+                        case 24:
+                        case 39:
+                        case 63:
+                        case 65:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    switch (tileR) {
+
+                        case 3:
+                        case 4:
+                        case 63:
+                        case 65:
+                        case 254:
+                        case 255:
+
+                            return true; 
+
+                        default:
+
+                            break;
+
+                    }
+
+                    return false;
+
+                default:
+
+                    return false;
+            
+            }
+            
+        }
+
         bool canGoIdle(uint8_t tile) {
 
             switch (this->player.getY()) {
             
-                case 46:        // Level 1.0
+                case Constants::Level_10:
 
                     return true;
             
-                case 38:        // Level 1.5
+                case Constants::Level_15:
 
                     return false;
             
-                case 30:        // Level 2.0
+                case Constants::Level_20:
 
                     switch (tile) {
                     
@@ -832,11 +1487,11 @@ struct World {
 
                     }
             
-                case 22:        // Level 2.5
+                case Constants::Level_25:
 
                     return false;
             
-                case 14:        // Level 3.0
+                case Constants::Level_30:
 
                     return true;
 

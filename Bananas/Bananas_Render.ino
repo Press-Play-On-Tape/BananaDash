@@ -38,9 +38,16 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     //
     // Render level ..
     
-    for (uint8_t i = 0; i < 19; i++) {    
 
-        uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
+
+
+    int16_t xMin = (- 55 - world.getForeground() -+ world.getXOffset()) / 16;
+    int16_t xMax = xMin + 9;
+
+    for (uint8_t i = xMin; i < xMax; i++) {    
+
+        // uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
+        uint8_t levelIdx = Level::Level[i];
 
         switch (levelIdx) {
         
@@ -48,12 +55,12 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
                 SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 34, 16, 24, Images::LowerOnly, (levelIdx * 3) + currentPlane);
                 break;
 
-            case 20 ... 39:
+            case 20 ... 59:
                 SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 18, 16, 40, Images::Both, ((levelIdx - 20) * 3) + currentPlane);
                 break;
 
-            case 40 ... 59:
-                SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 10, 16, 48, Images::UpperOnly, ((levelIdx - 40) * 3) + currentPlane);
+            case 60 ... 79:
+                SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 10, 16, 48, Images::UpperOnly, ((levelIdx - 60) * 3) + currentPlane);
                 break;
 
         }

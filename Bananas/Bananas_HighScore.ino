@@ -158,13 +158,13 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
         if (y != highScore_Entry && highScore_Entry <= 4) {
 
-            SpritesU::drawOverwriteFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, ((cookie.highScore_Chars[y][0] + 27) * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, ((cookie.highScore_Chars[y][0] + 27) * 3) + currentPlane);
 
         }
         else {
 
             if (highScore_Char != 0 || highScore_Entry > 4 || (world.getFrameCount() % 64) < 32) {
-                SpritesU::drawOverwriteFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][0] * 3) + currentPlane);
+                SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][0] * 3) + currentPlane);
             }
 
         }
@@ -173,13 +173,13 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
         if (y != highScore_Entry && highScore_Entry <= 4) {
 
-            SpritesU::drawOverwriteFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, ((cookie.highScore_Chars[y][1] + 27) * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, ((cookie.highScore_Chars[y][1] + 27) * 3) + currentPlane);
 
         }
         else {
 
             if (highScore_Char != 1 || highScore_Entry > 4 || (world.getFrameCount() % 64) < 32) {
-                SpritesU::drawOverwriteFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][1] * 3) + currentPlane);
+                SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][1] * 3) + currentPlane);
             }
 
         }
@@ -188,13 +188,13 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
         if (y != highScore_Entry && highScore_Entry <= 4) {
 
-            SpritesU::drawOverwriteFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, ((cookie.highScore_Chars[y][2] + 27) * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, ((cookie.highScore_Chars[y][2] + 27) * 3) + currentPlane);
 
         }
         else {
 
             if (highScore_Char != 2 || highScore_Entry > 4 || (world.getFrameCount() % 64) < 32) {
-                SpritesU::drawOverwriteFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][2] * 3) + currentPlane);
+                SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][2] * 3) + currentPlane);
             }
 
         }

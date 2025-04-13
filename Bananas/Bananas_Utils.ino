@@ -55,7 +55,8 @@ uint8_t getTile(int8_t offset) {
     int16_t i = (-(world.getForeground() - 8 - xOffset) / 16) + offset;
     if (i < 0) return 255;
 
-    uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
+    // uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
+    uint8_t tile = Level::Level[i];    
     return tile;
 
 }
@@ -66,7 +67,8 @@ uint8_t getEnemyTile(int16_t enemyX, int8_t offset) {
     int16_t i = (enemyX / 16) + offset;
     if (i < 0) return 255;
 
-    uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
+    // uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
+    uint8_t tile = Level::Level[i];    
     return tile;
 
 }

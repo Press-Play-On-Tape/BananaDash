@@ -288,6 +288,8 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
                             case Stance::Enemy_Fall_1L_06: 
                             case Stance::Enemy_Falling_1L_LH_07:
                             case Stance::Enemy_Falling_1L_RH_07:
+                            case Stance::Enemy_Falling_2L_LH_11:
+                            case Stance::Enemy_Falling_2L_RH_11:
 
                                 if (a.randomLFSR(0, 2) == 0) { //SJH
                                     enemy.pushSequence(Stance::Enemy_Rolling_LH_00, Stance::Enemy_Rolling_LH_01);
@@ -312,6 +314,11 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
                                     }
 
                                 }
+                                else if (world.canFallLeft_TwoLevels(EntityType::Barrel, enemy.getY(), tileL, tile)) {
+                                    
+                                    enemy.pushSequence(Stance::Enemy_Falling_2L_LH_00, Stance::Enemy_Falling_2L_LH_11);
+
+                                }                                
                                 else if (world.canFallLeft(EntityType::Barrel, enemy.getY(), tileL, tile)) {
                                     
                                     enemy.pushSequence(Stance::Enemy_Falling_1L_LH_00, Stance::Enemy_Falling_1L_LH_07);
@@ -335,6 +342,11 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
                                     }
 
                                 }
+                                else if (world.canFallRight_TwoLevels(EntityType::Barrel, enemy.getY(), tile, tileR)) {
+
+                                    enemy.pushSequence(Stance::Enemy_Falling_2L_RH_00, Stance::Enemy_Falling_2L_RH_11);
+
+                                }                                
                                 else if (world.canFallRight(EntityType::Barrel, enemy.getY(), tile, tileR)) {
 
                                     enemy.pushSequence(Stance::Enemy_Falling_1L_RH_00, Stance::Enemy_Falling_1L_RH_07);
@@ -409,14 +421,15 @@ void launchBarrel(Enemy &enemy) {
 
         if (!contBananaFound) {
             
-            uint8_t idx = FX::readIndexedUInt8(Level::Level, r);
+            // uint8_t idx = FX::readIndexedUInt8(Level::Level, r);
+            uint8_t idx = Level::Level[r];
 
             switch (idx) {
             
                 case 20 ... 23:
                 case 25 ... 34:
                 case 36 ... 38:
-                case 40 ... 42:
+                case 40 ... 41:
 
                     enemy.setEntityType(EntityType::Barrel);
                     enemy.setY(-6);

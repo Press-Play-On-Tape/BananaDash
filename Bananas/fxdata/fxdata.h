@@ -6,8 +6,8 @@ using uint24_t = __uint24;
 
 // Initialize FX hardware using  FX::begin(FX_DATA_PAGE); in the setup() function.
 
-constexpr uint16_t FX_DATA_PAGE  = 0xfcc7;
-constexpr uint24_t FX_DATA_BYTES = 206869;
+constexpr uint16_t FX_DATA_PAGE  = 0xfcbc;
+constexpr uint24_t FX_DATA_BYTES = 209899;
 
 constexpr uint16_t FX_SAVE_PAGE  = 0xfff0;
 constexpr uint24_t FX_SAVE_BYTES = 2;
@@ -21,59 +21,54 @@ namespace Images
   constexpr uint24_t HUD_Directions = 0x023D38;
   constexpr uint24_t HUD_Health = 0x02421A;
   constexpr uint24_t Font_Alpha = 0x024F3C;
-  constexpr uint24_t Font_Numbers = 0x0254F0;
-  constexpr uint24_t Player = 0x025696;
-  constexpr uint24_t Tree1 = 0x026598;
-  constexpr uint24_t Tree2 = 0x026AF2;
-  constexpr uint24_t Tree3 = 0x026E24;
-  constexpr uint24_t Tree4 = 0x027096;
-  constexpr uint24_t Tree5 = 0x027320;
-  constexpr uint24_t Tree6 = 0x027628;
-  constexpr uint24_t Tree7 = 0x027792;
-  constexpr uint24_t Tree8 = 0x0279F8;
-  constexpr uint24_t Foreground = 0x027B50;
-  constexpr uint24_t Background = 0x029352;
-  constexpr uint24_t LowerOnly = 0x029954;
-  constexpr uint24_t UpperOnly = 0x02A7F6;
-  constexpr uint24_t Both = 0x02B578;
-  constexpr uint24_t Banana = 0x02F17A;
-  constexpr uint24_t Puff = 0x02F23C;
-  constexpr uint24_t Barrel = 0x02FCBE;
-  constexpr uint24_t Bird = 0x02FFC0;
-  constexpr uint24_t Spider = 0x030502;
-  constexpr uint24_t Heart = 0x030BC4;
+  constexpr uint24_t Font_Numbers = 0x025AA2;
+  constexpr uint24_t Player = 0x025C48;
+  constexpr uint24_t Tree1 = 0x026B4A;
+  constexpr uint24_t Tree2 = 0x0270A4;
+  constexpr uint24_t Tree3 = 0x0273D6;
+  constexpr uint24_t Tree4 = 0x027648;
+  constexpr uint24_t Tree5 = 0x0278D2;
+  constexpr uint24_t Tree6 = 0x027BDA;
+  constexpr uint24_t Tree7 = 0x027D44;
+  constexpr uint24_t Tree8 = 0x027FAA;
+  constexpr uint24_t Foreground = 0x028102;
+  constexpr uint24_t Background = 0x029904;
+  constexpr uint24_t LowerOnly = 0x029F06;
+  constexpr uint24_t UpperOnly = 0x02ADA8;
+  constexpr uint24_t Both = 0x02BFAA;
+  constexpr uint24_t Banana = 0x02FBAC;
+  constexpr uint24_t Puff = 0x02FC6E;
+  constexpr uint24_t Barrel = 0x0306F0;
+  constexpr uint24_t Bird = 0x0309F2;
+  constexpr uint24_t Spider = 0x030F34;
+  constexpr uint24_t Heart = 0x0315F6;
 }
 
 namespace Music
 {
-  constexpr uint24_t Song_MainTheme = 0x030BFC;
-  constexpr uint24_t SFX_Death = 0x03215C;
-  constexpr uint24_t SFX_Victory = 0x032200;
-  constexpr uint24_t SFX_LandHard = 0x0322B4;
-  constexpr uint24_t SFX_PlayerBlip = 0x0322BC;
-  constexpr uint24_t SFX_EnemyBlip = 0x0322CC;
-  constexpr uint24_t SFX_PickUpItem = 0x0322DC;
-  constexpr uint24_t SFX_XPGain = 0x0322EC;
-  constexpr uint24_t SFX_Glint = 0x032300;
-  constexpr uint24_t Songs = 0x032308;
-  constexpr uint24_t SFXs = 0x03230B;
+  constexpr uint24_t Song_MainTheme = 0x03162E;
+  constexpr uint24_t SFX_Death = 0x032B8E;
+  constexpr uint24_t SFX_Victory = 0x032C32;
+  constexpr uint24_t SFX_LandHard = 0x032CE6;
+  constexpr uint24_t SFX_PlayerBlip = 0x032CEE;
+  constexpr uint24_t SFX_EnemyBlip = 0x032CFE;
+  constexpr uint24_t SFX_PickUpItem = 0x032D0E;
+  constexpr uint24_t SFX_XPGain = 0x032D1E;
+  constexpr uint24_t SFX_Glint = 0x032D32;
+  constexpr uint24_t Songs = 0x032D3A;
+  constexpr uint24_t SFXs = 0x032D3D;
 }
 
 namespace Constants
 {
-  constexpr uint24_t StanceImgIdx = 0x032323;
-  constexpr uint24_t StanceDetails = 0x03240F;
-  constexpr uint24_t Tree_X = 0x0327BF;
-  constexpr uint24_t Font_Width = 0x0327CF;
+  constexpr uint24_t StanceImgIdx = 0x032D55;
+  constexpr uint24_t StanceDetails = 0x032E99;
+  constexpr uint24_t Tree_X = 0x0333A9;
+  constexpr uint24_t Font_Width = 0x0333B9;
 }
 
 namespace Images
 {
-  constexpr uint24_t TreeImages = 0x0327E9;
-}
-
-namespace Level
-{
-  constexpr uint24_t Level = 0x032801;
+  constexpr uint24_t TreeImages = 0x0333D3;
 }
 
