@@ -5,8 +5,9 @@
 
 struct Cookie {
 
-    bool hasSavedGame;
     SoundSettings soundSettings;
-    World world;
+
+    uint8_t highScore_Chars[5][3];
+    uint16_t highScore_Values[5];
 
 };

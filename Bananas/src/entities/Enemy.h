@@ -72,13 +72,12 @@ class Enemy {
         
                 case EntityType::Barrel:
 
-                    rect.x = this->getX() + worldOffset;
+                    rect.x = this->getX() + 55 + worldOffset;
                     rect.y = this->getY() + 4;
                     rect.width = 8;
                     rect.height = 8;
 
                     break;
-
 
                 case EntityType::Bird:
 
@@ -86,23 +85,32 @@ class Enemy {
                     
                         case Stance::Enemy_Flying_RH_00 ... Stance::Enemy_Flying_RH_19:
 
-                            rect.x = this->getX() + 2 + worldOffset;
+                            rect.x = this->getX() + 61 + worldOffset;
                             rect.y = this->getY() + 6;
-                            rect.width = 10;
+                            rect.width = 5;
                             rect.height = 4;
 
                             break;
 
                         default:
 
-                            rect.x = this->getX() + 2 + worldOffset;
+                            rect.x = this->getX() + 57 + worldOffset;
                             rect.y = this->getY() + 6;
-                            rect.width = 10;
+                            rect.width = 5;
                             rect.height = 4;
 
                             break;
 
                     }
+
+                    break;
+
+                case EntityType::Spider:
+
+                    rect.x = this->getX() + 61 + worldOffset;
+                    rect.y = this->getY() + 7;
+                    rect.width = 4;
+                    rect.height = 4;
 
                     break;
 

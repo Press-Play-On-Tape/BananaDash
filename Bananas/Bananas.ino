@@ -25,7 +25,7 @@ extern ArduboyGBase_Config<ABG_Mode::L4_Triplane> a;
 decltype(a) a;
 
 #define SYNTHU_IMPLEMENTATION
-#define SYNTHU_NUM_CHANNELS 2
+#define SYNTHU_NUM_CHANNELS 6
 #define SYNTHU_UPDATE_EVERY_N_FRAMES 3
 #define SYNTHU_ENABLE_SFX 1
 #define SYNTHU_FX_READDATABYTES_FUNC FX::readDataBytes
@@ -37,9 +37,14 @@ decltype(a) a;
 // #endif
 
 Cookie cookie;
-World &world = cookie.world;
+SoundSettings &soundSettings = cookie.soundSettings;
+World world;
 uint8_t currentPlane;
 uint8_t titleCounter = 0;
+uint16_t directionCounter = 0;
+uint16_t healthCounter = 0;
+uint16_t healthFlash = 0;
+uint16_t timeCounter = 0;
 
 Rect gPlayerRect;
 Rect gEnemyRect;
@@ -50,6 +55,36 @@ void setup(void) {
     a.startGray();
     
     FX::begin(FX_DATA_PAGE, FX_SAVE_PAGE);
+
+    #ifndef DEBUG_SOUND
+    audioInit();
+    setAudioOn();
+    #endif
+
+
+
+
+    cookie.highScore_Chars[0][0] = 0;
+    cookie.highScore_Chars[0][1] = 0;
+    cookie.highScore_Chars[0][2] = 0;
+    cookie.highScore_Chars[1][0] = 1;
+    cookie.highScore_Chars[1][1] = 1;
+    cookie.highScore_Chars[1][2] = 1;
+    cookie.highScore_Chars[2][0] = 2;
+    cookie.highScore_Chars[2][1] = 2;
+    cookie.highScore_Chars[2][2] = 2;
+    cookie.highScore_Chars[3][0] = 3;
+    cookie.highScore_Chars[3][1] = 3;
+    cookie.highScore_Chars[3][2] = 3;
+    cookie.highScore_Chars[4][0] = 4;
+    cookie.highScore_Chars[4][1] = 4;
+    cookie.highScore_Chars[4][2] = 4;
+
+    cookie.highScore_Values[0] = 314;
+    cookie.highScore_Values[1] = 256;
+    cookie.highScore_Values[2] = 170;
+    cookie.highScore_Values[3] = 98;
+    cookie.highScore_Values[4] = 46;
 
 }
 
@@ -86,8 +121,20 @@ void loop(void) {
 			playGame(a);
 			break;
 
+		case GameState::HighScore_Init:
+			highScore_Init();
+			[[fallthrough]];
+
+		case GameState::HighScore_Start ... GameState::HighScore_End:
+			highScore(a);
+			break;
+
 		default: break;
 
 	}
+
+    #ifndef DEBUG_SOUND
+    audioUpdate();
+    #endif
 
 }

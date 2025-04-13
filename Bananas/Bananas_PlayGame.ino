@@ -46,10 +46,22 @@ void playGame_Init() {
     world.setGameState(GameState::PlayGame);
     world.setTime(99 * 16);
     world.setBananas(0);
+    
+    for (uint8_t i = 0; i < Constants::Item_Count; i++) {
+        world.getItem(i).setItemType(ItemType::None);
+    }
+    
+    for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {
+        world.getEnemy(i).clear();
+    }
 
     for (uint8_t i = 0; i < 8; i++) {
         world.setTree(i, FX::readIndexedUInt16(Constants::Tree_X, i));
     }
+
+
+
+
 
     world.getItem(0).setItemType(ItemType::Puff);
     world.getItem(0).setY(16);
@@ -59,28 +71,51 @@ void playGame_Init() {
     world.getItem(1).setY(15);
     world.getItem(1).setX(80);
 
-    world.getEnemy(0).setEntityType(EntityType::Barrel);
-    world.getEnemy(0).setY(-6);
-    world.getEnemy(0).setX(80 - 16);
-    world.getEnemy(0).setStance(Stance::Enemy_Fall_1L_00);
-    world.getEnemy(0).pushSequence(Stance::Enemy_Fall_1L_00, Stance::Enemy_Fall_1L_06);
-    world.getEnemy(0).setCounter(20);
+    world.getItem(2).setItemType(ItemType::Heart);
+    world.getItem(2).setY(34);
+    world.getItem(2).setX(80 + 16);
 
 
-    world.getEnemy(1).setEntityType(EntityType::Bird);
-    world.getEnemy(1).setY(28);
-    world.getEnemy(1).setX(160 - 16);
-    world.getEnemy(1).setStance(Stance::Enemy_Flying_LH_00);
-    world.getEnemy(1).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
-    world.getEnemy(1).setCounter(0);
+    uint8_t i = 0;
+
+    world.getEnemy(i).setEntityType(EntityType::Spider);
+    world.getEnemy(i).setY(46);
+    world.getEnemy(i).setX(160 - 16);
+    world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    world.getEnemy(i).setCounter(0);
+
+    i++;
+    world.getEnemy(i).setEntityType(EntityType::Spider);
+    world.getEnemy(i).setY(46);
+    world.getEnemy(i).setX(500 - 16);
+    world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    world.getEnemy(i).setCounter(0);
+
+    for (i = 2; i < 4; i++) {
+        launchBarrel(world.getEnemy(i));
+    }
+
+    world.getEnemy(i).setEntityType(EntityType::Bird);
+    world.getEnemy(i).setY(28);
+    world.getEnemy(i).setX(160 - 16);
+    world.getEnemy(i).setStance(Stance::Enemy_Flying_LH_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
+    world.getEnemy(i).setCounter(0);
+
+    i++;
+    world.getEnemy(i).setEntityType(EntityType::Bird);
+    world.getEnemy(i).setY(10);
+    world.getEnemy(i).setX(16);
+    world.getEnemy(i).setStance(Stance::Enemy_Flying_RH_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Flying_RH_00, Stance::Enemy_Flying_RH_19);
+    world.getEnemy(i).setCounter(0);
 
 
-    world.getEnemy(2).setEntityType(EntityType::Spider);
-    world.getEnemy(2).setY(49);
-    world.getEnemy(2).setX(160 - 16);
-    world.getEnemy(2).setStance(Stance::Enemy_Spider_L1_00);
-    world.getEnemy(2).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-    world.getEnemy(2).setCounter(0);
+
+
+
 
     world.setForeground(-64);
 
@@ -110,6 +145,13 @@ void playGame_Update() {
 
                 case GameState::PlayGame:
 
+                    if (pressed & B_BUTTON) {
+
+                        healthCounter = Constants::Health_Counter_Max / 2;
+                        healthFlash = false;
+
+                    }
+
                     if (pressed & A_BUTTON) {
 
                         switch (player.getStance()) {
@@ -129,7 +171,7 @@ void playGame_Update() {
 
                             case Stance::Player_Walk_LH_01:
                             case Stance::Player_Walk_LH_03:
-                                player.pushSequence(Stance::Player_Running_Jump_LH_00, Stance::Player_Running_Jump_LH_07);
+                                player.pushSequence(Stance::Player_Running_Jump_LH_00, Stance::Player_Running_Jump_LH_11);
                                 break;
 
                         }
@@ -273,7 +315,7 @@ void playGame_Update() {
             }
 
             if (pressed & A_BUTTON && (player.getStance() == Stance::Player_Walk_LH_01 || player.getStance() == Stance::Player_Walk_LH_03)) {
-                player.pushSequence(Stance::Player_Running_Jump_LH_00, Stance::Player_Running_Jump_LH_07, true);
+                player.pushSequence(Stance::Player_Running_Jump_LH_00, Stance::Player_Running_Jump_LH_11, true);
             }
 
         }
@@ -336,7 +378,7 @@ void playGame_Update() {
                 case Stance::Player_Walk_LH_01:
                 case Stance::Player_Walk_LH_03:
                 case Stance::Player_Standing_Jump_LH_11:
-                case Stance::Player_Running_Jump_LH_07:
+                case Stance::Player_Running_Jump_LH_11:
                 case Stance::Player_Falling_1L_A_LH_07:
                 case Stance::Player_Falling_1L_B_LH_07:
                     
@@ -378,8 +420,6 @@ void playGame_Update() {
         }
 
 
-
-
         // Has the player collided with an item?
 
         Rect playerRect = player.getRect(world.getXOffset());
@@ -401,9 +441,11 @@ void playGame_Update() {
                         if (item.getCounter() == 0 && collide(playerRect, bananaRect)) {
 
                             item.setCounter(5);
-                            launchPuff(item);
+                            launchPuff(PuffType::Banana, item);
+                            directionCounter = 340;
                             world.incTime(5 * 16);
                             world.setBananas(world.getBananas() + 1);
+                            timeCounter = Constants::Time_Counter_Max;
 
                         }
 
@@ -413,11 +455,129 @@ void playGame_Update() {
                     }
                     break;
 
+                case ItemType::Heart:
+                    {
+                        Rect heartRect = item.getRect(item.getX() + world.getForeground() + world.getXOffset());
+
+                        if (item.getCounter() == 0 && collide(playerRect, heartRect)) {
+
+                            item.setCounter(5);
+                            launchPuff(PuffType::Heart, item);
+                            player.incHealth(4);
+                            healthCounter = Constants::Health_Counter_Max;
+                            healthFlash = false;
+                            item.setItemType(ItemType::Heart_Hidden);
+
+                        }
+
+gPlayerRect = playerRect;
+gEnemyRect = heartRect;
+
+                    }
+                    break;
+
             }
 
         }
 
 
+        // Has the player collided with an enemy?
+                
+        for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {
+        
+            Enemy &enemy = world.getEnemy(i);
+
+            switch (enemy.getEntityType()) {
+            
+                case EntityType::Barrel:
+                    
+                    if (healthCounter == 0) {
+
+                        Rect barrelRect = enemy.getRect(world.getForeground() + world.getXOffset());
+
+                        if (collide(playerRect, barrelRect)) {
+
+                            Serial.println("Dead (Barrel)");
+                            player.decHealth();
+                            healthCounter = Constants::Health_Counter_Max;
+                            healthFlash = true;
+
+                            // DEBUG_BREAK
+
+                        }
+
+// gPlayerRect = playerRect;
+// gBananaRect = bananaRect;
+
+                    }
+                    break;
+
+                case EntityType::Bird:
+                    
+                    if (healthCounter == 0) {
+
+                        Rect birdRect = enemy.getRect(world.getForeground() + world.getXOffset());
+
+                        if (collide(playerRect, birdRect)) {
+
+                            Serial.println("Dead (Bird)");
+                            player.decHealth();
+                            healthCounter = Constants::Health_Counter_Max;
+                            healthFlash = true;
+
+                            // DEBUG_BREAK
+
+                        }
+
+// gPlayerRect = playerRect;
+// gBananaRect = bananaRect;
+
+                    }
+                    break;
+            
+                case EntityType::Spider:
+
+                    if (healthCounter == 0) {
+
+                        Rect spiderRect = enemy.getRect(world.getForeground() + world.getXOffset());
+
+                        if (enemy.getStance() < Stance::Enemy_Spider_Die_00 && collide(playerRect, spiderRect)) {
+
+                            switch (player.getStance()) {
+
+                                case Stance::Player_Standing_Jump_RH_00 ... Stance::Player_Standing_Jump_RH_11:
+                                case Stance::Player_Running_Jump_RH_00 ... Stance::Player_Running_Jump_RH_11:
+                                case Stance::Player_Falling_1L_A_RH_00 ... Stance::Player_Falling_1L_A_RH_07:
+                                case Stance::Player_Falling_1L_B_RH_00 ... Stance::Player_Falling_1L_B_RH_07:
+
+                                case Stance::Player_Standing_Jump_LH_00 ... Stance::Player_Standing_Jump_LH_11:
+                                case Stance::Player_Running_Jump_LH_00 ... Stance::Player_Running_Jump_LH_11:
+                                case Stance::Player_Falling_1L_A_LH_00 ... Stance::Player_Falling_1L_A_LH_07:
+                                case Stance::Player_Falling_1L_B_LH_00 ... Stance::Player_Falling_1L_B_LH_07:
+    
+                                    enemy.pushSequence(Stance::Enemy_Spider_Die_00, Stance::Enemy_Spider_Die_05, true);
+                                    break;
+
+                                default:
+                                    Serial.println("Dead (Spider)");
+                                    player.decHealth();
+                                    healthCounter = Constants::Health_Counter_Max;
+                                    healthFlash = true;
+                                    break;
+
+                            }
+    
+// gPlayerRect = playerRect;
+// gBananaRect = spiderRect;
+
+                        }
+
+                    }
+                    break;
+
+            }
+
+        }
 
 
         // Handle falling and other special actions ..
@@ -450,7 +610,15 @@ void playGame_Update() {
 
     }
     
+
+
+
     world.update();
+
+
+    if (player.getHealth() == 0) {
+        world.setGameState(GameState::HighScore_Init);
+    }
 
 }
 
@@ -465,118 +633,7 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
     uint8_t stanceImg = getStanceImg(player.getStance());
     player.setImageIdx(stanceImg);
 
-    SpritesU::drawOverwriteFX((world.getBackground() / 2) - 128 + world.getXOffset(), 0, 128, 32, Images::Background, currentPlane);
-    SpritesU::drawOverwriteFX((world.getBackground() / 2) + world.getXOffset(), 0, 128, 32, Images::Background, currentPlane);
-    SpritesU::drawOverwriteFX((world.getBackground() / 2) + 128 + world.getXOffset(), 0, 128, 32, Images::Background, currentPlane);
-
-
-
-    // ____________________________________________________________________________________________________________________________________________________________________________________
-    //
-    // Render trees ..
-
-    for (uint8_t i = 4; i < 8; i++) {    
-
-        uint24_t treeIdx = FX::readIndexedUInt24(Images::TreeImages, i);
-        SpritesU::drawPlusMaskFX(world.getTree(i) + world.getXOffset(), 15, treeIdx, currentPlane);
-
-    }
-
-
-    for (uint8_t i = 0; i < 4; i++) {    
-
-        uint24_t treeIdx = FX::readIndexedUInt24(Images::TreeImages, i);
-        SpritesU::drawPlusMaskFX(world.getTree(i) + world.getXOffset(), 14, treeIdx, currentPlane);
-
-    }
-
-    for (uint8_t i = 0; i < 19; i++) {    
-
-        uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
-
-        switch (levelIdx) {
-        
-            case 0 ... 19:
-                SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 34, 16, 24, Images::LowerOnly, (levelIdx * 3) + currentPlane);
-                break;
-
-            case 20 ... 39:
-                SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 18, 16, 40, Images::Both, ((levelIdx - 20) * 3) + currentPlane);
-                break;
-
-            case 40 ... 59:
-                SpritesU::drawPlusMaskFX(55 + (i * 16) + world.getForeground() + world.getXOffset(), 10, 16, 48, Images::UpperOnly, ((levelIdx - 40) * 3) + currentPlane);
-                break;
-
-        }
-
-        // a.drawLine(55 + (i * 16) + world.getForeground() + world.getXOffset(), 0, 55 + (i * 16) + world.getForeground() + world.getXOffset(), 128, WHITE);
-
-    }
-
-    for (uint8_t i = 0; i < Constants::Item_Count; i++) {    
-
-        Item &item = world.getItem(i);
-
-        if (item.getItemType() == ItemType::Banana) {
-
-            SpritesU::drawPlusMaskFX(55 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), Images::Banana, currentPlane);
-        }
-
-    }
-
-
-    for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {    
-
-        Enemy &enemy = world.getEnemy(i);
-
-        if (enemy.getEntityType() == EntityType::Barrel) {
-
-            uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 16, 16, Images::Barrel, (imageIdx * 3) + currentPlane);
-
-        }
-
-        if (enemy.getEntityType() == EntityType::Bird) {
-
-            uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 14, 16, Images::Bird, (imageIdx * 3) + currentPlane);
-
-            gEnemyRect = enemy.getRect(55 + world.getForeground() + world.getXOffset());
-
-            // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
-
-        }
-
-        if (enemy.getEntityType() == EntityType::Spider) {
-
-            uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 16, 16, Images::Spider, (imageIdx * 3) + currentPlane);
-
-        
-            // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
-
-        }
-
-    }
-
-    SpritesU::drawPlusMaskFX(54 + world.getXOffset(), player.getY(), 16, 16, Images::Player, (player.getImageIdx() * 3) + currentPlane);
-
-    SpritesU::drawPlusMaskFX(1, 1, 35, 8, Images::HUD_Banana, (world.getBananas() * 3) + currentPlane);
-    SpritesU::drawPlusMaskFX(101, 1, 26, 8, Images::HUD_Time, ((world.getTime() / 16) * 3) + currentPlane);
-
-    // a.drawRect(gPlayerRect.x, gPlayerRect.y, gPlayerRect.width, gPlayerRect.height);
-    // a.drawRect(gEnemyRect.x, gEnemyRect.y, gEnemyRect.width, gEnemyRect.height);
-
-
-    Item &item = world.getItem(0);
-
-    if (item.getFrame() < Constants::Puff_Max) {
-
-        uint8_t frame = item.getFrame() / 8;
-        SpritesU::drawPlusMaskFX(55 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), Images::Puff, (frame * 3) +  currentPlane);
-
-    }
+    playGame_Render(a, currentPlane);
 
 }
 

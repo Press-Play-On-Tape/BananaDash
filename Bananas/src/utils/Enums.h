@@ -3,6 +3,21 @@
 
 // - Game play stuff ---------------------
 
+enum class MusicSong : uint8_t {
+    MainTheme,
+};
+
+enum class MusicSFX : uint8_t {
+    SFX_Death,
+    SFX_Victory,
+    SFX_LandHard,
+    SFX_PlayerBlip,
+    SFX_EnemyBlip,
+    SFX_PickUpItem,
+    SFX_XPGain,
+    SFX_Glint,
+};
+
 struct StanceDetails {
 
     int8_t stanceY;
@@ -11,7 +26,6 @@ struct StanceDetails {
     int8_t background;        
     
 };
-
 
 enum class EntityType : uint8_t {
     None,
@@ -25,9 +39,16 @@ enum class ItemType : uint8_t {
     None,
     Banana,
     Banana_Hidden,
+    Heart,
+    Heart_Hidden,
     Puff,
 };
 
+enum class PuffType : uint8_t {
+    None,
+    Banana,
+    Heart,
+};
 
 enum class GameState : uint8_t {
 
@@ -47,8 +68,12 @@ enum class GameState : uint8_t {
 
     PlayGame_Init,
     PlayGame,
-    HighScore_Activate,
-    HighScore,
+
+    HighScore_Init,
+    HighScore_Start,
+        HighScore_Edit = HighScore_Start,
+        HighScore_View,
+    HighScore_End,
 };
 
 inline GameState &operator++(GameState &c) {
@@ -174,6 +199,10 @@ enum Stance : uint16_t {
             Player_Running_Jump_LH_05,
             Player_Running_Jump_LH_06,
             Player_Running_Jump_LH_07,
+            Player_Running_Jump_LH_08,
+            Player_Running_Jump_LH_09,
+            Player_Running_Jump_LH_10,
+            Player_Running_Jump_LH_11,
 
             Player_Climbing_Vine_Up_LH_00,
             Player_Climbing_Vine_Up_LH_01,
@@ -355,6 +384,7 @@ enum Stance : uint16_t {
         Enemy_Spider_Die_02,
         Enemy_Spider_Die_03,
         Enemy_Spider_Die_04,
+        Enemy_Spider_Die_05,
 
     None,
 

@@ -10,6 +10,7 @@ void titleScreen_Activate() {
 
     world.setGameState(GameState::Title_Start);
 
+
 }
 
 
@@ -44,6 +45,11 @@ void titleScreen_Update() {
         
             case GameState::Title_Play_Game:
                 world.setGameState(GameState::PlayGame_Init); 
+                break;
+        
+            case GameState::Title_Highs:
+                highScore_Entry = 5;
+                world.setGameState(GameState::HighScore_View); 
                 break;
             
         }

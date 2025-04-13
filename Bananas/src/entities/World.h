@@ -625,7 +625,7 @@ struct World {
                         case 2:
 
                             if (entityType == EntityType::Player) { return true; }
-                            if (entityType == EntityType::Barrel) { return (abs(x % 16) < 8 ? true : false); }
+                            if (entityType == EntityType::Barrel) { return (abs(x % 16) != 8 ? true : false); }
                             break;
 
                         case 39:

@@ -1,11 +1,14 @@
 
 include "images.txt"
+include "data/Music.txt"
 
 namespace Constants
 
     include "data/Stances.txt"
     int16_t Tree_X[] = { -36, 31, 70, 100, -16, 27, 65, 110 };
-
+    //                       A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
+    uint8_t Font_Width[] = { 7, 7, 7, 7, 7, 7, 7, 7, 4, 7, 7, 7, 9, 8, 7, 7, 8, 7, 7, 7, 7, 7, 9, 7, 8, 7  };
+    
 namespace_end 
 
 namespace Images

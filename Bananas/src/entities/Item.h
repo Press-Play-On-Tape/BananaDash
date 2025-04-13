@@ -32,50 +32,6 @@ class Item {
         void setData(int16_t val)                       { this->data = val; }
         void setCounter(uint16_t val)                   { this->counter = val; }
 
-        // bool processItem() {
-
-        //     this->frame++;
-
-        //     if (this->counter > 0 && this->frame % 8 == 0) {
-
-        //         this->counter--;
-
-        //         if (this->counter == 0) {
-        //             return true;
-        //         }
-
-        //     }
-
-        //     return false;
-
-        // }
-
-        // bool updateCounter(uint16_t maxVal) {
-
-        //     this->counter++;
-
-        //     if (this->counter == maxVal) {
-        //         this->counter = 0;
-        //         return true;
-        //     }
-
-        //     return false;
-
-        // }
-
-        // bool updateFrame(uint16_t maxVal) {
-
-        //     this->frame++;
-
-        //     if (this->frame == maxVal) {
-        //         this->frame = 0;
-        //         return true;
-        //     }
-
-        //     return false;
-
-        // }
-
 
         void update() {
 
@@ -122,6 +78,15 @@ class Item {
                     rect.y = this->getY();
                     rect.width = 10;
                     rect.height = 10;
+
+                    break;
+        
+                case ItemType::Heart:
+
+                    rect.x = 60 + worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 5;
+                    rect.height = 5;
 
                     break;
 

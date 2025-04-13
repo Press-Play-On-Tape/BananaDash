@@ -7,14 +7,14 @@
 #include "src/utils/SpritesU.hpp"
 
 
-void launchPuff(Item &item) {
+void launchPuff(PuffType puffType, Item &item) {
 
     Item &puff = world.getItem(0);
 
     puff.setX(item.getX());
-    puff.setY(item.getY());
+    puff.setY(item.getY() - (puffType == PuffType::Heart ? 3 : 0));
     puff.setFrame(0);
-    puff.setData(0);
+    puff.setData(puffType == PuffType::Heart ? 7 : 0);
     item.setCounter(3);
 
 }

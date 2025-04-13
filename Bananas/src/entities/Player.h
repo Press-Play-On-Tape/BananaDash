@@ -12,6 +12,7 @@ class Player {
         Stack <Stance, Constants::StackSize_Player> stack;
         Stance stance = Stance::Player_Idle_RH;
         uint8_t y;
+        uint8_t health;
         uint8_t imageIdx;
         int8_t velocityX;
 
@@ -20,29 +21,50 @@ class Player {
         Stance getStance()                                  { return this->stance; }
         uint8_t getImageIdx()                               { return this->imageIdx; }
         uint8_t getY()                                      { return this->y; }
+        uint8_t getHealth()                                 { return this->health; }
         int8_t getVelocityX()                               { return this->velocityX; }
       
         void setStance(Stance val)                          { this->stance = val; }
         void setImageIdx(uint8_t val)                       { this->imageIdx = val; }
         void setY(uint8_t val)                              { this->y = val; }
+        void setHealth(uint8_t val)                         { this->health = val; }
         void setVelocityX(int8_t val)                       { this->velocityX = val; }
 
         void reset() {
 
             this->y = 46;
             this->velocityX = 0;
-            // this->setPosition(0);
-            // this->setJumpPosition(0);
-            // this->dead = false;
-            // this->falling = false;
-            // this->prevXPosition = -1;
-            // this->runMovement = Movements::Right;
+            this->health = 1; // SJH 11
+            this->clear();
 
         }
 
         void update(){
         }
 
+        void decHealth() {
+        
+            if (this->health > 1) {
+                this->health = this->health - 2;
+            }
+            else {
+                this->health = 0;
+           
+            }
+
+        }
+
+        void incHealth(uint8_t val) {
+        
+            if (this->health + val < 11) {
+                this->health = this->health + val;
+            }
+            else {
+                this->health = 11;
+           
+            }
+
+        }
 
         Direction getDirection() {
         
@@ -68,72 +90,72 @@ class Player {
             switch (this->getStance()) {
 
                 case Stance::Player_Idle_RH:
-                    rect.x = 57 +worldOffset;
-                    rect.y = this->getY() + 1;
-                    rect.width = 10;
-                    rect.height = 11;
+                    rect.x = 58 +worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 8;
+                    rect.height = 9;
                     break;
 
                 case Stance::Player_Lying_RH:
-                    rect.x = 56 +worldOffset;
-                    rect.y = this->getY() + 6;
-                    rect.width = 13;
-                    rect.height = 6;
+                    rect.x = 57 +worldOffset;
+                    rect.y = this->getY() + 7;
+                    rect.width = 11;
+                    rect.height = 4;
                     break;
 
                 case Stance::Player_Standing_Jump_RH_00 ... Stance::Player_Standing_Jump_RH_11:
                 case Stance::Player_Running_Jump_RH_00 ... Stance::Player_Running_Jump_RH_11:
                 case Stance::Player_Walk_RH_00 ... Stance::Player_Walk_RH_03:
                 case Stance::Player_Falling_1L_A_RH_00 ... Stance::Player_Falling_1L_B_RH_07:
-                    rect.x = 54 +worldOffset;
-                    rect.y = this->getY() + 1;
-                    rect.width = 16;
-                    rect.height = 11;
+                    rect.x = 55 +worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 14;
+                    rect.height = 9;
                     break;
 
                 case Stance::Player_Climbing_Vine_Up_RH_00 ... Stance::Player_Climbing_Vine_Down_RH_03:
-                    rect.x = 55 +worldOffset;
-                    rect.y = this->getY() + 1;
-                    rect.width = 14;
-                    rect.height = 12;
+                    rect.x = 56 + worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 12;
+                    rect.height = 10;
                     break;
 
                 case Stance::Player_Idle_LH:
-                    rect.x = 56 +worldOffset;
-                    rect.y = this->getY() + 1;
-                    rect.width = 10;
-                    rect.height = 11;
+                    rect.x = 57 + worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 8;
+                    rect.height = 9;
                     break;
 
                 case Stance::Player_Lying_LH:
-                    rect.x = 56 +worldOffset;
-                    rect.y = this->getY() + 6;
-                    rect.width = 13;
-                    rect.height = 6;
+                    rect.x = 57 + worldOffset;
+                    rect.y = this->getY() + 7;
+                    rect.width = 11;
+                    rect.height = 4;
                     break;
 
                 case Stance::Player_Standing_Jump_LH_00 ... Stance::Player_Standing_Jump_LH_11:
-                case Stance::Player_Running_Jump_LH_00 ... Stance::Player_Running_Jump_LH_07:
+                case Stance::Player_Running_Jump_LH_00 ... Stance::Player_Running_Jump_LH_11:
                 case Stance::Player_Walk_LH_00 ... Stance::Player_Walk_LH_03:
                 case Stance::Player_Falling_1L_A_LH_00 ... Stance::Player_Falling_1L_B_LH_07:
-                    rect.x = 54 +worldOffset;
-                    rect.y = this->getY() + 1;
-                    rect.width = 16;
-                    rect.height = 11;
+                    rect.x = 55 + worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 14;
+                    rect.height = 9;
                     break;
 
                 case Stance::Player_Climbing_Vine_Up_LH_00 ... Stance::Player_Climbing_Vine_Down_LH_03:
-                    rect.x = 55 +worldOffset;
-                    rect.y = this->getY() + 1;
-                    rect.width = 14;
-                    rect.height = 12;
+                    rect.x = 56 + worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 12;
+                    rect.height = 10;
                     break;
 
                 default:
-                    rect.x = 54 +worldOffset;
-                    rect.y = this->getY();
-                    rect.width = 16;
-                    rect.height = 11;
+                    rect.x = 55 + worldOffset;
+                    rect.y = this->getY() + 1;
+                    rect.width = 14;
+                    rect.height = 9;
                     break;
 
             }    

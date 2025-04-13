@@ -113,19 +113,13 @@ deleteFile(BASE + 'Images.hpp')
 
 convert_header(IMAGES + 'Titles/PPOT.png',                                                        BASE + 'Images.hpp', 'PPOT', 4, 128, 64)
 convert_header(IMAGES + 'Titles/Title.png',                                                       BASE + 'Images.hpp', 'Title', 4, 128, 64)
+convert_header(IMAGES + 'Titles/HUD_Banana.png',                                                  BASE + 'Images.hpp', 'HUD_Banana', 4, 35, 8)
+convert_header(IMAGES + 'Titles/HUD_Time.png',                                                    BASE + 'Images.hpp', 'HUD_Time', 4, 26, 8)
+convert_header(IMAGES + 'Titles/HUD_Directions.png',                                              BASE + 'Images.hpp', 'HUD_Directions', 4, 13, 8)
+convert_header(IMAGES + 'Titles/HUD_Health.png',                                                  BASE + 'Images.hpp', 'HUD_Health', 4, 35, 8)
+convert_header(IMAGES + 'Titles/Font_Alpha.png',                                                  BASE + 'Images.hpp', 'Font_Alpha', 4, 9, 8)
+convert_header(IMAGES + 'Titles/Font_Numbers.png',                                                BASE + 'Images.hpp', 'Font_Numbers', 4, 7, 8)
 
-# convert_header(IMAGES + 'Players/Player_ClimbingVine_F0.png',                                     BASE + 'Images.hpp', 'Player_ClimbingVine_F0', 4)
-# convert_header(IMAGES + 'Players/Player_ClimbingVine_F1.png',                                     BASE + 'Images.hpp', 'Player_ClimbingVine_F1', 4)
-# convert_header(IMAGES + 'Players/Player_Idle_L_F0.png',                                           BASE + 'Images.hpp', 'Player_Idle_L_F0', 4)
-# convert_header(IMAGES + 'Players/Player_Idle_R_F0.png',                                           BASE + 'Images.hpp', 'Player_Idle_R_F0', 4)
-# convert_header(IMAGES + 'Players/Player_OnRope_L_F0.png',                                         BASE + 'Images.hpp', 'Player_OnRope_L_F0', 4)
-# convert_header(IMAGES + 'Players/Player_OnRope_L_F1.png',                                         BASE + 'Images.hpp', 'Player_OnRope_L_F1', 4)
-# convert_header(IMAGES + 'Players/Player_OnRope_R_F0.png',                                         BASE + 'Images.hpp', 'Player_OnRope_R_F0', 4)
-# convert_header(IMAGES + 'Players/Player_OnRope_R_F1.png',                                         BASE + 'Images.hpp', 'Player_OnRope_R_F1', 4)
-# convert_header(IMAGES + 'Players/Player_Walking_L_F0.png',                                        BASE + 'Images.hpp', 'Player_Walking_L_F0', 4)
-# convert_header(IMAGES + 'Players/Player_Walking_L_F1.png',                                        BASE + 'Images.hpp', 'Player_Walking_L_F1', 4)
-# convert_header(IMAGES + 'Players/Player_Walking_R_F0.png',                                        BASE + 'Images.hpp', 'Player_Walking_R_F0', 4)
-# convert_header(IMAGES + 'Players/Player_Walking_R_F1.png',                                        BASE + 'Images.hpp', 'Player_Walking_R_F1', 4)
 convert_header(IMAGES + 'Players/Player.png',                                                     BASE + 'Images.hpp', 'Player', 4, 16, 16)
 
 convert_header(IMAGES + 'Background/Tree1.png',                                                   BASE + 'Images.hpp', 'Tree1', 4)
@@ -137,7 +131,6 @@ convert_header(IMAGES + 'Background/Tree6.png',                                 
 convert_header(IMAGES + 'Background/Tree7.png',                                                   BASE + 'Images.hpp', 'Tree7', 4)
 convert_header(IMAGES + 'Background/Tree8.png',                                                   BASE + 'Images.hpp', 'Tree8', 4)
 
-
 convert_header(IMAGES + 'Background/Foreground.png',                                              BASE + 'Images.hpp', 'Foreground', 4)
 convert_header(IMAGES + 'Background/Background.png',                                              BASE + 'Images.hpp', 'Background', 4)
 
@@ -145,11 +138,9 @@ convert_header(IMAGES + 'Levels/LowerOnly.png',                                 
 convert_header(IMAGES + 'Levels/UpperOnly.png',                                                   BASE + 'Images.hpp', 'UpperOnly', 4, 16, 48)
 convert_header(IMAGES + 'Levels/Both.png',                                                        BASE + 'Images.hpp', 'Both', 4, 16, 40)
 
-convert_header(IMAGES + 'Titles/HUD_Banana.png',                                                  BASE + 'Images.hpp', 'HUD_Banana', 4, 35, 8)
-convert_header(IMAGES + 'Titles/HUD_Time.png',                                                    BASE + 'Images.hpp', 'HUD_Time', 4, 26, 8)
-
-convert_header(IMAGES + 'Banana.png',                                                             BASE + 'Images.hpp', 'Banana', 4)
-convert_header(IMAGES + 'Puff.png',                                                               BASE + 'Images.hpp', 'Puff', 4, 16, 16)
-convert_header(IMAGES + 'Barrel.png',                                                             BASE + 'Images.hpp', 'Barrel', 4, 16, 16)
-convert_header(IMAGES + 'Bird.png',                                                               BASE + 'Images.hpp', 'Bird', 4, 14, 16)
-convert_header(IMAGES + 'Spider.png',                                                             BASE + 'Images.hpp', 'Spider', 4, 16, 16)
+convert_header(IMAGES + 'Enemies/Banana.png',                                                     BASE + 'Images.hpp', 'Banana', 4)
+convert_header(IMAGES + 'Enemies/Puff.png',                                                       BASE + 'Images.hpp', 'Puff', 4, 16, 16)
+convert_header(IMAGES + 'Enemies/Barrel.png',                                                     BASE + 'Images.hpp', 'Barrel', 4, 16, 16)
+convert_header(IMAGES + 'Enemies/Bird.png',                                                       BASE + 'Images.hpp', 'Bird', 4, 14, 16)
+convert_header(IMAGES + 'Enemies/Spider.png',                                                     BASE + 'Images.hpp', 'Spider', 4, 16, 16)
+convert_header(IMAGES + 'Enemies/Heart.png',                                                      BASE + 'Images.hpp', 'Heart', 4, 9, 8)
