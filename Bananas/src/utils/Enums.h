@@ -1,7 +1,34 @@
 #pragma once
 
 
-// - Game play stuff ---------------------
+struct GameOver {
+
+    uint8_t char1;
+    uint8_t char1X;
+    int8_t  char1Y;
+    uint8_t char2;
+    uint8_t char2X;
+    int8_t  char2Y;
+    uint8_t char3;
+    uint8_t char3X;
+    int8_t  char3Y;
+    uint8_t char4;
+    uint8_t char4X;
+    int8_t  char4Y;
+    uint8_t char5;
+    uint8_t char5X;
+    int8_t  char5Y;
+    uint8_t char6;
+    uint8_t char6X;
+    int8_t  char6Y;
+    uint8_t char7;
+    uint8_t char7X;
+    int8_t  char7Y;
+    uint8_t char8;
+    uint8_t char8X;
+    int8_t  char8Y;
+
+};
 
 enum class MusicSong : uint8_t {
     MainTheme,
@@ -68,7 +95,11 @@ enum class GameState : uint8_t {
 	Title_End,
 
     PlayGame_Init,
-    PlayGame,
+    PlayGame_Start,
+        PlayGame = PlayGame_Start,
+        PlayGame_GameOver,
+        PlayGame_TimesUp,
+    PlayGame_End,
 
     HighScore_Init,
     HighScore_Start,

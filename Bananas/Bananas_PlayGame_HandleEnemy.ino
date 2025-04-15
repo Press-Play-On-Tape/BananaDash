@@ -4,7 +4,7 @@
 #include "src/utils/Enums.h"
 
 
-void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
+void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameState gameState) {
 
     Player &player = world.getPlayer();
 
@@ -56,7 +56,12 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
                         if (enemy.getY() != -6 && (-world.getForeground() - enemy.getX() > 90 || -world.getForeground() - enemy.getX() < -90)) {
 
-                            launchBarrel(enemy);
+                            if (gameState == GameState::PlayGame) {
+                                launchBarrel(enemy);
+                            }
+                            else {
+                                enemy.setEntityType(EntityType::None);
+                            }
 
                         }
 
@@ -71,7 +76,7 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
                             
                                 Rect spiderRect = spider.getRect(world.getForeground() + world.getXOffset());
 
-                                if (collide(spiderRect, barrelRect)) {
+                                if (gameState == GameState::PlayGame && collide(spiderRect, barrelRect)) {
 
                                     spider.pushSequence(Stance::Enemy_Spider_Die_00, Stance::Enemy_Spider_Die_05, true);
 
@@ -128,7 +133,11 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
                                     if (-world.getForeground() - enemy.getX() > 100) {
 
-                                        enemy.setX(-world.getForeground() + 160 + (a.randomLFSR(0, 10) * 16));
+                                        if (gameState == GameState::PlayGame) {
+
+                                            enemy.setX(-world.getForeground() + 160 + (a.randomLFSR(0, 10) * 16));
+
+                                        }
                                     
                                     }
                                     
@@ -148,7 +157,11 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
                                     if (-world.getForeground() - enemy.getX() < -100) {
 
-                                        enemy.setX(-world.getForeground() - 160 - (a.randomLFSR(0, 10) * 16));
+                                        if (gameState == GameState::PlayGame) {
+
+                                            enemy.setX(-world.getForeground() - 160 - (a.randomLFSR(0, 10) * 16));
+
+                                        }
                                     
                                     }
                                     

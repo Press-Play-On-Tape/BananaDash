@@ -89,7 +89,8 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
         if (item.getItemType() == ItemType::Fire) {
 
-            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (item.getFrame() * 3) + currentPlane);
+            uint8_t frame = (world.getFrameCount() / 4) % 6;
+            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
 
         }
 

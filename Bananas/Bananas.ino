@@ -45,6 +45,8 @@ uint16_t directionCounter = 0;
 uint16_t healthCounter = 0;
 uint16_t healthFlash = 0;
 uint16_t timeCounter = 0;
+int8_t gameOverCount = -1;
+int8_t timesUpCount = -1;
 
 Rect gPlayerRect;
 Rect gEnemyRect;
@@ -117,7 +119,7 @@ void loop(void) {
 			playGame_Init();
 			[[fallthrough]];
 
-		case GameState::PlayGame:
+		case GameState::PlayGame_Start ... GameState::PlayGame_End:
 			playGame(a);
 			break;
 

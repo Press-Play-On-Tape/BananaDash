@@ -587,7 +587,8 @@ struct World {
                 case Constants::Level_20:
 
                     switch (tile) {
-                                                
+                        
+                        case 0:
                         case 3:
                         case 38:
                         case 51:
@@ -860,6 +861,14 @@ struct World {
                         case 23:
                         case 26:
                         case 41:
+                        case 60:
+                        case 61:
+                        case 62:
+                        case 63:
+                        case 64:
+                        case 65:
+                        case 66:
+                        case 67:
                         case 254:
                         case 255:
 
@@ -1514,7 +1523,7 @@ struct World {
         bool canFallRight_Down_1Level(EntityType entityType, int16_t x, uint8_t y, uint8_t tile, uint8_t tileR) {
 
             // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFRD 2L ");
+            DEBUG_PRINT("CFRD 1L ");
             DEBUG_PRINT(x);
             DEBUG_PRINT(", abs(x%16)=");
             DEBUG_PRINT(abs(x % 16));  
@@ -1538,6 +1547,14 @@ struct World {
                         case 4:
                         case 23:
                         case 41:
+                        case 60:
+                        case 61:
+                        case 62:
+                        case 63:
+                        case 64:
+                        case 65:
+                        case 66:
+                        case 67:
                         case 254:
                         case 255:
 

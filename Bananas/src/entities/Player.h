@@ -44,13 +44,13 @@ class Player {
 
         void decHealth() {
         
-            if (this->health > 1) {
-                this->health = this->health - 2;
-            }
-            else {
-                this->health = 0;
+            // if (this->health > 1) {
+            //     this->health = this->health - 2;
+            // }
+            // else {
+            //     this->health = 0;
            
-            }
+            // }
 
         }
 

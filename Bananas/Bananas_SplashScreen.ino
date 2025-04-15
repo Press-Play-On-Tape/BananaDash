@@ -1,6 +1,7 @@
 #include <Arduboy2.h>
 
 
+
 // ----------------------------------------------------------------------------
 //  Handle state updates .. 
 //
@@ -23,7 +24,7 @@ void splashScreen_Update() {
         world.setGameState(GameState::Title_Init); 
 
     }
-    
+
 }
 
 

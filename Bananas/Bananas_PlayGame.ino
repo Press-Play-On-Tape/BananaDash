@@ -46,6 +46,9 @@ void playGame_Init() {
     world.setGameState(GameState::PlayGame);
     world.setTime(99 * 16);
     world.setBananas(0);
+
+    gameOverCount = -1;
+    timesUpCount = -1;
     
     for (uint8_t i = 0; i < Constants::Item_Count; i++) {
         world.getItem(i).setItemType(ItemType::None);
@@ -67,11 +70,11 @@ void playGame_Init() {
     world.getItem(0).setX(-800);
 
 
-    launchBarrel(world.getEnemy(0));
+    // launchBarrel(world.getEnemy(0));
 
-    world.getItem(1).setItemType(ItemType::Fire);
-    world.getItem(1).setY(42);
-    world.getItem(1).setX(96);
+    // world.getItem(1).setItemType(ItemType::Fire);
+    // world.getItem(1).setY(42);
+    // world.getItem(1).setX(96);
 
 /*
 
@@ -152,6 +155,26 @@ void playGame_Update() {
         if (player.isEmpty()) {
 
             switch (world.getGameState()) {
+
+                case GameState::PlayGame_GameOver:
+
+                    if (pressed & A_BUTTON && gameOverCount > 10) {
+
+                        world.setGameState(GameState::HighScore_Init);
+
+                    }
+
+                    break;
+
+                case GameState::PlayGame_TimesUp:
+
+                    if (pressed & A_BUTTON && timesUpCount > 10) {
+
+                        world.setGameState(GameState::HighScore_Init);
+
+                    }
+
+                    break;
 
                 case GameState::PlayGame:
 
@@ -598,98 +621,102 @@ Serial.println("Test");
 
 
         // Has the player collided with an enemy?
+
+        if (world.getGameState() == GameState::PlayGame) {
+            
+            for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {
+            
+                Enemy &enemy = world.getEnemy(i);
+
+                switch (enemy.getEntityType()) {
                 
-        for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {
-        
-            Enemy &enemy = world.getEnemy(i);
+                    case EntityType::Barrel:
+                        
+                        if (healthCounter == 0) {
 
-            switch (enemy.getEntityType()) {
-            
-                case EntityType::Barrel:
-                    
-                    if (healthCounter == 0) {
+                            Rect barrelRect = enemy.getRect(world.getForeground() + world.getXOffset());
 
-                        Rect barrelRect = enemy.getRect(world.getForeground() + world.getXOffset());
+                            if (collide(playerRect, barrelRect)) {
 
-                        if (collide(playerRect, barrelRect)) {
+                                Serial.println("Dead (Barrel)");
+                                player.decHealth();
+                                healthCounter = Constants::Health_Counter_Max;
+                                healthFlash = true;
 
-                            Serial.println("Dead (Barrel)");
-                            player.decHealth();
-                            healthCounter = Constants::Health_Counter_Max;
-                            healthFlash = true;
-
-                            // DEBUG_BREAK
-
-                        }
-
-// gPlayerRect = playerRect;
-// gBananaRect = bananaRect;
-
-                    }
-                    break;
-
-                case EntityType::Bird:
-                    
-                    if (healthCounter == 0) {
-
-                        Rect birdRect = enemy.getRect(world.getForeground() + world.getXOffset());
-
-                        if (collide(playerRect, birdRect)) {
-
-                            Serial.println("Dead (Bird)");
-                            player.decHealth();
-                            healthCounter = Constants::Health_Counter_Max;
-                            healthFlash = true;
-
-                            // DEBUG_BREAK
-
-                        }
-
-// gPlayerRect = playerRect;
-// gBananaRect = bananaRect;
-
-                    }
-                    break;
-            
-                case EntityType::Spider:
-
-                    if (healthCounter == 0) {
-
-                        Rect spiderRect = enemy.getRect(world.getForeground() + world.getXOffset());
-
-                        if (enemy.getStance() < Stance::Enemy_Spider_Die_00 && collide(playerRect, spiderRect)) {
-
-                            switch (player.getStance()) {
-
-                                case Stance::Player_Standing_Jump_RH_00 ... Stance::Player_Standing_Jump_RH_11:
-                                case Stance::Player_Running_Jump_RH_00 ... Stance::Player_Running_Jump_RH_11:
-                                case Stance::Player_Falling_1L_A_RH_00 ... Stance::Player_Falling_1L_A_RH_07:
-                                case Stance::Player_Falling_1L_B_RH_00 ... Stance::Player_Falling_1L_B_RH_07:
-
-                                case Stance::Player_Standing_Jump_LH_00 ... Stance::Player_Standing_Jump_LH_11:
-                                case Stance::Player_Running_Jump_LH_00 ... Stance::Player_Running_Jump_LH_11:
-                                case Stance::Player_Falling_1L_A_LH_00 ... Stance::Player_Falling_1L_A_LH_07:
-                                case Stance::Player_Falling_1L_B_LH_00 ... Stance::Player_Falling_1L_B_LH_07:
-    
-                                    enemy.pushSequence(Stance::Enemy_Spider_Die_00, Stance::Enemy_Spider_Die_05, true);
-                                    break;
-
-                                default:
-                                    Serial.println("Dead (Spider)");
-                                    player.decHealth();
-                                    healthCounter = Constants::Health_Counter_Max;
-                                    healthFlash = true;
-                                    break;
+                                // DEBUG_BREAK
 
                             }
-    
-// gPlayerRect = playerRect;
-// gBananaRect = spiderRect;
+
+    // gPlayerRect = playerRect;
+    // gBananaRect = bananaRect;
 
                         }
+                        break;
 
-                    }
-                    break;
+                    case EntityType::Bird:
+                        
+                        if (healthCounter == 0) {
+
+                            Rect birdRect = enemy.getRect(world.getForeground() + world.getXOffset());
+
+                            if (collide(playerRect, birdRect)) {
+
+                                Serial.println("Dead (Bird)");
+                                player.decHealth();
+                                healthCounter = Constants::Health_Counter_Max;
+                                healthFlash = true;
+
+                                // DEBUG_BREAK
+
+                            }
+
+    // gPlayerRect = playerRect;
+    // gBananaRect = bananaRect;
+
+                        }
+                        break;
+                
+                    case EntityType::Spider:
+
+                        if (healthCounter == 0) {
+
+                            Rect spiderRect = enemy.getRect(world.getForeground() + world.getXOffset());
+
+                            if (enemy.getStance() < Stance::Enemy_Spider_Die_00 && collide(playerRect, spiderRect)) {
+
+                                switch (player.getStance()) {
+
+                                    case Stance::Player_Standing_Jump_RH_00 ... Stance::Player_Standing_Jump_RH_11:
+                                    case Stance::Player_Running_Jump_RH_00 ... Stance::Player_Running_Jump_RH_11:
+                                    case Stance::Player_Falling_1L_A_RH_00 ... Stance::Player_Falling_1L_A_RH_07:
+                                    case Stance::Player_Falling_1L_B_RH_00 ... Stance::Player_Falling_1L_B_RH_07:
+
+                                    case Stance::Player_Standing_Jump_LH_00 ... Stance::Player_Standing_Jump_LH_11:
+                                    case Stance::Player_Running_Jump_LH_00 ... Stance::Player_Running_Jump_LH_11:
+                                    case Stance::Player_Falling_1L_A_LH_00 ... Stance::Player_Falling_1L_A_LH_07:
+                                    case Stance::Player_Falling_1L_B_LH_00 ... Stance::Player_Falling_1L_B_LH_07:
+        
+                                        enemy.pushSequence(Stance::Enemy_Spider_Die_00, Stance::Enemy_Spider_Die_05, true);
+                                        break;
+
+                                    default:
+                                        Serial.println("Dead (Spider)");
+                                        player.decHealth();
+                                        healthCounter = Constants::Health_Counter_Max;
+                                        healthFlash = true;
+                                        break;
+
+                                }
+        
+    // gPlayerRect = playerRect;
+    // gBananaRect = spiderRect;
+
+                            }
+
+                        }
+                        break;
+
+                }
 
             }
 
@@ -712,7 +739,7 @@ Serial.println("Test");
 
 
 
-        playGame_HandleEnemies(a);
+        playGame_HandleEnemies(a, world.getGameState());
 
 
 
@@ -728,16 +755,48 @@ Serial.println("Test");
     
 
 
+    if (gameOverCount < 0 && timesUpCount < 0) {
 
-    world.update();
+        world.update();
+
+    }
 
 
-    // if (player.getHealth() == 0) {
-    //     world.setGameState(GameState::HighScore_Init);
-    // }
+    // End of game ? -----------------------------------------------------------------------------------
+
+    if (gameOverCount >= 0) {
+
+        if (world.getFrameCount() % 3 == 0 && gameOverCount < 37) {    
+            gameOverCount++;
+        }
+
+    }
+
+    if (timesUpCount >= 0) {
+
+        if (world.getFrameCount() % 3 == 0 && timesUpCount < 37) {    
+            timesUpCount++;
+        }
+
+    }
+
+    if (gameOverCount == -1 && player.getHealth() == 0) {
+
+        gameOverCount = 0;
+        world.setGameState(GameState::PlayGame_GameOver);
+//        world.setGameState(GameState::HighScore_Init);
+
+    }
+
+    if (timesUpCount == -1 && world.getTime() == 0) {
+
+        timesUpCount = 0;
+        world.setGameState(GameState::PlayGame_TimesUp);
+//        world.setGameState(GameState::HighScore_Init);
+
+    }
 
 }
-
 
 void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
@@ -750,6 +809,45 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
     player.setImageIdx(stanceImg);
 
     playGame_Render(a, currentPlane);
+
+
+    if (gameOverCount >= 0) {
+        
+        GameOver gameOver;
+
+        FX::seekData(Constants::GameOver + (gameOverCount * 24));
+        FX::readObject(gameOver);
+        FX::readEnd();
+
+        SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
+        
+    }
+
+    if (timesUpCount >= 0) {
+        
+        GameOver gameOver;
+
+       FX::seekData(Constants::TimesUp + (timesUpCount * 24));
+        FX::readObject(gameOver);
+        FX::readEnd();
+
+        SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
+        
+    }
 
 }
 
