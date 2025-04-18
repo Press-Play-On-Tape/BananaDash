@@ -17,7 +17,6 @@ struct World {
         Item items[Constants::Item_Count];
         Enemy enemies[Constants::Enemy_Count];
 
-        uint16_t frameCount;
         int16_t background = 0;
         int16_t middleground = 0;
         int16_t foreground = 0;
@@ -32,7 +31,6 @@ struct World {
         Player &getPlayer()                             { return this->player; }
         Item &getItem(uint8_t idx)                      { return this->items[idx]; }
         Enemy &getEnemy(uint8_t idx)                    { return this->enemies[idx]; }
-        uint16_t getFrameCount()                        { return this->frameCount; }
         uint16_t getTime()                              { return this->time; }
         uint16_t getBananas()                           { return this->bananas; }
         int16_t getBackground()                         { return this->background; }
@@ -41,7 +39,6 @@ struct World {
         int8_t getXOffset()                             { return 0; } //this->xOffset; }
 
         void setGameState(GameState val)                { this->gameState = val; }
-        void setFrameCount(uint16_t val)                { this->frameCount = val; }
         void setTime(uint16_t val)                      { this->time = val; }
         void setBananas(uint16_t val)                   { this->bananas = val; }
         void setBackground(int16_t val)                 { this->background = val; }
@@ -74,12 +71,6 @@ struct World {
 
         }
         
-        void incFrameCount() {
-
-            this->frameCount++;
-
-        }
-
         void incForeground(int8_t val) {
             
             this->foreground = this->foreground + val;
@@ -102,7 +93,7 @@ struct World {
 
         }
 
-        void incTime(int8_t val) {
+        void incTime(int16_t val) {
             
             if (this->time + val <= (99 * 16)) {
                 this->time = this->time + val;
@@ -151,17 +142,6 @@ struct World {
         }
 
         void update() {
-
-            for (uint8_t i = 0; i < Constants::Item_Count; i++) {
-
-                Item &item = this->items[i];
-                ItemType itemType = item.getItemType();
-
-                if (itemType == ItemType::None) break;
-                
-                item.update();
-
-            }
 
             switch (this->player.getVelocityX()) {
 
@@ -323,14 +303,16 @@ struct World {
         bool canWalkLeft(EntityType entityType, int16_t x, uint8_t y, uint8_t tileL, uint8_t tile) {
             
             #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CWL "); 
-            DEBUG_PRINT(x);
-            DEBUG_PRINT(", abs(x%16)=");
-            DEBUG_PRINT(abs(x % 16));  
-            DEBUG_PRINT(", ");
-            DEBUG_PRINT(tileL); 
-            DEBUG_PRINT(" "); 
-            DEBUG_PRINTLN(tile); 
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CWL "); 
+                DEBUG_PRINT(x);
+                DEBUG_PRINT(", abs(x%16)=");
+                DEBUG_PRINT(abs(x % 16));  
+                DEBUG_PRINT(", ");
+                DEBUG_PRINT(tileL); 
+                DEBUG_PRINT(" "); 
+                DEBUG_PRINTLN(tile); 
+            }
             #endif
 
             switch (y) {
@@ -410,6 +392,14 @@ struct World {
 
                         case 26:                // On 2 level Vine
                         case 36:                // On 2 level Ladder
+                        case 60:
+                        case 61:
+                        case 62:
+                        case 63:
+                        case 64:
+                        case 65:
+                        case 66:
+                        case 67:
                             return false;
                     
                         case 5:       
@@ -525,11 +515,11 @@ struct World {
 
                         case 24:
 
-                            if (entityType == EntityType::Player) {
+                            //if (entityType == EntityType::Player) {
 
                                 return (abs(x % 16) == 8 ? false : true);
 
-                            }
+                            //}
 
                             break;
 
@@ -571,12 +561,14 @@ struct World {
 
         bool canFallLeft(EntityType entityType, uint8_t y, uint8_t tileL, uint8_t tile) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFL ");
-            DEBUG_PRINT(tileL);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tile);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFL ");
+                DEBUG_PRINT(tileL);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tile);
+            }
+            #endif
 
             switch (y) {
             
@@ -662,10 +654,12 @@ struct World {
         bool canFallLeft_TwoLevels(EntityType entityType, uint8_t y, uint8_t tileL, uint8_t tile) {
 
             #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFL2 ");
-            DEBUG_PRINT(tileL);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tile);
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFL2 ");
+                DEBUG_PRINT(tileL);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tile);
+            }
             #endif
 
             switch (y) {
@@ -703,14 +697,16 @@ struct World {
 
         bool canJumpLeft(EntityType entityType, uint8_t y, uint8_t tileL2, uint8_t tileL, uint8_t tile) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CJL ");
-            DEBUG_PRINT(tileL2);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINT(tileL);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tile);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CJL ");
+                DEBUG_PRINT(tileL2);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINT(tileL);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tile);
+            }
+            #endif
 
             switch (y) {
             
@@ -830,16 +826,18 @@ struct World {
 
         bool canFallLeft_Down_1Level(EntityType entityType, int16_t x, uint8_t y, uint8_t tileL, uint8_t tile) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFLD 1L ");
-            DEBUG_PRINT(x);
-            DEBUG_PRINT(", abs(x%16)=");
-            DEBUG_PRINT(abs(x % 16));  
-            DEBUG_PRINT(", ");
-            DEBUG_PRINT(tileL);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tile);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFLD 1L ");
+                DEBUG_PRINT(x);
+                DEBUG_PRINT(", abs(x%16)=");
+                DEBUG_PRINT(abs(x % 16));  
+                DEBUG_PRINT(", ");
+                DEBUG_PRINT(tileL);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tile);
+            }
+            #endif
 
             switch (y) {
             
@@ -946,12 +944,14 @@ struct World {
 
         bool canFallLeft_Down_2Levels(EntityType entityType, uint8_t y, uint8_t tileL, uint8_t tile) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFLD 2L ");
-            DEBUG_PRINT(tileL);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tile);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFLD 2L ");
+                DEBUG_PRINT(tileL);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tile);
+            }
+            #endif
 
             switch (y) {
             
@@ -1007,14 +1007,16 @@ struct World {
         bool canWalkRight(EntityType entityType, int16_t x, uint8_t y, uint8_t tile, uint8_t tileR) {
 
             #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CWR "); 
-            DEBUG_PRINT(x);
-            DEBUG_PRINT(", abs(x%16)=");
-            DEBUG_PRINT(abs(x % 16));  
-            DEBUG_PRINT(", ");
-            DEBUG_PRINT(tile); 
-            DEBUG_PRINT(" "); 
-            DEBUG_PRINTLN(tileR); 
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CWR "); 
+                DEBUG_PRINT(x);
+                DEBUG_PRINT(", abs(x%16)=");
+                DEBUG_PRINT(abs(x % 16));  
+                DEBUG_PRINT(", ");
+                DEBUG_PRINT(tile); 
+                DEBUG_PRINT(" "); 
+                DEBUG_PRINTLN(tileR); 
+            }
             #endif
 
             switch (y) {
@@ -1061,6 +1063,14 @@ struct World {
                         case 23:
                         case 26:                // On 2 level Vine
                         case 36:                // On 2 level Ladder
+                        case 60:         
+                        case 61:         
+                        case 62:         
+                        case 63:         
+                        case 64:         
+                        case 65:         
+                        case 66:         
+                        case 67:         
                         case 254:             
                         case 255:             
 
@@ -1205,12 +1215,14 @@ struct World {
 
         bool canFallRight(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
 
-            //#ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFR ");
-            DEBUG_PRINT(tile);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tileR);
-            //#endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFR ");
+                DEBUG_PRINT(tile);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tileR);
+            }
+            #endif
 
             switch (y) {
             
@@ -1295,12 +1307,14 @@ struct World {
 
         bool canFallRight_TwoLevels(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
 
-            //#ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFR2 ");
-            DEBUG_PRINT(tile);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tileR);
-            //#endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFR2 ");
+                DEBUG_PRINT(tile);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tileR);
+            }
+            #endif
 
             switch (y) {
             
@@ -1337,14 +1351,16 @@ struct World {
 
         bool canJumpRight(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR, uint8_t tileR2) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CJR ");
-            DEBUG_PRINT(tile);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINT(tileR);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tileR2);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CJR ");
+                DEBUG_PRINT(tile);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINT(tileR);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tileR2);
+            }
+            #endif
 
             switch (y) {
             
@@ -1462,12 +1478,14 @@ struct World {
 
         bool canFallRight_Down_2Levels(EntityType entityType, uint8_t y, uint8_t tile, uint8_t tileR) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFRD 2L ");
-            DEBUG_PRINT(tile);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tileR);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFRD 2L ");
+                DEBUG_PRINT(tile);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tileR);
+            }
+            #endif
 
             switch (y) {
             
@@ -1522,16 +1540,18 @@ struct World {
 
         bool canFallRight_Down_1Level(EntityType entityType, int16_t x, uint8_t y, uint8_t tile, uint8_t tileR) {
 
-            // #ifdef DEBUG_FALLS
-            DEBUG_PRINT("CFRD 1L ");
-            DEBUG_PRINT(x);
-            DEBUG_PRINT(", abs(x%16)=");
-            DEBUG_PRINT(abs(x % 16));  
-            DEBUG_PRINT(", ");
-            DEBUG_PRINT(tile);
-            DEBUG_PRINT(" ");
-            DEBUG_PRINTLN(tileR);
-            // #endif
+            #ifdef DEBUG_FALLS
+            if (entityType == EntityType::Player) {
+                DEBUG_PRINT("CFRD 1L ");
+                DEBUG_PRINT(x);
+                DEBUG_PRINT(", abs(x%16)=");
+                DEBUG_PRINT(abs(x % 16));  
+                DEBUG_PRINT(", ");
+                DEBUG_PRINT(tile);
+                DEBUG_PRINT(" ");
+                DEBUG_PRINTLN(tileR);
+            }
+            #endif
 
             switch (y) {
             
@@ -1586,6 +1606,7 @@ struct World {
 
                     switch (tile) {
 
+                        case 0:
                         case 3:
                         case 4:
                         case 24:

@@ -7,7 +7,7 @@
 //
 void splashScreen_Update() { 
 
-    world.incFrameCount();
+    frameCount = frameCount + 1;
 
     if (titleCounter < 32) titleCounter++;   
 
@@ -34,10 +34,10 @@ void splashScreen(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
     SpritesU::drawOverwriteFX(0, 0, Images::PPOT, (3 * idx) + currentPlane);
 
-    if (world.getFrameCount() == 12) {
+    if (frameCount == 12) {
 
         idx = (idx + 1) % 4;
-        world.setFrameCount(0);
+        frameCount = 0;
         world.setGameState(static_cast<GameState>(static_cast<uint8_t>(GameState::SplashScreen_Start) + idx));
 
     }

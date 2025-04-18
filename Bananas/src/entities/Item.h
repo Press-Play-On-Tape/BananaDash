@@ -46,7 +46,7 @@ class Item {
 
         }
 
-        void update() {
+        ItemUpdate update() {
 
             switch (this->getItemType()) {
 
@@ -59,6 +59,7 @@ class Item {
                         if (this->counter == 0) {
                         
                             this->itemType = ItemType::Banana_Hidden;
+                            return ItemUpdate::LaunchBanana;
 
                         }
 
@@ -84,6 +85,8 @@ class Item {
 
             }
 
+            return ItemUpdate::None;
+
         }
 
         Rect getRect(int16_t worldOffset) {
@@ -94,10 +97,10 @@ class Item {
         
                 case ItemType::Banana:
 
-                    rect.x = 55 + worldOffset;
-                    rect.y = this->getY();
-                    rect.width = 10;
-                    rect.height = 10;
+                    rect.x = 57 + worldOffset;
+                    rect.y = this->getY() + 2;
+                    rect.width = 6;
+                    rect.height = 6;
 
                     break;
         

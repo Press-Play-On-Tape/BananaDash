@@ -304,7 +304,7 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
                             case Stance::Enemy_Falling_2L_LH_11:
                             case Stance::Enemy_Falling_2L_RH_11:
 
-                                if (a.randomLFSR(0, 2) == 0) { //SJH
+                                if (a.randomLFSR(0, 2) == 0) { 
                                     enemy.pushSequence(Stance::Enemy_Rolling_LH_00, Stance::Enemy_Rolling_LH_01);
                                 }
                                 else {
@@ -315,7 +315,6 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
                             case Stance::Enemy_Rolling_LH_01:
                             case Stance::Enemy_Rolling_LH_03:
-                            // case Stance::Enemy_Falling_1L_LH_07:
 
                                 if (world.canWalkLeft(EntityType::Barrel,enemy.getX(), enemy.getY(), tileL, tile)) {
 
@@ -343,7 +342,6 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
                             case Stance::Enemy_Rolling_RH_01:
                             case Stance::Enemy_Rolling_RH_03:
-                            // case Stance::Enemy_Falling_1L_RH_07:
 
                                 if (world.canWalkRight(EntityType::Barrel, enemy.getX(), enemy.getY(), tile, tileR)) {
 
@@ -356,7 +354,7 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
                                 }
                                 else if (world.canFallRight_TwoLevels(EntityType::Barrel, enemy.getY(), tile, tileR)) {
-Serial.println("here");
+
                                     enemy.pushSequence(Stance::Enemy_Falling_2L_RH_00, Stance::Enemy_Falling_2L_RH_11);
 
                                 }                                
@@ -415,38 +413,26 @@ Serial.println("here");
 void launchBarrel(Enemy &enemy) {
 
     bool contTile = true;
+    uint8_t worldRepeat = abs(world.getForeground()) / (Constants::Tile_Count * 16);
+    if (worldRepeat == Constants::World_Repeat) worldRepeat = worldRepeat - 1;
 
     while (contTile) {
 
-        bool contBananaFound = false;
-        uint8_t r = a.randomLFSR(0, Constants::Tile_Count);
+        uint16_t r = a.randomLFSR(0, Constants::Tile_Count);
+        uint8_t idx = Level::Level[r];
 
-        for (uint8_t i = 1; i < Constants::Item_Count; i++) {
+        switch (idx) {
         
-            Item item = world.getItem(i);
+            case 20 ... 23:
+            case 25 ... 34:
+            case 36 ... 38:
+            case 40 ... 41:
 
-            if (item.getItemType() == ItemType::Banana && item.getY() == 15 && item.getX() == r * 16) {
-                contBananaFound = true;
-                continue;
-            }
-
-        }
-
-        if (!contBananaFound) {
-            
-            // uint8_t idx = FX::readIndexedUInt8(Level::Level, r);
-            uint8_t idx = Level::Level[r];
-
-            switch (idx) {
-            
-                case 20 ... 23:
-                case 25 ... 34:
-                case 36 ... 38:
-                case 40 ... 41:
-
+                if (!doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
+                
                     enemy.setEntityType(EntityType::Barrel);
                     enemy.setY(-6);
-                    enemy.setX(r * 16);
+                    enemy.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
                     enemy.setCounter(48);
 
                     enemy.setStance(Stance::Enemy_Fall_1L_00);
@@ -454,12 +440,162 @@ void launchBarrel(Enemy &enemy) {
 
                     contTile = false;
 
-                    break;
+                }
 
-            }
+                break;
 
         }
 
     }
+
+}
+
+void launchBanana(Item &bananaToLaunch) {
+
+    bool contTile = true;
+    uint8_t worldRepeat = abs(world.getForeground()) / (Constants::Tile_Count * 16);
+    if (worldRepeat == Constants::World_Repeat) worldRepeat = worldRepeat - 1;
+
+    while (contTile) {
+
+        uint16_t r = a.randomLFSR(0, Constants::Tile_Count);
+        uint16_t h = a.randomLFSR(0, 3);
+        
+        if (abs(world.getForeground() + (r * 16) + (worldRepeat * Constants::Tile_Count * 16)) < 80) continue;
+
+        uint8_t idx = Level::Level[r];
+        uint8_t flags = FX::readIndexedUInt8(Constants::BananaLaunch, idx);
+        
+        switch (h) {
+        
+            case 0:
+
+                if ((flags & 1) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 47)) {
+
+                    bananaToLaunch.setItemType(ItemType::Banana);
+                    bananaToLaunch.setY(47);
+                    bananaToLaunch.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
+                    contTile = false;
+                
+                }
+
+                break;
+        
+            case 1:
+
+                if ((flags & 2) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 31)) {
+
+                    bananaToLaunch.setItemType(ItemType::Banana);
+                    bananaToLaunch.setY(31);
+                    bananaToLaunch.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
+                    contTile = false;
+                
+                }
+
+                break;
+        
+            case 2:
+
+                if ((flags & 4) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
+
+                    bananaToLaunch.setItemType(ItemType::Banana);
+                    bananaToLaunch.setY(15);
+                    bananaToLaunch.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
+                    contTile = false;
+                
+                }
+
+                break;
+
+        }
+
+    }
+
+}
+
+
+void launchHeart(Item &bananaToLaunch) {
+
+    bool contTile = true;
+    uint8_t worldRepeat = abs(world.getForeground()) / (Constants::Tile_Count * 16);
+    if (worldRepeat == Constants::World_Repeat) worldRepeat = worldRepeat - 1;
+
+    while (contTile) {
+
+        uint16_t r = a.randomLFSR(0, Constants::Tile_Count);
+        uint16_t h = a.randomLFSR(0, 3);
+
+        uint8_t idx = Level::Level[r];
+        uint8_t flags = FX::readIndexedUInt8(Constants::BananaLaunch, idx);
+        
+        if (abs(world.getForeground() + (r * 16) + (worldRepeat * Constants::Tile_Count * 16)) < 80) continue;
+
+        switch (h) {
+        
+            case 0:
+
+                if ((flags & 1) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 47)) {
+
+                    bananaToLaunch.setItemType(ItemType::Heart);
+                    bananaToLaunch.setY(50);
+                    bananaToLaunch.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
+                    bananaToLaunch.setCounter(0);
+                    contTile = false;
+                
+                }
+
+                break;
+        
+            case 1:
+
+                if ((flags & 2) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 31)) {
+
+                    bananaToLaunch.setItemType(ItemType::Heart);
+                    bananaToLaunch.setY(34);
+                    bananaToLaunch.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
+                    bananaToLaunch.setCounter(0);
+                    contTile = false;
+                
+                }
+
+                break;
+        
+            case 2:
+
+                if ((flags & 4) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
+
+                    bananaToLaunch.setItemType(ItemType::Heart);
+                    bananaToLaunch.setY(18);
+                    bananaToLaunch.setX((r * 16) + (worldRepeat * Constants::Tile_Count * 16));
+                    bananaToLaunch.setCounter(0);
+                    contTile = false;
+                
+                }
+
+                break;
+
+        }
+
+    }
+
+}
+
+bool doesBananaExistAtLocation(int16_t x, uint8_t y) {
+
+    // Make sure there is not an existing banana in the same location ..
+
+    for (uint8_t i = 1; i < Constants::Item_Count; i++) {
+    
+        Item item = world.getItem(i);
+
+        if (item.getItemType() == ItemType::Banana && 
+            item.getY() == y && 
+            item.getX() == x) {
+            return true;
+        }
+
+    }
+
+    return false;
 
 }

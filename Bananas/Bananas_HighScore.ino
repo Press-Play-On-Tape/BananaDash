@@ -57,7 +57,7 @@ void highScore_Update() {
     const uint8_t pressed = getPressedButtons();
     Player &player = world.getPlayer();
 
-    world.incFrameCount();
+    frameCount = frameCount + 1;
 
     switch (world.getGameState()) {
         
@@ -149,7 +149,7 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
     Player &player = world.getPlayer();
     uint8_t currentPlane = a.currentPlane();
     
-    SpritesU::drawOverwriteFX(0, 0, Images::Title, (3 * 3) + currentPlane);
+    SpritesU::drawOverwriteFX(0, 0, Images::Title, (6 * 3) + currentPlane);
 
     for (uint8_t y = 0; y < 5; y++) {
 
@@ -163,7 +163,7 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
         }
         else {
 
-            if (highScore_Char != 0 || highScore_Entry > 4 || (world.getFrameCount() % 64) < 32) {
+            if (highScore_Char != 0 || highScore_Entry > 4 || (frameCount % 64) < 32) {
                 SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][0] * 3) + currentPlane);
             }
 
@@ -178,7 +178,7 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
         }
         else {
 
-            if (highScore_Char != 1 || highScore_Entry > 4 || (world.getFrameCount() % 64) < 32) {
+            if (highScore_Char != 1 || highScore_Entry > 4 || (frameCount % 64) < 32) {
                 SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][1] * 3) + currentPlane);
             }
 
@@ -193,7 +193,7 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
         }
         else {
 
-            if (highScore_Char != 2 || highScore_Entry > 4 || (world.getFrameCount() % 64) < 32) {
+            if (highScore_Char != 2 || highScore_Entry > 4 || (frameCount % 64) < 32) {
                 SpritesU::drawPlusMaskFX(81 + xOffset, 19 + (y * 9), Images::Font_Alpha, (cookie.highScore_Chars[y][2] * 3) + currentPlane);
             }
 
@@ -209,8 +209,6 @@ void highScore(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
             highScore_RenderScore(a, y);
 
         }
-
-
 
     }
 

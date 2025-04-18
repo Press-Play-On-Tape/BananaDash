@@ -64,49 +64,24 @@ MusicSong getSongPlaying() {
 void playSong(MusicSong song) {
 
     current_song = song;
+    
+    if (soundSettings.getSounds() && isAudioEnabled()) {
 
-    #ifndef SOUND_SIMPLE
-        
-        if (soundSettings.getSounds() && isAudioEnabled()) {
+        uint24_t musicStart = FX::readIndexedUInt24(Music::Songs, static_cast<uint8_t>(song));
+        SynthU::play(musicStart);
 
-            uint24_t musicStart = FX::readIndexedUInt24(Music::Songs, static_cast<uint8_t>(song));
-            SynthU::play(musicStart);
+    }
 
-        }
-
-    #else 
-
-        if (soundSettings.getMusic() && isAudioEnabled()) {
-
-            uint24_t musicStart = FX::readIndexedUInt24(Music::Songs, static_cast<uint8_t>(song));
-            SynthU::play(musicStart);
-
-        }
-
-    #endif
 }
 
 void playSFX(MusicSFX sfx) {
 
-    #ifndef SOUND_SIMPLE
+    if (soundSettings.getSounds() && isAudioEnabled()) {
 
-        if (soundSettings.getSounds() && isAudioEnabled()) {
+        uint24_t sfxStart = FX::readIndexedUInt24(Music::SFXs, static_cast<uint8_t>(sfx));
+        SynthU::playSFX(sfxStart);
 
-            uint24_t sfxStart = FX::readIndexedUInt24(Music::SFXs, static_cast<uint8_t>(sfx));
-            SynthU::playSFX(sfxStart);
-
-        }
-
-    #else
-
-        if (soundSettings.getSFX() && isAudioEnabled()) {
-
-            uint24_t sfxStart = FX::readIndexedUInt24(Music::SFXs, static_cast<uint8_t>(sfx));
-            SynthU::playSFX(sfxStart);
-
-        }
-
-    #endif
+    }
 
 }
 

@@ -32,31 +32,31 @@ bool isAlignedWithLevel() {
 
 }
 
+uint8_t getTile_ByIdx(int16_t i) {
 
-// bool isAtRightOfTile() {
+    if (i < 0) return 255;
 
-//     int16_t x = world.getForeground() % 16;
+    if (i == (Constants::World_Repeat * Constants::Tile_Count)) return 254;
+    if (i == (Constants::World_Repeat * Constants::Tile_Count) + 1) return 11;
+    if (i >= (Constants::World_Repeat * Constants::Tile_Count)) return 255;
 
-//     return x == -8;
+    uint8_t tile = Level::Level[i % Constants::Tile_Count];    
+    return tile;
 
-// }
-
-// bool isAtLeftOfTile() {
-
-//     int16_t x = world.getForeground() % 16;
-
-//     return x == -8;
-
-// }
+}
 
 uint8_t getTile(int8_t offset) {
 
     int8_t xOffset = world.getPlayer().getDirection() == Direction::Left ? -4 : 0;
     int16_t i = (-(world.getForeground() - 8 - xOffset) / 16) + offset;
+
     if (i < 0) return 255;
+    if (i == (Constants::World_Repeat * Constants::Tile_Count)) return 254;
+    if (i == (Constants::World_Repeat * Constants::Tile_Count) + 1) return 11;
+    if (i >= (Constants::World_Repeat * Constants::Tile_Count)) return 255;
 
     // uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
-    uint8_t tile = Level::Level[i];    
+    uint8_t tile = Level::Level[i % Constants::Tile_Count];    
     return tile;
 
 }
@@ -66,9 +66,12 @@ uint8_t getEnemyTile(int16_t enemyX, int8_t offset) {
 
     int16_t i = (enemyX / 16) + offset;
     if (i < 0) return 255;
+    if (i == (Constants::World_Repeat * Constants::Tile_Count)) return 254;
+    if (i == (Constants::World_Repeat * Constants::Tile_Count) + 1) return 11;
+    if (i >= (Constants::World_Repeat * Constants::Tile_Count)) return 255;
 
     // uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
-    uint8_t tile = Level::Level[i];    
+    uint8_t tile = Level::Level[i % Constants::Tile_Count];    
     return tile;
 
 }

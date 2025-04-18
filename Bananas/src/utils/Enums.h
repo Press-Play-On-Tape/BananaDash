@@ -54,6 +54,11 @@ struct StanceDetails {
     
 };
 
+enum class ItemUpdate : uint8_t {
+    None,
+    LaunchBanana,
+};
+
 enum class EntityType : uint8_t {
     None,
     Player,
@@ -90,8 +95,8 @@ enum class GameState : uint8_t {
     Title_Init,
     Title_Start,
         Title_Play_Game = Title_Start,
-        Title_Sounds,
         Title_Highs,
+        Title_Sounds,
 	Title_End,
 
     PlayGame_Init,

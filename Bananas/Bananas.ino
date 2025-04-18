@@ -42,9 +42,12 @@ World world;
 uint8_t currentPlane;
 uint8_t titleCounter = 0;
 uint16_t directionCounter = 0;
+uint8_t directionCounter_Left = 0;
+uint8_t directionCounter_Right = 0;
 uint16_t healthCounter = 0;
 uint16_t healthFlash = 0;
 uint16_t timeCounter = 0;
+uint16_t frameCount = 0;
 int8_t gameOverCount = -1;
 int8_t timesUpCount = -1;
 
@@ -64,29 +67,27 @@ void setup(void) {
     #endif
 
 
+    // cookie.highScore_Chars[0][0] = 0;
+    // cookie.highScore_Chars[0][1] = 0;
+    // cookie.highScore_Chars[0][2] = 0;
+    // cookie.highScore_Chars[1][0] = 1;
+    // cookie.highScore_Chars[1][1] = 1;
+    // cookie.highScore_Chars[1][2] = 1;
+    // cookie.highScore_Chars[2][0] = 2;
+    // cookie.highScore_Chars[2][1] = 2;
+    // cookie.highScore_Chars[2][2] = 2;
+    // cookie.highScore_Chars[3][0] = 3;
+    // cookie.highScore_Chars[3][1] = 3;
+    // cookie.highScore_Chars[3][2] = 3;
+    // cookie.highScore_Chars[4][0] = 4;
+    // cookie.highScore_Chars[4][1] = 4;
+    // cookie.highScore_Chars[4][2] = 4;
 
-
-    cookie.highScore_Chars[0][0] = 0;
-    cookie.highScore_Chars[0][1] = 0;
-    cookie.highScore_Chars[0][2] = 0;
-    cookie.highScore_Chars[1][0] = 1;
-    cookie.highScore_Chars[1][1] = 1;
-    cookie.highScore_Chars[1][2] = 1;
-    cookie.highScore_Chars[2][0] = 2;
-    cookie.highScore_Chars[2][1] = 2;
-    cookie.highScore_Chars[2][2] = 2;
-    cookie.highScore_Chars[3][0] = 3;
-    cookie.highScore_Chars[3][1] = 3;
-    cookie.highScore_Chars[3][2] = 3;
-    cookie.highScore_Chars[4][0] = 4;
-    cookie.highScore_Chars[4][1] = 4;
-    cookie.highScore_Chars[4][2] = 4;
-
-    cookie.highScore_Values[0] = 314;
-    cookie.highScore_Values[1] = 256;
-    cookie.highScore_Values[2] = 170;
-    cookie.highScore_Values[3] = 98;
-    cookie.highScore_Values[4] = 46;
+    // cookie.highScore_Values[0] = 0;
+    // cookie.highScore_Values[1] = 0;
+    // cookie.highScore_Values[2] = 0;
+    // cookie.highScore_Values[3] = 0;
+    // cookie.highScore_Values[4] = 0;
 
 }
 

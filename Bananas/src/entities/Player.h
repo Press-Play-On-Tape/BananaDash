@@ -34,7 +34,7 @@ class Player {
 
             this->y = 46;
             this->velocityX = 0;
-            this->health = 1; // SJH 11
+            this->health = 11;
             this->clear();
 
         }
@@ -44,13 +44,13 @@ class Player {
 
         void decHealth() {
         
-            // if (this->health > 1) {
-            //     this->health = this->health - 2;
-            // }
-            // else {
-            //     this->health = 0;
+            if (this->health > 1) {
+                this->health = this->health - 2;
+            }
+            else {
+                this->health = 0;
            
-            // }
+            }
 
         }
 

@@ -69,25 +69,44 @@ void playGame_Init() {
     world.getItem(0).setY(16);
     world.getItem(0).setX(-800);
 
+    launchBanana(world.getItem(1));
+    launchBanana(world.getItem(2));
+    launchBanana(world.getItem(3));
+    launchBanana(world.getItem(4));
+    launchBanana(world.getItem(5));
+    launchBanana(world.getItem(6));
 
-    // launchBarrel(world.getEnemy(0));
+    launchHeart(world.getItem(10));
+    launchHeart(world.getItem(11));
 
-    // world.getItem(1).setItemType(ItemType::Fire);
-    // world.getItem(1).setY(42);
-    // world.getItem(1).setX(96);
+    world.getItem(7).setItemType(ItemType::Fire);
+    world.getItem(7).setY(42);
+    world.getItem(7).setX(208);
 
-/*
+    world.getItem(8).setItemType(ItemType::Fire);
+    world.getItem(8).setY(42);
+    world.getItem(8).setX(1008);
 
-    world.getItem(1).setItemType(ItemType::Banana);
-    world.getItem(1).setY(15);
-    world.getItem(1).setX(80);
+    world.getItem(9).setItemType(ItemType::Fire);
+    world.getItem(9).setY(42);
+    world.getItem(9).setX(1280);
 
-    world.getItem(2).setItemType(ItemType::Heart);
-    world.getItem(2).setY(34);
-    world.getItem(2).setX(80 + 16);
+    // world.getItem(1).setItemType(ItemType::Banana);
+    // world.getItem(1).setY(15);
+    // world.getItem(1).setX(80);
 
 
-    uint8_t i = 0;
+    // world.getItem(1).setItemType(ItemType::Banana);
+    // world.getItem(1).setY(15);
+    // world.getItem(1).setX(80);
+
+
+    launchBarrel(world.getEnemy(0));
+    launchBarrel(world.getEnemy(1));
+    launchBarrel(world.getEnemy(2));
+    launchBarrel(world.getEnemy(3));
+
+    uint8_t i = 4;
 
     world.getEnemy(i).setEntityType(EntityType::Spider);
     world.getEnemy(i).setY(46);
@@ -104,10 +123,7 @@ void playGame_Init() {
     world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
     world.getEnemy(i).setCounter(0);
 
-    for (i = 2; i < 4; i++) {
-        launchBarrel(world.getEnemy(i));
-    }
-
+    i++;
     world.getEnemy(i).setEntityType(EntityType::Bird);
     world.getEnemy(i).setY(28);
     world.getEnemy(i).setX(160 - 16);
@@ -124,11 +140,33 @@ void playGame_Init() {
     world.getEnemy(i).setCounter(0);
 
 
-
-
-*/
-
+    updateDirectionCounter();
     world.setForeground(-64);
+
+}
+
+void updateDirectionCounter() {
+
+    directionCounter = 340;
+    directionCounter_Left = 0;
+    directionCounter_Right = 0;
+    
+    for (uint8_t i = 0; i < Constants::Item_Count; i++) {
+    
+        Item &item = world.getItem(i);
+
+        if (item.getItemType() == ItemType::Banana) {
+
+            if (item.getX() < -world.getForeground()) {
+                directionCounter_Left++;
+            }
+            else {
+                directionCounter_Right++;
+            }
+
+        }
+    
+    }
 
 }
 
@@ -137,12 +175,11 @@ void playGame_Init() {
 //
 void playGame_Update() { 
 
-
     const uint8_t justPressed = getJustPressedButtons();
     const uint8_t pressed = getPressedButtons();
     Player &player = world.getPlayer();
 
-    world.incFrameCount();
+    frameCount = frameCount + 1;
 
     uint8_t tileL2 = getTile(-2);
     uint8_t tileL = getTile(-1);
@@ -150,25 +187,16 @@ void playGame_Update() {
     uint8_t tileR = getTile(1);
     uint8_t tileR2 = getTile(2);
 
-    if (world.getFrameCount() % 3 == 0) {
+    if (frameCount % 3 == 0) {
 
         if (player.isEmpty()) {
 
             switch (world.getGameState()) {
 
                 case GameState::PlayGame_GameOver:
-
-                    if (pressed & A_BUTTON && gameOverCount > 10) {
-
-                        world.setGameState(GameState::HighScore_Init);
-
-                    }
-
-                    break;
-
                 case GameState::PlayGame_TimesUp:
 
-                    if (pressed & A_BUTTON && timesUpCount > 10) {
+                    if (pressed & A_BUTTON && timesUpCount > 30) {
 
                         world.setGameState(GameState::HighScore_Init);
 
@@ -180,6 +208,7 @@ void playGame_Update() {
 
                     if (pressed & B_BUTTON) {
 
+                        updateDirectionCounter();
                         healthCounter = Constants::Health_Counter_Max / 2;
                         healthFlash = false;
 
@@ -400,12 +429,12 @@ void playGame_Update() {
                     case Stance::Player_Running_Jump_RH_11:
 
                         if (world.canFallRight_Down_2Levels(EntityType::Player, player.getY(), tile, tileR)) {
-    Serial.println("canFallRight_Down_2Levels");
+    // Serial.println("canFallRight_Down_2Levels");
                             player.pushSequence(Stance::Player_Falling_2L_C_RH_00, Stance::Player_Falling_2L_C_RH_07);
 
                         }
                         else if (world.canFallRight_Down_1Level(EntityType::Player, world.getForeground(), player.getY(), tile, tileR)) {
-    Serial.println("canFallRight_Down_1Level");
+    // Serial.println("canFallRight_Down_1Level");
                             player.pushSequence(Stance::Player_Falling_2L_C_RH_04, Stance::Player_Falling_2L_C_RH_07);
 
                         }
@@ -413,14 +442,14 @@ void playGame_Update() {
                         break;
 
                     case Stance::Player_Running_Jump_LH_11:
-Serial.println("Test");
+// Serial.println("Test");
                         if (world.canFallLeft_Down_2Levels(EntityType::Player, player.getY(), tileL, tile)) {
-    Serial.println("canFallLeft_Down_2Levels");
+    // Serial.println("canFallLeft_Down_2Levels");
                             player.pushSequence(Stance::Player_Falling_2L_C_LH_00, Stance::Player_Falling_2L_C_LH_07);
 
                         }
                         else if (world.canFallLeft_Down_1Level(EntityType::Player, world.getForeground(), player.getY(), tileL, tile)) {
-    Serial.println("canFallLeft_Down_1Level");
+    // Serial.println("canFallLeft_Down_1Level");
                             player.pushSequence(Stance::Player_Falling_2L_C_LH_04, Stance::Player_Falling_2L_C_LH_07);
 
                         }
@@ -558,10 +587,10 @@ Serial.println("Test");
 
                             item.setCounter(5);
                             launchPuff(PuffType::Banana, item);
-                            directionCounter = 340;
                             world.incTime(5 * 16);
                             world.setBananas(world.getBananas() + 1);
                             timeCounter = Constants::Time_Counter_Max;
+                            playSFX(MusicSFX::SFX_PickUpItem);
 
                         }
 
@@ -579,10 +608,11 @@ Serial.println("Test");
 
                             item.setCounter(5);
                             launchPuff(PuffType::Heart, item);
-                            player.incHealth(4);
+                            player.incHealth(2);
                             healthCounter = Constants::Health_Counter_Max;
                             healthFlash = false;
-                            item.setItemType(ItemType::Heart_Hidden);
+                            launchHeart(item);
+                            playSFX(MusicSFX::SFX_XPGain);
 
                         }
 
@@ -597,19 +627,21 @@ Serial.println("Test");
                     {
                         if (healthCounter == 0) {
                             
-                            Rect fireRect = item.getRect(item.getX() + world.getForeground() + world.getXOffset());
+                            int16_t wf = world.getForeground() % (16 * Constants::Tile_Count);
+                            Rect fireRect = item.getRect(item.getX() + wf + world.getXOffset());
 
                             if (collide(playerRect, fireRect)) {
 
                                 item.setCounter(5);
-                                Serial.println("Dead (Fire)");
+                                // Serial.println("Dead (Fire)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
+                                playSFX(MusicSFX::SFX_PlayerBlip);
 
                             }
-// gPlayerRect = playerRect;
-// gEnemyRect = fireRect;
+gPlayerRect = playerRect;
+gEnemyRect = fireRect;
                         }
 
                     }
@@ -638,10 +670,11 @@ Serial.println("Test");
 
                             if (collide(playerRect, barrelRect)) {
 
-                                Serial.println("Dead (Barrel)");
+                                // Serial.println("Dead (Barrel)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
+                                playSFX(MusicSFX::SFX_PlayerBlip);
 
                                 // DEBUG_BREAK
 
@@ -661,10 +694,11 @@ Serial.println("Test");
 
                             if (collide(playerRect, birdRect)) {
 
-                                Serial.println("Dead (Bird)");
+                                // Serial.println("Dead (Bird)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
+                                playSFX(MusicSFX::SFX_PlayerBlip);
 
                                 // DEBUG_BREAK
 
@@ -700,10 +734,11 @@ Serial.println("Test");
                                         break;
 
                                     default:
-                                        Serial.println("Dead (Spider)");
+                                        // Serial.println("Dead (Spider)");
                                         player.decHealth();
                                         healthCounter = Constants::Health_Counter_Max;
                                         healthFlash = true;
+                                        playSFX(MusicSFX::SFX_PlayerBlip);
                                         break;
 
                                 }
@@ -722,40 +757,39 @@ Serial.println("Test");
 
         }
 
-
-        // Handle falling and other special actions ..
-
-        // switch (static_cast<Stance>(stance)) {
-
-        //     // case Stance::Man_Walk_FallLand_LH_03_Puff:
-        //     // case Stance::Man_Walk_FallLand_RH_03_Puff:
-        //     //     launchPuffLand(player);
-        //     //     break;
-        // }
-
-
-        // world.updateEnemies(a);
         player.update();
-
-
-
         playGame_HandleEnemies(a, world.getGameState());
-
-
-
-
-
-
-
-
-        world.decTime();
-
+        world.decTime(); 
 
     }
     
 
-
     if (gameOverCount < 0 && timesUpCount < 0) {
+
+        for (uint8_t i = 0; i < Constants::Item_Count; i++) {
+
+            Item &item = world.getItem(i);
+            ItemType itemType = item.getItemType();
+
+            if (itemType == ItemType::None) break;
+            
+            ItemUpdate itemUpdate = item.update();
+
+            switch (itemUpdate) {
+            
+                case ItemUpdate::LaunchBanana:
+                    {
+
+                        launchBanana(item);
+                        updateDirectionCounter();
+
+                    }
+
+                    break;
+
+            }
+
+        }
 
         world.update();
 
@@ -766,7 +800,7 @@ Serial.println("Test");
 
     if (gameOverCount >= 0) {
 
-        if (world.getFrameCount() % 3 == 0 && gameOverCount < 37) {    
+        if (frameCount % 3 == 0 && gameOverCount < 37) {    
             gameOverCount++;
         }
 
@@ -774,7 +808,7 @@ Serial.println("Test");
 
     if (timesUpCount >= 0) {
 
-        if (world.getFrameCount() % 3 == 0 && timesUpCount < 37) {    
+        if (frameCount % 3 == 0 && timesUpCount < 37) {    
             timesUpCount++;
         }
 
@@ -784,7 +818,7 @@ Serial.println("Test");
 
         gameOverCount = 0;
         world.setGameState(GameState::PlayGame_GameOver);
-//        world.setGameState(GameState::HighScore_Init);
+        playSFX(MusicSFX::SFX_Death);
 
     }
 
@@ -792,7 +826,7 @@ Serial.println("Test");
 
         timesUpCount = 0;
         world.setGameState(GameState::PlayGame_TimesUp);
-//        world.setGameState(GameState::HighScore_Init);
+        playSFX(MusicSFX::SFX_Death);
 
     }
 

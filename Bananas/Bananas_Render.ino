@@ -38,13 +38,13 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     //
     // Render level ..
     
-    int16_t xMin = (- 55 - world.getForeground() -+ world.getXOffset()) / 16;
+    int16_t xMin = (- 55 - world.getForeground() - world.getXOffset()) / 16;
     int16_t xMax = xMin + 9;
 
-    for (uint8_t i = xMin; i < xMax; i++) {    
+    for (int8_t i = xMin; i < xMax; i++) {    
 
         // uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
-        uint8_t levelIdx = Level::Level[i];
+        uint8_t levelIdx = getTile_ByIdx(i);
 
         switch (levelIdx) {
         
@@ -75,6 +75,10 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
         Item &item = world.getItem(i);
 
+        int16_t x = 55 + item.getX() + world.getForeground() + world.getXOffset();
+        if (x < -32 || x > 128) continue;
+
+
         if (item.getItemType() == ItemType::Banana) {
 
             SpritesU::drawPlusMaskFX(55 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Banana, currentPlane);
@@ -89,8 +93,10 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
         if (item.getItemType() == ItemType::Fire) {
 
-            uint8_t frame = (world.getFrameCount() / 4) % 6;
-            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
+            uint8_t frame = (frameCount / 4) % 6;
+
+            int16_t wf = world.getForeground() % (16 * Constants::Tile_Count);
+            SpritesU::drawPlusMaskFX(58 + item.getX() + wf + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
 
         }
 
@@ -105,12 +111,16 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
         Enemy &enemy = world.getEnemy(i);
 
+        int16_t x = 55 + enemy.getX() + world.getForeground() + world.getXOffset();
+
+        if (x < -32 || x > 128) continue;
+
         if (enemy.getEntityType() == EntityType::Barrel) {
 
             uint24_t imageIdx = getStanceImg(enemy.getStance());
 
             if (enemy.getCounter() == 0 || ((enemy.getCounter() / 8) % 2) == 0) { 
-                SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 16, 16, Images::Barrel, (imageIdx * 3) + currentPlane);
+                SpritesU::drawPlusMaskFX(x, enemy.getY(), 16, 16, Images::Barrel, (imageIdx * 3) + currentPlane);
                 // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
             }
 
@@ -119,7 +129,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
         if (enemy.getEntityType() == EntityType::Bird) {
 
             uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 14, 16, Images::Bird, (imageIdx * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(x, enemy.getY(), 14, 16, Images::Bird, (imageIdx * 3) + currentPlane);
 
             // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
 
@@ -130,7 +140,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
         if (enemy.getEntityType() == EntityType::Spider) {
 
             uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(55 + enemy.getX() + world.getForeground() + world.getXOffset(), enemy.getY(), 16, 16, Images::Spider, (imageIdx * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(x, enemy.getY(), 16, 16, Images::Spider, (imageIdx * 3) + currentPlane);
 
             // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
             // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
@@ -203,8 +213,8 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
     if (directionCounter > 0) {
 
-        SpritesU::drawPlusMaskFX(1, 54, 13, 8, Images::HUD_Directions, (6) + currentPlane);
-        SpritesU::drawPlusMaskFX(114, 54, 13, 8, Images::HUD_Directions, (9 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(1, 54, 13, 8, Images::HUD_Directions, (directionCounter_Left * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(114, 54, 13, 8, Images::HUD_Directions, ((8 + directionCounter_Right) * 3) + currentPlane);
         directionCounter--;
 
     }

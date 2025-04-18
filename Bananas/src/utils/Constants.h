@@ -7,6 +7,7 @@
 #define DEBUG_BREAK    asm volatile("break\n");
 
 #define _DEBUG
+#define DEBUG_FALLS
 
 
 namespace Constants {
@@ -14,12 +15,13 @@ namespace Constants {
 	constexpr uint8_t StackSize_Player = 20;
 	constexpr uint8_t StackSize_Enemy = 20;
 	
-	constexpr uint8_t Item_Count = 5;
-	constexpr uint8_t Enemy_Count = 10;
-	constexpr uint8_t Tile_Count = 20;
+	constexpr uint8_t Item_Count = 12;
+	constexpr uint8_t Enemy_Count = 8;
 	constexpr uint16_t Health_Counter_Max = 640;
 	constexpr uint16_t Time_Counter_Max = 320;
 
+	constexpr uint8_t Tile_Count = 93;
+	constexpr uint8_t World_Repeat = 10;
 	
 	
 //	constexpr uint8_t Puff_Max = 7 * 16;
@@ -46,4 +48,11 @@ namespace Level {
 
     };
 
+//     uint8_t Level[Constants::Tile_Count] = { 
+
+// 65,38,37,29,22,10,24,37,30,25,39,35,4,65,66,26,38,39,24,43,23,41,61,41,38,37,21,34,23,63,
+
+
+
+//     };
 };
