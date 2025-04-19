@@ -69,79 +69,95 @@ void playGame_Init() {
     world.getItem(0).setY(16);
     world.getItem(0).setX(-800);
 
-    launchBanana(world.getItem(1));
-    launchBanana(world.getItem(2));
-    launchBanana(world.getItem(3));
-    launchBanana(world.getItem(4));
-    launchBanana(world.getItem(5));
-    launchBanana(world.getItem(6));
+    // launchBanana(world.getItem(1));
+    // launchBanana(world.getItem(2));
+    // launchBanana(world.getItem(3));
+    // launchBanana(world.getItem(4));
+    // launchBanana(world.getItem(5));
+    // launchBanana(world.getItem(6));
 
-    launchHeart(world.getItem(10));
-    launchHeart(world.getItem(11));
+    // launchHeart(world.getItem(10));
+    // launchHeart(world.getItem(11));
 
-    world.getItem(7).setItemType(ItemType::Fire);
-    world.getItem(7).setY(42);
-    world.getItem(7).setX(208);
+    // world.getItem(7).setItemType(ItemType::Fire);
+    // world.getItem(7).setY(42);
+    // world.getItem(7).setX(208);
 
-    world.getItem(8).setItemType(ItemType::Fire);
-    world.getItem(8).setY(42);
-    world.getItem(8).setX(1008);
+    // world.getItem(8).setItemType(ItemType::Fire);
+    // world.getItem(8).setY(42);
+    // world.getItem(8).setX(1008);
 
-    world.getItem(9).setItemType(ItemType::Fire);
-    world.getItem(9).setY(42);
-    world.getItem(9).setX(1280);
+    // world.getItem(9).setItemType(ItemType::Fire);
+    // world.getItem(9).setY(42);
+    // world.getItem(9).setX(1264);
 
-    // world.getItem(1).setItemType(ItemType::Banana);
-    // world.getItem(1).setY(15);
-    // world.getItem(1).setX(80);
+    // world.getItem(10).setItemType(ItemType::Fire);
+    // world.getItem(10).setY(42);
+    // world.getItem(10).setX(1600);
+
+    // world.getItem(11).setItemType(ItemType::Fire);
+    // world.getItem(11).setY(42);
+    // world.getItem(11).setX(1712);
+
+    // world.getItem(12).setItemType(ItemType::Fire);
+    // world.getItem(12).setY(42);
+    // world.getItem(12).setX(1800);
+
+    // world.getItem(13).setItemType(ItemType::Fire);
+    // world.getItem(13).setY(42);
+    // world.getItem(13).setX(2032);
+
+    // world.getItem(14).setItemType(ItemType::Fire);
+    // world.getItem(14).setY(42);
+    // world.getItem(14).setX(2192);
+
+    // world.getItem(15).setItemType(ItemType::Fire);
+    // world.getItem(15).setY(42);
+    // world.getItem(15).setX(2800);
 
 
-    // world.getItem(1).setItemType(ItemType::Banana);
-    // world.getItem(1).setY(15);
-    // world.getItem(1).setX(80);
+    // launchBarrel(world.getEnemy(0));
+    // launchBarrel(world.getEnemy(1));
+    // launchBarrel(world.getEnemy(2));
+    // launchBarrel(world.getEnemy(3));
 
+    // uint8_t i = 4;
 
-    launchBarrel(world.getEnemy(0));
-    launchBarrel(world.getEnemy(1));
-    launchBarrel(world.getEnemy(2));
-    launchBarrel(world.getEnemy(3));
+    // world.getEnemy(i).setEntityType(EntityType::Spider);
+    // world.getEnemy(i).setY(46);
+    // world.getEnemy(i).setX(160 - 16);
+    // world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
+    // world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    // world.getEnemy(i).setCounter(0);
 
-    uint8_t i = 4;
+    // i++;
+    // world.getEnemy(i).setEntityType(EntityType::Spider);
+    // world.getEnemy(i).setY(46);
+    // world.getEnemy(i).setX(500 - 16);
+    // world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
+    // world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    // world.getEnemy(i).setCounter(0);
 
-    world.getEnemy(i).setEntityType(EntityType::Spider);
-    world.getEnemy(i).setY(46);
-    world.getEnemy(i).setX(160 - 16);
-    world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
-    world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-    world.getEnemy(i).setCounter(0);
+    // i++;
+    // world.getEnemy(i).setEntityType(EntityType::Bird);
+    // world.getEnemy(i).setY(28);
+    // world.getEnemy(i).setX(160 - 16);
+    // world.getEnemy(i).setStance(Stance::Enemy_Flying_LH_00);
+    // world.getEnemy(i).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
+    // world.getEnemy(i).setCounter(0);
 
-    i++;
-    world.getEnemy(i).setEntityType(EntityType::Spider);
-    world.getEnemy(i).setY(46);
-    world.getEnemy(i).setX(500 - 16);
-    world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
-    world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-    world.getEnemy(i).setCounter(0);
-
-    i++;
-    world.getEnemy(i).setEntityType(EntityType::Bird);
-    world.getEnemy(i).setY(28);
-    world.getEnemy(i).setX(160 - 16);
-    world.getEnemy(i).setStance(Stance::Enemy_Flying_LH_00);
-    world.getEnemy(i).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
-    world.getEnemy(i).setCounter(0);
-
-    i++;
-    world.getEnemy(i).setEntityType(EntityType::Bird);
-    world.getEnemy(i).setY(10);
-    world.getEnemy(i).setX(16);
-    world.getEnemy(i).setStance(Stance::Enemy_Flying_RH_00);
-    world.getEnemy(i).pushSequence(Stance::Enemy_Flying_RH_00, Stance::Enemy_Flying_RH_19);
-    world.getEnemy(i).setCounter(0);
+    // i++;
+    // world.getEnemy(i).setEntityType(EntityType::Bird);
+    // world.getEnemy(i).setY(10);
+    // world.getEnemy(i).setX(16);
+    // world.getEnemy(i).setStance(Stance::Enemy_Flying_RH_00);
+    // world.getEnemy(i).pushSequence(Stance::Enemy_Flying_RH_00, Stance::Enemy_Flying_RH_19);
+    // world.getEnemy(i).setCounter(0);
 
 
     updateDirectionCounter();
     world.setForeground(-64);
+    world.setForeground(-1912);
 
 }
 
@@ -196,7 +212,7 @@ void playGame_Update() {
                 case GameState::PlayGame_GameOver:
                 case GameState::PlayGame_TimesUp:
 
-                    if (pressed & A_BUTTON && timesUpCount > 30) {
+                    if (pressed & A_BUTTON && (timesUpCount > 30 || gameOverCount > 30)) {
 
                         world.setGameState(GameState::HighScore_Init);
 
@@ -633,7 +649,7 @@ void playGame_Update() {
                             if (collide(playerRect, fireRect)) {
 
                                 item.setCounter(5);
-                                // Serial.println("Dead (Fire)");
+                                Serial.println("Dead (Fire)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
@@ -670,7 +686,7 @@ gEnemyRect = fireRect;
 
                             if (collide(playerRect, barrelRect)) {
 
-                                // Serial.println("Dead (Barrel)");
+                                Serial.println("Dead (Barrel)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
@@ -694,7 +710,7 @@ gEnemyRect = fireRect;
 
                             if (collide(playerRect, birdRect)) {
 
-                                // Serial.println("Dead (Bird)");
+                                Serial.println("Dead (Bird)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
@@ -734,7 +750,7 @@ gEnemyRect = fireRect;
                                         break;
 
                                     default:
-                                        // Serial.println("Dead (Spider)");
+                                        Serial.println("Dead (Spider)");
                                         player.decHealth();
                                         healthCounter = Constants::Health_Counter_Max;
                                         healthFlash = true;
@@ -759,7 +775,10 @@ gEnemyRect = fireRect;
 
         player.update();
         playGame_HandleEnemies(a, world.getGameState());
-        world.decTime(); 
+
+        if (gameOverCount < 0) {
+            world.decTime(); 
+        }
 
     }
     
@@ -846,41 +865,59 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
 
     if (gameOverCount >= 0) {
-        
-        GameOver gameOver;
 
-        FX::seekData(Constants::GameOver + (gameOverCount * 24));
-        FX::readObject(gameOver);
-        FX::readEnd();
+        if (gameOverCount == 37) {
 
-        SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(38, 19, 51, 32, Images::HUD_GameOver, currentPlane);
+
+        }
+        else {
+
+            GameOver gameOver;
+
+            FX::seekData(Constants::GameOver + (gameOverCount * 24));
+            FX::readObject(gameOver);
+            FX::readEnd();
+
+            SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
+
+        }
         
     }
 
     if (timesUpCount >= 0) {
         
-        GameOver gameOver;
+        if (timesUpCount == 37) {
 
-       FX::seekData(Constants::TimesUp + (timesUpCount * 24));
-        FX::readObject(gameOver);
-        FX::readEnd();
+            SpritesU::drawPlusMaskFX(35, 19, 59, 32, Images::HUD_TimesUp, currentPlane);
 
-        SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
-        SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
-        
+        }
+        else {
+
+            GameOver gameOver;
+
+            FX::seekData(Constants::TimesUp + (timesUpCount * 24));
+            FX::readObject(gameOver);
+            FX::readEnd();
+
+            SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
+
+        }
+            
     }
 
 }

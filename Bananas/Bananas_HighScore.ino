@@ -11,7 +11,6 @@ void highScore_Init() {
 
 
     world.setGameState(GameState::HighScore_Edit);
-    world.setBananas(300);
 
     highScore_Entry = 0;
     highScore_Char = 0;

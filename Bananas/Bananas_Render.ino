@@ -34,6 +34,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     }
 
 
+
     // ____________________________________________________________________________________________________________________________________________________________________________________
     //
     // Render level ..
@@ -41,7 +42,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     int16_t xMin = (- 55 - world.getForeground() - world.getXOffset()) / 16;
     int16_t xMax = xMin + 9;
 
-    for (int8_t i = xMin; i < xMax; i++) {    
+    for (int16_t i = xMin; i < xMax; i++) {    
 
         // uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
         uint8_t levelIdx = getTile_ByIdx(i);
@@ -61,8 +62,6 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
                 break;
 
         }
-
-        // a.drawLine(55 + (i * 16) + world.getForeground() + world.getXOffset(), 0, 55 + (i * 16) + world.getForeground() + world.getXOffset(), 128, WHITE);
 
     }
 
@@ -94,9 +93,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
         if (item.getItemType() == ItemType::Fire) {
 
             uint8_t frame = (frameCount / 4) % 6;
-
-            int16_t wf = world.getForeground() % (16 * Constants::Tile_Count);
-            SpritesU::drawPlusMaskFX(58 + item.getX() + wf + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
+            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
 
         }
 

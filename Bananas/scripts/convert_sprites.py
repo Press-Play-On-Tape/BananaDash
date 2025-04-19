@@ -120,6 +120,8 @@ convert_header(IMAGES + 'Titles/HUD_Health.png',                                
 convert_header(IMAGES + 'Titles/Font_Alpha.png',                                                  BASE + 'Images.hpp', 'Font_Alpha', 4, 9, 8)
 convert_header(IMAGES + 'Titles/Font_Alpha_Big.png',                                              BASE + 'Images.hpp', 'Font_Alpha_Big', 4, 16, 16)
 convert_header(IMAGES + 'Titles/Font_Numbers.png',                                                BASE + 'Images.hpp', 'Font_Numbers', 4, 7, 8)
+convert_header(IMAGES + 'Titles/HUD_TimesUp.png',                                                 BASE + 'Images.hpp', 'HUD_TimesUp', 4)
+convert_header(IMAGES + 'Titles/HUD_GameOver.png',                                                BASE + 'Images.hpp', 'HUD_GameOver', 4)
 
 convert_header(IMAGES + 'Players/Player.png',                                                     BASE + 'Images.hpp', 'Player', 4, 16, 16)
 
