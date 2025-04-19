@@ -742,7 +742,6 @@ struct World {
 
                     switch (tileL) {
 
-                        case 10:
                         case 11:
                         case 12:
                         case 45:
@@ -1404,7 +1403,6 @@ struct World {
 
                     switch (tileR) {
 
-                        case 10:
                         case 11:
                         case 12:
                         case 45:

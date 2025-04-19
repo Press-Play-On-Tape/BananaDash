@@ -35,7 +35,6 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
                         Point offset;
                         stance = enemy.pop();
-
                         enemy.setStance(static_cast<Stance>(stance));
 
                         StanceDetails stanceDetails;
@@ -97,7 +96,6 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
                         Point offset;
                         stance = enemy.pop();
-
                         enemy.setStance(static_cast<Stance>(stance));
 
                         StanceDetails stanceDetails;
@@ -184,7 +182,6 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
                         Point offset;
                         stance = enemy.pop();
-
                         enemy.setStance(static_cast<Stance>(stance));
 
                         StanceDetails stanceDetails;

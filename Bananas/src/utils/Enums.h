@@ -31,6 +31,7 @@ struct GameOver {
 };
 
 enum class MusicSong : uint8_t {
+    Empty,
     MainTheme,
 };
 

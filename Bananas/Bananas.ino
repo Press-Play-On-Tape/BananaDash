@@ -25,7 +25,7 @@ extern ArduboyGBase_Config<ABG_Mode::L4_Triplane> a;
 decltype(a) a;
 
 #define SYNTHU_IMPLEMENTATION
-#define SYNTHU_NUM_CHANNELS 6
+#define SYNTHU_NUM_CHANNELS 2
 #define SYNTHU_UPDATE_EVERY_N_FRAMES 3
 #define SYNTHU_ENABLE_SFX 1
 #define SYNTHU_FX_READDATABYTES_FUNC FX::readDataBytes
@@ -66,29 +66,6 @@ void setup(void) {
     setAudioOn();
     #endif
 
-
-    // cookie.highScore_Chars[0][0] = 0;
-    // cookie.highScore_Chars[0][1] = 0;
-    // cookie.highScore_Chars[0][2] = 0;
-    // cookie.highScore_Chars[1][0] = 1;
-    // cookie.highScore_Chars[1][1] = 1;
-    // cookie.highScore_Chars[1][2] = 1;
-    // cookie.highScore_Chars[2][0] = 2;
-    // cookie.highScore_Chars[2][1] = 2;
-    // cookie.highScore_Chars[2][2] = 2;
-    // cookie.highScore_Chars[3][0] = 3;
-    // cookie.highScore_Chars[3][1] = 3;
-    // cookie.highScore_Chars[3][2] = 3;
-    // cookie.highScore_Chars[4][0] = 4;
-    // cookie.highScore_Chars[4][1] = 4;
-    // cookie.highScore_Chars[4][2] = 4;
-
-    // cookie.highScore_Values[0] = 0;
-    // cookie.highScore_Values[1] = 0;
-    // cookie.highScore_Values[2] = 0;
-    // cookie.highScore_Values[3] = 0;
-    // cookie.highScore_Values[4] = 0;
-
 }
 
 void loop(void) {
@@ -107,13 +84,11 @@ void loop(void) {
 			break;
 
 		case GameState::Title_Init:
-			titleScreen_Activate();
+			titleScreen_Init();
 			[[fallthrough]];
 
 		case GameState::Title_Start ... GameState::Title_End:
-			titleScreen_Update();
-			titleScreen_Render();
-			// arduboy.displayWithBackground(Background::Black);
+			titleScreen(a);
 			break;
 
 		case GameState::PlayGame_Init:

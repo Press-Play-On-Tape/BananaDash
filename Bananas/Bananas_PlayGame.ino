@@ -69,95 +69,95 @@ void playGame_Init() {
     world.getItem(0).setY(16);
     world.getItem(0).setX(-800);
 
-    // launchBanana(world.getItem(1));
-    // launchBanana(world.getItem(2));
-    // launchBanana(world.getItem(3));
-    // launchBanana(world.getItem(4));
-    // launchBanana(world.getItem(5));
-    // launchBanana(world.getItem(6));
+    launchBanana(world.getItem(1));
+    launchBanana(world.getItem(2));
+    launchBanana(world.getItem(3));
+    launchBanana(world.getItem(4));
+    launchBanana(world.getItem(5));
+    launchBanana(world.getItem(6));
 
-    // launchHeart(world.getItem(10));
-    // launchHeart(world.getItem(11));
+    launchHeart(world.getItem(10));
+    launchHeart(world.getItem(11));
 
-    // world.getItem(7).setItemType(ItemType::Fire);
-    // world.getItem(7).setY(42);
-    // world.getItem(7).setX(208);
+    world.getItem(7).setItemType(ItemType::Fire);
+    world.getItem(7).setY(42);
+    world.getItem(7).setX(208);
 
-    // world.getItem(8).setItemType(ItemType::Fire);
-    // world.getItem(8).setY(42);
-    // world.getItem(8).setX(1008);
+    world.getItem(8).setItemType(ItemType::Fire);
+    world.getItem(8).setY(42);
+    world.getItem(8).setX(1008);
 
-    // world.getItem(9).setItemType(ItemType::Fire);
-    // world.getItem(9).setY(42);
-    // world.getItem(9).setX(1264);
+    world.getItem(9).setItemType(ItemType::Fire);
+    world.getItem(9).setY(42);
+    world.getItem(9).setX(1264);
 
-    // world.getItem(10).setItemType(ItemType::Fire);
-    // world.getItem(10).setY(42);
-    // world.getItem(10).setX(1600);
+    world.getItem(10).setItemType(ItemType::Fire);
+    world.getItem(10).setY(42);
+    world.getItem(10).setX(1600);
 
-    // world.getItem(11).setItemType(ItemType::Fire);
-    // world.getItem(11).setY(42);
-    // world.getItem(11).setX(1712);
+    world.getItem(11).setItemType(ItemType::Fire);
+    world.getItem(11).setY(42);
+    world.getItem(11).setX(1712);
 
-    // world.getItem(12).setItemType(ItemType::Fire);
-    // world.getItem(12).setY(42);
-    // world.getItem(12).setX(1800);
+    world.getItem(12).setItemType(ItemType::Fire);
+    world.getItem(12).setY(42);
+    world.getItem(12).setX(1800);
 
-    // world.getItem(13).setItemType(ItemType::Fire);
-    // world.getItem(13).setY(42);
-    // world.getItem(13).setX(2032);
+    world.getItem(13).setItemType(ItemType::Fire);
+    world.getItem(13).setY(42);
+    world.getItem(13).setX(2032);
 
-    // world.getItem(14).setItemType(ItemType::Fire);
-    // world.getItem(14).setY(42);
-    // world.getItem(14).setX(2192);
+    world.getItem(14).setItemType(ItemType::Fire);
+    world.getItem(14).setY(42);
+    world.getItem(14).setX(2224);
 
-    // world.getItem(15).setItemType(ItemType::Fire);
-    // world.getItem(15).setY(42);
-    // world.getItem(15).setX(2800);
+    world.getItem(15).setItemType(ItemType::Fire);
+    world.getItem(15).setY(42);
+    world.getItem(15).setX(2800);
 
 
-    // launchBarrel(world.getEnemy(0));
-    // launchBarrel(world.getEnemy(1));
-    // launchBarrel(world.getEnemy(2));
-    // launchBarrel(world.getEnemy(3));
+    launchBarrel(world.getEnemy(0));
+    launchBarrel(world.getEnemy(1));
+    launchBarrel(world.getEnemy(2));
+    launchBarrel(world.getEnemy(3));
 
-    // uint8_t i = 4;
+    uint8_t i = 4;
 
-    // world.getEnemy(i).setEntityType(EntityType::Spider);
-    // world.getEnemy(i).setY(46);
-    // world.getEnemy(i).setX(160 - 16);
-    // world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
-    // world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-    // world.getEnemy(i).setCounter(0);
+    world.getEnemy(i).setEntityType(EntityType::Spider);
+    world.getEnemy(i).setY(46);
+    world.getEnemy(i).setX(160 - 16 + 48);
+    world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    world.getEnemy(i).setCounter(0);
 
-    // i++;
-    // world.getEnemy(i).setEntityType(EntityType::Spider);
-    // world.getEnemy(i).setY(46);
-    // world.getEnemy(i).setX(500 - 16);
-    // world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
-    // world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-    // world.getEnemy(i).setCounter(0);
+    i++;
+    world.getEnemy(i).setEntityType(EntityType::Spider);
+    world.getEnemy(i).setY(46);
+    world.getEnemy(i).setX(500 - 16);
+    world.getEnemy(i).setStance(Stance::Enemy_Spider_L1_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+    world.getEnemy(i).setCounter(0);
 
-    // i++;
-    // world.getEnemy(i).setEntityType(EntityType::Bird);
-    // world.getEnemy(i).setY(28);
-    // world.getEnemy(i).setX(160 - 16);
-    // world.getEnemy(i).setStance(Stance::Enemy_Flying_LH_00);
-    // world.getEnemy(i).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
-    // world.getEnemy(i).setCounter(0);
+    i++;
+    world.getEnemy(i).setEntityType(EntityType::Bird);
+    world.getEnemy(i).setY(28);
+    world.getEnemy(i).setX(160 - 16 + 96);
+    world.getEnemy(i).setStance(Stance::Enemy_Flying_LH_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
+    world.getEnemy(i).setCounter(0);
 
-    // i++;
-    // world.getEnemy(i).setEntityType(EntityType::Bird);
-    // world.getEnemy(i).setY(10);
-    // world.getEnemy(i).setX(16);
-    // world.getEnemy(i).setStance(Stance::Enemy_Flying_RH_00);
-    // world.getEnemy(i).pushSequence(Stance::Enemy_Flying_RH_00, Stance::Enemy_Flying_RH_19);
-    // world.getEnemy(i).setCounter(0);
+    i++;
+    world.getEnemy(i).setEntityType(EntityType::Bird);
+    world.getEnemy(i).setY(10);
+    world.getEnemy(i).setX(-96);
+    world.getEnemy(i).setStance(Stance::Enemy_Flying_RH_00);
+    world.getEnemy(i).pushSequence(Stance::Enemy_Flying_RH_00, Stance::Enemy_Flying_RH_19);
+    world.getEnemy(i).setCounter(0);
 
 
     updateDirectionCounter();
     world.setForeground(-64);
-    world.setForeground(-1912);
+    frameCount = 0;
 
 }
 
@@ -185,6 +185,7 @@ void updateDirectionCounter() {
     }
 
 }
+
 
 // ----------------------------------------------------------------------------
 //    Handle state updates .. 
@@ -445,12 +446,12 @@ void playGame_Update() {
                     case Stance::Player_Running_Jump_RH_11:
 
                         if (world.canFallRight_Down_2Levels(EntityType::Player, player.getY(), tile, tileR)) {
-    // Serial.println("canFallRight_Down_2Levels");
+                            // Serial.println("canFallRight_Down_2Levels");
                             player.pushSequence(Stance::Player_Falling_2L_C_RH_00, Stance::Player_Falling_2L_C_RH_07);
 
                         }
                         else if (world.canFallRight_Down_1Level(EntityType::Player, world.getForeground(), player.getY(), tile, tileR)) {
-    // Serial.println("canFallRight_Down_1Level");
+                            // Serial.println("canFallRight_Down_1Level");
                             player.pushSequence(Stance::Player_Falling_2L_C_RH_04, Stance::Player_Falling_2L_C_RH_07);
 
                         }
@@ -458,14 +459,14 @@ void playGame_Update() {
                         break;
 
                     case Stance::Player_Running_Jump_LH_11:
-// Serial.println("Test");
+
                         if (world.canFallLeft_Down_2Levels(EntityType::Player, player.getY(), tileL, tile)) {
-    // Serial.println("canFallLeft_Down_2Levels");
+                            // Serial.println("canFallLeft_Down_2Levels");
                             player.pushSequence(Stance::Player_Falling_2L_C_LH_00, Stance::Player_Falling_2L_C_LH_07);
 
                         }
                         else if (world.canFallLeft_Down_1Level(EntityType::Player, world.getForeground(), player.getY(), tileL, tile)) {
-    // Serial.println("canFallLeft_Down_1Level");
+                            // Serial.println("canFallLeft_Down_1Level");
                             player.pushSequence(Stance::Player_Falling_2L_C_LH_04, Stance::Player_Falling_2L_C_LH_07);
 
                         }
@@ -610,8 +611,8 @@ void playGame_Update() {
 
                         }
 
-// gPlayerRect = playerRect;
-// gBananaRect = bananaRect;
+                        // gPlayerRect = playerRect;
+                        // gBananaRect = bananaRect;
 
                     }
                     break;
@@ -632,8 +633,8 @@ void playGame_Update() {
 
                         }
 
-// gPlayerRect = playerRect;
-// gEnemyRect = heartRect;
+                        // gPlayerRect = playerRect;
+                        // gEnemyRect = heartRect;
 
                     }
                     break;
@@ -649,15 +650,17 @@ void playGame_Update() {
                             if (collide(playerRect, fireRect)) {
 
                                 item.setCounter(5);
-                                Serial.println("Dead (Fire)");
+                                // Serial.println("Dead (Fire)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
                                 playSFX(MusicSFX::SFX_PlayerBlip);
 
                             }
-gPlayerRect = playerRect;
-gEnemyRect = fireRect;
+
+                            // gPlayerRect = playerRect;
+                            // gEnemyRect = fireRect;
+
                         }
 
                     }
@@ -686,7 +689,7 @@ gEnemyRect = fireRect;
 
                             if (collide(playerRect, barrelRect)) {
 
-                                Serial.println("Dead (Barrel)");
+                                // Serial.println("Dead (Barrel)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
@@ -696,8 +699,8 @@ gEnemyRect = fireRect;
 
                             }
 
-    // gPlayerRect = playerRect;
-    // gBananaRect = bananaRect;
+                            // gPlayerRect = playerRect;
+                            // gBananaRect = bananaRect;
 
                         }
                         break;
@@ -710,18 +713,16 @@ gEnemyRect = fireRect;
 
                             if (collide(playerRect, birdRect)) {
 
-                                Serial.println("Dead (Bird)");
+                                // Serial.println("Dead (Bird)");
                                 player.decHealth();
                                 healthCounter = Constants::Health_Counter_Max;
                                 healthFlash = true;
                                 playSFX(MusicSFX::SFX_PlayerBlip);
 
-                                // DEBUG_BREAK
-
                             }
 
-    // gPlayerRect = playerRect;
-    // gBananaRect = bananaRect;
+                            // gPlayerRect = playerRect;
+                            // gBananaRect = bananaRect;
 
                         }
                         break;
@@ -750,7 +751,7 @@ gEnemyRect = fireRect;
                                         break;
 
                                     default:
-                                        Serial.println("Dead (Spider)");
+                                        // Serial.println("Dead (Spider)");
                                         player.decHealth();
                                         healthCounter = Constants::Health_Counter_Max;
                                         healthFlash = true;
@@ -759,8 +760,8 @@ gEnemyRect = fireRect;
 
                                 }
         
-    // gPlayerRect = playerRect;
-    // gBananaRect = spiderRect;
+                                gPlayerRect = playerRect;
+                                gEnemyRect = spiderRect;
 
                             }
 
@@ -853,16 +854,14 @@ gEnemyRect = fireRect;
 
 void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
-    if (a.needsUpdate()) playGame_Update();
+    if (a.needsUpdate()) { playGame_Update(); }
 
     Player &player = world.getPlayer();
     uint8_t currentPlane = a.currentPlane();
-    
     uint8_t stanceImg = getStanceImg(player.getStance());
     player.setImageIdx(stanceImg);
 
     playGame_Render(a, currentPlane);
-
 
     if (gameOverCount >= 0) {
 

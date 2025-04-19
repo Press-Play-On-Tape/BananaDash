@@ -6,8 +6,8 @@ using uint24_t = __uint24;
 
 // Initialize FX hardware using  FX::begin(FX_DATA_PAGE); in the setup() function.
 
-constexpr uint16_t FX_DATA_PAGE  = 0xfc72;
-constexpr uint24_t FX_DATA_BYTES = 228771;
+constexpr uint16_t FX_DATA_PAGE  = 0xfc5d;
+constexpr uint24_t FX_DATA_BYTES = 234026;
 
 constexpr uint16_t FX_SAVE_PAGE  = 0xfff0;
 constexpr uint24_t FX_SAVE_BYTES = 2;
@@ -51,31 +51,31 @@ namespace Images
 namespace Music
 {
   constexpr uint24_t Song_MainTheme = 0x036946;
-  constexpr uint24_t SFX_Death = 0x036DE0;
-  constexpr uint24_t SFX_Victory = 0x036E84;
-  constexpr uint24_t SFX_LandHard = 0x036F38;
-  constexpr uint24_t SFX_PlayerBlip = 0x036F40;
-  constexpr uint24_t SFX_EnemyBlip = 0x036F50;
-  constexpr uint24_t SFX_PickUpItem = 0x036F60;
-  constexpr uint24_t SFX_XPGain = 0x036F70;
-  constexpr uint24_t SFX_Glint = 0x036F84;
-  constexpr uint24_t Songs = 0x036F8C;
-  constexpr uint24_t SFXs = 0x036F8F;
+  constexpr uint24_t SFX_Death = 0x038267;
+  constexpr uint24_t SFX_Victory = 0x03830B;
+  constexpr uint24_t SFX_LandHard = 0x0383BF;
+  constexpr uint24_t SFX_PlayerBlip = 0x0383C7;
+  constexpr uint24_t SFX_EnemyBlip = 0x0383D7;
+  constexpr uint24_t SFX_PickUpItem = 0x0383E7;
+  constexpr uint24_t SFX_XPGain = 0x0383F7;
+  constexpr uint24_t SFX_Glint = 0x03840B;
+  constexpr uint24_t Songs = 0x038413;
+  constexpr uint24_t SFXs = 0x038416;
 }
 
 namespace Constants
 {
-  constexpr uint24_t StanceImgIdx = 0x036FA7;
-  constexpr uint24_t StanceDetails = 0x0370EB;
-  constexpr uint24_t Tree_X = 0x0375FB;
-  constexpr uint24_t Font_Width = 0x03760B;
-  constexpr uint24_t GameOver = 0x037625;
-  constexpr uint24_t TimesUp = 0x0379B5;
-  constexpr uint24_t BananaLaunch = 0x037D45;
+  constexpr uint24_t StanceImgIdx = 0x03842E;
+  constexpr uint24_t StanceDetails = 0x038572;
+  constexpr uint24_t Tree_X = 0x038A82;
+  constexpr uint24_t Font_Width = 0x038A92;
+  constexpr uint24_t GameOver = 0x038AAC;
+  constexpr uint24_t TimesUp = 0x038E3C;
+  constexpr uint24_t BananaLaunch = 0x0391CC;
 }
 
 namespace Images
 {
-  constexpr uint24_t TreeImages = 0x037D8B;
+  constexpr uint24_t TreeImages = 0x039212;
 }
 

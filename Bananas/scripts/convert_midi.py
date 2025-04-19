@@ -157,5 +157,7 @@ def convert_sym(sym, outfile, **args):
 # convert_sym('../music/XPGain', 'SFX_XPGain', tracks=1)
 # convert_sym('../music/Glint', 'SFX_Glint', tracks=1)
 
-convert_sym('../music/BananaSplits', 'MainTheme', tracks=6, vol=1)
+# convert_sym('../music/Empty', 'Empty', tracks=6, vol=1)
+# convert_sym('../music/BillieEilish', 'MainTheme', tracks=6, vol=1)
+convert_sym('../music/Gorillas', 'MainTheme', tracks=2, vol=0.5)
 # convert_sym('../music/cc-fast-intro', 'FastIntro', tracks=2)

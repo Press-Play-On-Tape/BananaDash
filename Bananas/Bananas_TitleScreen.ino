@@ -1,10 +1,7 @@
 constexpr const static uint8_t UPLOAD_DELAY = 16;
 
 
-// ----------------------------------------------------------------------------
-//  Initialise state ..
-//
-void titleScreen_Activate() {
+void titleScreen_Init() {
 
     // gameStats.resetGame();
 
@@ -29,9 +26,6 @@ void title_SaveSoundSettings() {
 }
 
 
-// ----------------------------------------------------------------------------
-//  Handle state updates ..
-//
 void titleScreen_Update() {
 
     const uint8_t justPressed = getJustPressedButtons();
@@ -79,9 +73,15 @@ void titleScreen_Update() {
 }
 
 
-// ----------------------------------------------------------------------------
-//  Render the state ..
-//
+void titleScreen(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
+
+    if (a.needsUpdate()) { titleScreen_Update(); }
+
+    titleScreen_Render();
+
+}
+
+
 void titleScreen_Render() {
 
     uint8_t idx = static_cast<uint8_t>(world.getGameState()) - static_cast<uint8_t>(GameState::Title_Play_Game);
