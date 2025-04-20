@@ -4,9 +4,6 @@ uint8_t highScore_Entry = 5;
 uint8_t highScore_Char = 0;
 
 
-// ----------------------------------------------------------------------------
-//  Initialise state ..
-//
 void highScore_Init() {
 
 
@@ -46,9 +43,6 @@ void highScore_Init() {
 
 }
 
-// ----------------------------------------------------------------------------
-//    Handle state updates .. 
-//
 void highScore_Update() { 
 
 

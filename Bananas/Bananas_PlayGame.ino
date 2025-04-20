@@ -685,8 +685,6 @@ void playGame_Update() {
                                 healthFlash = true;
                                 playSFX(MusicSFX::SFX_PlayerBlip);
 
-                                // DEBUG_BREAK
-
                             }
 
                             // gPlayerRect = playerRect;

@@ -1,9 +1,6 @@
 #include <Arduboy2.h>
 
 
-// ----------------------------------------------------------------------------
-//  Render the state .. 
-//
 void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t currentPhase) {
 
     Player &player = world.getPlayer();
@@ -146,6 +143,10 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
     }
 
+
+    // ____________________________________________________________________________________________________________________________________________________________________________________
+    //
+    // Render HUD and counters ..
 
     if (healthCounter > 0) {
 

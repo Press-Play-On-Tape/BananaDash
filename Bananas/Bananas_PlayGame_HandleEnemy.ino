@@ -13,9 +13,6 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
         Enemy &enemy = world.getEnemy(i);
         uint16_t stance;
 
-
-        // if (enemy.getX() == 0) continue;
-
         if (!enemy.isEmpty()) {
 
             switch (enemy.getEntityType()) {
@@ -208,63 +205,48 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
                                 case Stance::Enemy_Spider_L1_15:
                                 case Stance::Enemy_Spider_Idle_15:
 
-                                    // if (-world.getForeground() - enemy.getX() > 90) {
-
-                                    //     enemy.pushSequence(Stance::Enemy_Spider_R1_00, Stance::Enemy_Spider_R1_15);
-
-                                    // }
-                                    // else if (-world.getForeground() - enemy.getX() < -90) {
-
-
-                                    //     enemy.pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-
-                                    // }
-                                    // else {
-
-                                        switch (a.randomLFSR(0, 10)) {
-                                        
-                                            case 0:
-                                                enemy.pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-                                                break;
-
-                                            case 1:
-                                                enemy.pushSequence(Stance::Enemy_Spider_L1_07, Stance::Enemy_Spider_L1_15);
-                                                break;
-                                        
-                                            case 2:
-                                                enemy.pushSequence(Stance::Enemy_Spider_R1_00, Stance::Enemy_Spider_R1_15);
-                                                break;
-
-                                            case 3:
-                                                enemy.pushSequence(Stance::Enemy_Spider_R1_07, Stance::Enemy_Spider_R1_15);
-                                                break;
-
-                                            case 4 ... 5:
-
-                                                if (-world.getForeground() < enemy.getX()) {
-
-                                                    enemy.pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
-
-                                                }
-                                                else {
-
-                                                    enemy.pushSequence(Stance::Enemy_Spider_R1_00, Stance::Enemy_Spider_R1_15);
-
-                                                }
-
-                                                break;
-
-                                            default:
-                                                {
-                                                    uint8_t r = a.randomLFSR(2, 16);
-                                                    enemy.pushSequence(static_cast<Stance>(static_cast<uint16_t>(Stance::Enemy_Spider_Idle_00) + r), Stance::Enemy_Spider_Idle_15);
-                                                }
-                                                break;
-
-                                        }
-
-                                    // }
+                                    switch (a.randomLFSR(0, 10)) {
                                     
+                                        case 0:
+                                            enemy.pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+                                            break;
+
+                                        case 1:
+                                            enemy.pushSequence(Stance::Enemy_Spider_L1_07, Stance::Enemy_Spider_L1_15);
+                                            break;
+                                    
+                                        case 2:
+                                            enemy.pushSequence(Stance::Enemy_Spider_R1_00, Stance::Enemy_Spider_R1_15);
+                                            break;
+
+                                        case 3:
+                                            enemy.pushSequence(Stance::Enemy_Spider_R1_07, Stance::Enemy_Spider_R1_15);
+                                            break;
+
+                                        case 4 ... 5:
+
+                                            if (-world.getForeground() < enemy.getX()) {
+
+                                                enemy.pushSequence(Stance::Enemy_Spider_L1_00, Stance::Enemy_Spider_L1_15);
+
+                                            }
+                                            else {
+
+                                                enemy.pushSequence(Stance::Enemy_Spider_R1_00, Stance::Enemy_Spider_R1_15);
+
+                                            }
+
+                                            break;
+
+                                        default:
+                                            {
+                                                uint8_t r = a.randomLFSR(2, 16);
+                                                enemy.pushSequence(static_cast<Stance>(static_cast<uint16_t>(Stance::Enemy_Spider_Idle_00) + r), Stance::Enemy_Spider_Idle_15);
+                                            }
+                                            break;
+
+                                    }
+
                                     enemy.pushSequence(Stance::Enemy_Spider_R1_00, Stance::Enemy_Spider_R1_15);
                                     break;
 

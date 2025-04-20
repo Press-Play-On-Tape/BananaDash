@@ -55,7 +55,6 @@ uint8_t getTile(int8_t offset) {
     if (i == (Constants::World_Repeat * Constants::Tile_Count) + 1) return 11;
     if (i >= (Constants::World_Repeat * Constants::Tile_Count)) return 255;
 
-    // uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
     uint8_t tile = Level::Level[i % Constants::Tile_Count];    
     return tile;
 
@@ -70,7 +69,6 @@ uint8_t getEnemyTile(int16_t enemyX, int8_t offset) {
     if (i == (Constants::World_Repeat * Constants::Tile_Count) + 1) return 11;
     if (i >= (Constants::World_Repeat * Constants::Tile_Count)) return 255;
 
-    // uint8_t tile = FX::readIndexedUInt8(Level::Level, i);
     uint8_t tile = Level::Level[i % Constants::Tile_Count];    
     return tile;
 

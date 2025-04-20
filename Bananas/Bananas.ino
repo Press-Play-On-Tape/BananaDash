@@ -5,7 +5,6 @@
 
 #include <ArduboyFX.h>  
 #include "src/utils/ArduboyG.h"
-// #include "src/utils/Constants.h"
 #include "src/utils/Enums.h"
 #include "fxdata/fxdata.h"
 #include "fxdata/images/Images.h"
@@ -31,10 +30,6 @@ decltype(a) a;
 #define SYNTHU_FX_READDATABYTES_FUNC FX::readDataBytes
 #include "src/utils/SynthU.hpp"
 #define ABG_TIMER1
-
-// #ifndef DEBUG
-// ARDUBOY_NO_USB
-// #endif
 
 Cookie cookie;
 SoundSettings &soundSettings = cookie.soundSettings;
