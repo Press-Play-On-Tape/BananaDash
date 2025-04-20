@@ -49,6 +49,7 @@ void playGame_Init() {
 
     gameOverCount = -1;
     timesUpCount = -1;
+    getReadyCount = 0;
     
     for (uint8_t i = 0; i < Constants::Item_Count; i++) {
         world.getItem(i).setItemType(ItemType::None);
@@ -111,9 +112,8 @@ void playGame_Init() {
     world.getItem(14).setY(42);
     world.getItem(14).setX(2224);
 
-    world.getItem(15).setItemType(ItemType::Fire);
-    world.getItem(15).setY(42);
-    world.getItem(15).setX(2800);
+    launchHeart(world.getItem(15));
+    launchHeart(world.getItem(16));
 
 
     launchBarrel(world.getEnemy(0));
@@ -204,7 +204,7 @@ void playGame_Update() {
     uint8_t tileR = getTile(1);
     uint8_t tileR2 = getTile(2);
 
-    if (frameCount % 3 == 0) {
+    if (frameCount % 3 == 0 && getReadyCount == -1) {
 
         if (player.isEmpty()) {
 
@@ -494,17 +494,8 @@ void playGame_Update() {
                 case Stance::Player_Falling_2L_B_RH_11:
                 case Stance::Player_Falling_2L_C_RH_07:
 
-                    // if (world.canFall_2Levels(EntityType::Player, player.getY(), tile, tileR)) {
-
-                    //     player.pushSequence(Stance::Player_Falling_2L_C_RH_00, Stance::Player_Falling_2L_C_RH_07);
-
-                    // }
-                    // else {
-
-                        player.setStance(Stance::Player_Idle_RH);
-                        player.setVelocityX(0);
-
-                    // }
+                    player.setStance(Stance::Player_Idle_RH);
+                    player.setVelocityX(0);
                     
                     break;
 
@@ -644,8 +635,7 @@ void playGame_Update() {
                     {
                         if (healthCounter == 0) {
                             
-                            int16_t wf = world.getForeground() % (16 * Constants::Tile_Count);
-                            Rect fireRect = item.getRect(item.getX() + wf + world.getXOffset());
+                            Rect fireRect = item.getRect(item.getX() + world.getForeground() + world.getXOffset());
 
                             if (collide(playerRect, fireRect)) {
 
@@ -834,6 +824,21 @@ void playGame_Update() {
 
     }
 
+
+    if (getReadyCount >= 0) {
+
+        if (frameCount % 2 == 0) {    
+    
+            getReadyCount++;
+    
+            if (getReadyCount == 80) {
+                getReadyCount = -1;
+            }
+
+        }
+
+    }
+
     if (gameOverCount == -1 && player.getHealth() == 0) {
 
         gameOverCount = 0;
@@ -867,7 +872,7 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
 
         if (gameOverCount == 37) {
 
-            SpritesU::drawPlusMaskFX(38, 19, 51, 32, Images::HUD_GameOver, currentPlane);
+            SpritesU::drawPlusMaskFX(38, 19, 52, 32, Images::HUD_GameOver, currentPlane);
 
         }
         else {
@@ -916,6 +921,26 @@ void playGame(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a) {
             SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
 
         }
+            
+    }
+
+
+    if (getReadyCount >= 0) {
+
+        GameOver gameOver;
+
+        FX::seekData(Constants::GetReady + (getReadyCount * 24));
+        FX::readObject(gameOver);
+        FX::readEnd();
+
+        SpritesU::drawPlusMaskFX(gameOver.char1X, gameOver.char1Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char1 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char2X, gameOver.char2Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char2 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char3X, gameOver.char3Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char3 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char4X, gameOver.char4Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char4 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char5X, gameOver.char5Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char5 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char6X, gameOver.char6Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char6 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char7X, gameOver.char7Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char7 * 3) + currentPlane);
+        SpritesU::drawPlusMaskFX(gameOver.char8X, gameOver.char8Y, 16, 16, Images::Font_Alpha_Big, (gameOver.char8 * 3) + currentPlane);
             
     }
 

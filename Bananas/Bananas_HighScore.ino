@@ -111,7 +111,7 @@ void highScore_Update() {
 
             if (justPressed & A_BUTTON) {
             
-               world.setGameState(GameState::Title_Init);
+               world.setGameState(world.getPrevGameState());
 
             }
 

@@ -1,12 +1,24 @@
-constexpr const static uint8_t UPLOAD_DELAY = 16;
-
+#include <Arduboy2.h>
 
 void titleScreen_Init() {
 
-    // gameStats.resetGame();
-
     world.setGameState(GameState::Title_Start);
 
+    world.getItem(0).setX(20);
+    world.getItem(0).setY(-50);
+    world.getItem(0).setCounter(0);
+
+    world.getItem(1).setX(40);
+    world.getItem(1).setY(-70);
+    world.getItem(1).setCounter(0);
+
+    world.getItem(2).setX(70);
+    world.getItem(2).setY(-20);
+    world.getItem(2).setCounter(0);
+
+    world.getItem(3).setX(95);
+    world.getItem(3).setY(-40);
+    world.getItem(3).setCounter(0);
 
 }
 
@@ -31,6 +43,18 @@ void titleScreen_Update() {
     const uint8_t justPressed = getJustPressedButtons();
     const uint8_t pressed = getPressedButtons();
 
+    // frameCount = frameCount + 1;
+
+    // if ((frameCount % 3) == 0) {
+    
+    //     for (uint8_t i = 0; i < 4; i++) {
+        
+    //         world.getItem(i).setY(world.getItem(i).getY() + 2);
+    //         world.getItem(i).setCounter((world.getItem(i).getCounter() + 1) % 8);
+            
+    //     }
+
+    // }
 
 
     // Handle other input ..
@@ -49,6 +73,8 @@ void titleScreen_Update() {
    
 
     if (justPressed & A_BUTTON || justPressed & B_BUTTON) {
+
+        world.setPrevGameState(world.getGameState()); 
 
         switch (world.getGameState()) {
         
@@ -90,5 +116,11 @@ void titleScreen_Render() {
 
     SpritesU::drawOverwriteFX(0, 0, Images::Title, (idx * 3) + currentPlane);
 
+    // for (uint8_t i = 0; i < 4; i++) {
+    
+    //     Item &item = world.getItem(i);
+    //     SpritesU::drawPlusMaskFX(item.getX(), item.getY(), Images::SpinningBananas, (item.getCounter() * 3) + currentPlane);
+        
+    // }
 
 }

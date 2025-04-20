@@ -50,6 +50,7 @@ uint16_t timeCounter = 0;
 uint16_t frameCount = 0;
 int8_t gameOverCount = -1;
 int8_t timesUpCount = -1;
+int8_t getReadyCount = -1;
 
 Rect gPlayerRect;
 Rect gEnemyRect;

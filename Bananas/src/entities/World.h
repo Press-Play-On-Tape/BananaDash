@@ -13,6 +13,7 @@ struct World {
     private:
         
         GameState gameState = GameState::SplashScreen_Start;
+        GameState prevGameState = GameState::SplashScreen_Start;
         Player player;
         Item items[Constants::Item_Count];
         Enemy enemies[Constants::Enemy_Count];
@@ -28,6 +29,7 @@ struct World {
     public:
 
         GameState getGameState()                        { return this->gameState; }
+        GameState getPrevGameState()                    { return this->prevGameState; }
         Player &getPlayer()                             { return this->player; }
         Item &getItem(uint8_t idx)                      { return this->items[idx]; }
         Enemy &getEnemy(uint8_t idx)                    { return this->enemies[idx]; }
@@ -39,6 +41,7 @@ struct World {
         int8_t getXOffset()                             { return 0; } //this->xOffset; }
 
         void setGameState(GameState val)                { this->gameState = val; }
+        void setPrevGameState(GameState val)            { this->prevGameState = val; }
         void setTime(uint16_t val)                      { this->time = val; }
         void setBananas(uint16_t val)                   { this->bananas = val; }
         void setBackground(int16_t val)                 { this->background = val; }
@@ -86,7 +89,6 @@ struct World {
 
             this->background += val;
 
-
             if (this->background >= 256 || this->background <= -256) {
                 this->background = 0;
             }
@@ -113,12 +115,19 @@ struct World {
                 if (this->tree[idx] <= -64) {
                     this->tree[idx] = this->tree[idx] + 128 + 64;
                 }
+                else if (this->tree[idx] >= 128) {
+                    this->tree[idx] = this->tree[idx] - 128 - 64;
+                }
 
             }
             else {
 
                 if (this->tree[idx] <= -43) {
                     this->tree[idx] = this->tree[idx] + 128 + 43;
+                }
+
+                else if (this->tree[idx] >= 128) {
+                    this->tree[idx] = this->tree[idx] - 128 - 43;
                 }
             
             }
@@ -1346,7 +1355,7 @@ struct World {
                     switch (tile) {
 
                         case 63:
-                            DEBUG_PRINTLN("63 true");
+                            //DEBUG_PRINTLN("63 true");
                             return true; 
 
                         default:
