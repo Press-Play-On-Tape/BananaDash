@@ -34,6 +34,7 @@ bool isAlignedWithLevel() {
 
 uint8_t getTile_ByIdx(int16_t i) {
 
+    if (i == -1) return 11;
     if (i < 0) return 255;
 
     if (i == (Constants::World_Repeat * Constants::Tile_Count)) return 254;

@@ -155,15 +155,15 @@ void playGame_Init() {
     world.getEnemy(i).setCounter(0);
 
 
-    updateDirectionCounter();
     world.setForeground(-64);
+    updateDirectionCounter(-1);
     frameCount = 0;
 
 }
 
-void updateDirectionCounter() {
+void updateDirectionCounter(int16_t delay) {
 
-    directionCounter = 340;
+    directionCounter = delay;
     directionCounter_Left = 0;
     directionCounter_Right = 0;
     
@@ -225,7 +225,7 @@ void playGame_Update() {
 
                     if (pressed & B_BUTTON) {
 
-                        updateDirectionCounter();
+                        updateDirectionCounter(340);
                         healthCounter = Constants::Health_Counter_Max / 2;
                         healthFlash = false;
 
@@ -789,7 +789,7 @@ void playGame_Update() {
                     {
 
                         launchBanana(item);
-                        updateDirectionCounter();
+                        updateDirectionCounter(340);
 
                     }
 
@@ -829,8 +829,9 @@ void playGame_Update() {
     
             getReadyCount++;
     
-            if (getReadyCount == 80) {
+            if (getReadyCount == 75) {
                 getReadyCount = -1;
+                directionCounter = 480;
             }
 
         }

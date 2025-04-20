@@ -6,8 +6,8 @@ using uint24_t = __uint24;
 
 // Initialize FX hardware using  FX::begin(FX_DATA_PAGE); in the setup() function.
 
-constexpr uint16_t FX_DATA_PAGE  = 0xfc50;
-constexpr uint24_t FX_DATA_BYTES = 237508;
+constexpr uint16_t FX_DATA_PAGE  = 0xfc1e;
+constexpr uint24_t FX_DATA_BYTES = 250312;
 
 constexpr uint16_t FX_SAVE_PAGE  = 0xfff0;
 constexpr uint24_t FX_SAVE_BYTES = 2;
@@ -52,32 +52,32 @@ namespace Images
 namespace Music
 {
   constexpr uint24_t Song_MainTheme = 0x036F60;
-  constexpr uint24_t SFX_Death = 0x038881;
-  constexpr uint24_t SFX_Victory = 0x038925;
-  constexpr uint24_t SFX_LandHard = 0x0389D9;
-  constexpr uint24_t SFX_PlayerBlip = 0x0389E1;
-  constexpr uint24_t SFX_EnemyBlip = 0x0389F1;
-  constexpr uint24_t SFX_PickUpItem = 0x038A01;
-  constexpr uint24_t SFX_XPGain = 0x038A11;
-  constexpr uint24_t SFX_Glint = 0x038A25;
-  constexpr uint24_t Songs = 0x038A2D;
-  constexpr uint24_t SFXs = 0x038A30;
+  constexpr uint24_t SFX_Death = 0x03BAFD;
+  constexpr uint24_t SFX_Victory = 0x03BBA1;
+  constexpr uint24_t SFX_LandHard = 0x03BC55;
+  constexpr uint24_t SFX_PlayerBlip = 0x03BC5D;
+  constexpr uint24_t SFX_EnemyBlip = 0x03BC6D;
+  constexpr uint24_t SFX_PickUpItem = 0x03BC7D;
+  constexpr uint24_t SFX_XPGain = 0x03BC8D;
+  constexpr uint24_t SFX_Glint = 0x03BCA1;
+  constexpr uint24_t Songs = 0x03BCA9;
+  constexpr uint24_t SFXs = 0x03BCAC;
 }
 
 namespace Constants
 {
-  constexpr uint24_t StanceImgIdx = 0x038A48;
-  constexpr uint24_t StanceDetails = 0x038B8C;
-  constexpr uint24_t Tree_X = 0x03909C;
-  constexpr uint24_t Font_Width = 0x0390AC;
-  constexpr uint24_t GameOver = 0x0390C6;
-  constexpr uint24_t TimesUp = 0x039456;
-  constexpr uint24_t GetReady = 0x0397E6;
-  constexpr uint24_t BananaLaunch = 0x039F66;
+  constexpr uint24_t StanceImgIdx = 0x03BCC4;
+  constexpr uint24_t StanceDetails = 0x03BE08;
+  constexpr uint24_t Tree_X = 0x03C318;
+  constexpr uint24_t Font_Width = 0x03C328;
+  constexpr uint24_t GameOver = 0x03C342;
+  constexpr uint24_t TimesUp = 0x03C6D2;
+  constexpr uint24_t GetReady = 0x03CA62;
+  constexpr uint24_t BananaLaunch = 0x03D16A;
 }
 
 namespace Images
 {
-  constexpr uint24_t TreeImages = 0x039FAC;
+  constexpr uint24_t TreeImages = 0x03D1B0;
 }
 

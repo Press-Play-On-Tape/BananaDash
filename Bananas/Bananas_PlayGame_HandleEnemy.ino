@@ -407,7 +407,7 @@ void launchBarrel(Enemy &enemy) {
             case 36 ... 38:
             case 40 ... 41:
 
-                if (!doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
+                if (!doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
                 
                     enemy.setEntityType(EntityType::Barrel);
                     enemy.setY(-6);
@@ -440,7 +440,7 @@ void launchBanana(Item &bananaToLaunch) {
         uint16_t r = a.randomLFSR(0, Constants::Tile_Count);
         uint16_t h = a.randomLFSR(0, 3);
         
-        if (abs(world.getForeground() + (r * 16) + (worldRepeat * Constants::Tile_Count * 16)) < 80) continue;
+        if (abs(world.getForeground() + (r * 16) + (worldRepeat * Constants::Tile_Count * 16)) < 100) continue;
 
         uint8_t idx = Level::Level[r];
         uint8_t flags = FX::readIndexedUInt8(Constants::BananaLaunch, idx);
@@ -449,7 +449,7 @@ void launchBanana(Item &bananaToLaunch) {
         
             case 0:
 
-                if ((flags & 1) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 47)) {
+                if ((flags & 1) && !doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 47)) {
 
                     bananaToLaunch.setItemType(ItemType::Banana);
                     bananaToLaunch.setY(47);
@@ -462,7 +462,7 @@ void launchBanana(Item &bananaToLaunch) {
         
             case 1:
 
-                if ((flags & 2) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 31)) {
+                if ((flags & 2) && !doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 31)) {
 
                     bananaToLaunch.setItemType(ItemType::Banana);
                     bananaToLaunch.setY(31);
@@ -475,7 +475,7 @@ void launchBanana(Item &bananaToLaunch) {
         
             case 2:
 
-                if ((flags & 4) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
+                if ((flags & 4) && !doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
 
                     bananaToLaunch.setItemType(ItemType::Banana);
                     bananaToLaunch.setY(15);
@@ -513,7 +513,7 @@ void launchHeart(Item &bananaToLaunch) {
         
             case 0:
 
-                if ((flags & 1) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 47)) {
+                if ((flags & 1) && !doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 47)) {
 
                     bananaToLaunch.setItemType(ItemType::Heart);
                     bananaToLaunch.setY(50);
@@ -527,7 +527,7 @@ void launchHeart(Item &bananaToLaunch) {
         
             case 1:
 
-                if ((flags & 2) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 31)) {
+                if ((flags & 2) && !doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 31)) {
 
                     bananaToLaunch.setItemType(ItemType::Heart);
                     bananaToLaunch.setY(34);
@@ -541,7 +541,7 @@ void launchHeart(Item &bananaToLaunch) {
         
             case 2:
 
-                if ((flags & 4) && !doesBananaExistAtLocation((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
+                if ((flags & 4) && !doesBananaOrFiteOrHeartExistHere((r * 16) + (worldRepeat * Constants::Tile_Count * 16), 15)) {
 
                     bananaToLaunch.setItemType(ItemType::Heart);
                     bananaToLaunch.setY(18);
@@ -559,7 +559,7 @@ void launchHeart(Item &bananaToLaunch) {
 
 }
 
-bool doesBananaExistAtLocation(int16_t x, uint8_t y) {
+bool doesBananaOrFiteOrHeartExistHere(int16_t x, uint8_t y) {
 
     // Make sure there is not an existing banana in the same location ..
 
@@ -568,7 +568,19 @@ bool doesBananaExistAtLocation(int16_t x, uint8_t y) {
         Item item = world.getItem(i);
 
         if (item.getItemType() == ItemType::Banana && 
-            item.getY() == y && 
+            abs(item.getY() - y) < 8 && 
+            item.getX() == x) {
+            return true;
+        }
+
+        if (item.getItemType() == ItemType::Fire && 
+            abs(item.getY() - y) < 8 && 
+            item.getX() == x) {
+            return true;
+        }
+
+        if (item.getItemType() == ItemType::Heart && 
+            abs(item.getY() - y) < 8 && 
             item.getX() == x) {
             return true;
         }

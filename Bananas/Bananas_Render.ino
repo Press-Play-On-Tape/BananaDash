@@ -39,7 +39,13 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     int16_t xMin = (- 55 - world.getForeground() - world.getXOffset()) / 16;
     int16_t xMax = xMin + 9;
 
-    for (int16_t i = xMin; i < xMax; i++) {    
+    #ifdef DEBUG_RENDER
+    DEBUG_PRINT(xMin);
+    DEBUG_PRINT(" ");
+    DEBUG_PRINTLN(xMax);
+    #endif
+
+    for (int16_t i = xMin - 1; i < xMax; i++) {    
 
         // uint8_t levelIdx = FX::readIndexedUInt8(Level::Level, i);
         uint8_t levelIdx = getTile_ByIdx(i);
@@ -67,77 +73,81 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
     //
     // Render items  ..
 
-    for (uint8_t i = 0; i < Constants::Item_Count; i++) {    
+    if (getReadyCount == -1) {
+        
+        for (uint8_t i = 0; i < Constants::Item_Count; i++) {    
 
-        Item &item = world.getItem(i);
+            Item &item = world.getItem(i);
 
-        int16_t x = 55 + item.getX() + world.getForeground() + world.getXOffset();
-        if (x < -32 || x > 128) continue;
-
-
-        if (item.getItemType() == ItemType::Banana) {
-
-            SpritesU::drawPlusMaskFX(55 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Banana, currentPlane);
-
-        }
-
-        if (item.getItemType() == ItemType::Heart) {
-
-            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 9, 8, Images::Heart, currentPlane);
-
-        }
-
-        if (item.getItemType() == ItemType::Fire) {
-
-            uint8_t frame = (frameCount / 4) % 6;
-            SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
-
-        }
-
-    }
+            int16_t x = 55 + item.getX() + world.getForeground() + world.getXOffset();
+            if (x < -32 || x > 128) continue;
 
 
-    // ____________________________________________________________________________________________________________________________________________________________________________________
-    //
-    // Render enemies ..
+            if (item.getItemType() == ItemType::Banana) {
 
-    for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {    
+                SpritesU::drawPlusMaskFX(55 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Banana, currentPlane);
 
-        Enemy &enemy = world.getEnemy(i);
+            }
 
-        int16_t x = 55 + enemy.getX() + world.getForeground() + world.getXOffset();
+            if (item.getItemType() == ItemType::Heart) {
 
-        if (x < -32 || x > 128) continue;
+                SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 9, 8, Images::Heart, currentPlane);
 
-        if (enemy.getEntityType() == EntityType::Barrel) {
+            }
 
-            uint24_t imageIdx = getStanceImg(enemy.getStance());
+            if (item.getItemType() == ItemType::Fire) {
 
-            if (enemy.getCounter() == 0 || ((enemy.getCounter() / 8) % 2) == 0) { 
-                SpritesU::drawPlusMaskFX(x, enemy.getY(), 16, 16, Images::Barrel, (imageIdx * 3) + currentPlane);
-                // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
+                uint8_t frame = (frameCount / 4) % 6;
+                SpritesU::drawPlusMaskFX(58 + item.getX() + world.getForeground() + world.getXOffset(), item.getY(), 16, 16, Images::Fire, (frame * 3) + currentPlane);
+
             }
 
         }
 
-        if (enemy.getEntityType() == EntityType::Bird) {
 
-            uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(x, enemy.getY(), 14, 16, Images::Bird, (imageIdx * 3) + currentPlane);
+        // ____________________________________________________________________________________________________________________________________________________________________________________
+        //
+        // Render enemies ..
 
-            // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
+        for (uint8_t i = 0; i < Constants::Enemy_Count; i++) {    
 
-            // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
+            Enemy &enemy = world.getEnemy(i);
 
-        }
+            int16_t x = 55 + enemy.getX() + world.getForeground() + world.getXOffset();
 
-        if (enemy.getEntityType() == EntityType::Spider) {
+            if (x < -32 || x > 128) continue;
 
-            uint24_t imageIdx = getStanceImg(enemy.getStance());
-            SpritesU::drawPlusMaskFX(x, enemy.getY(), 16, 16, Images::Spider, (imageIdx * 3) + currentPlane);
+            if (enemy.getEntityType() == EntityType::Barrel) {
 
-            // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
-            // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
+                uint24_t imageIdx = getStanceImg(enemy.getStance());
+
+                if (enemy.getCounter() == 0 || ((enemy.getCounter() / 8) % 2) == 0) { 
+                    SpritesU::drawPlusMaskFX(x, enemy.getY(), 16, 16, Images::Barrel, (imageIdx * 3) + currentPlane);
+                    // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
+                }
+
+            }
+
+            if (enemy.getEntityType() == EntityType::Bird) {
+
+                uint24_t imageIdx = getStanceImg(enemy.getStance());
+                SpritesU::drawPlusMaskFX(x, enemy.getY(), 14, 16, Images::Bird, (imageIdx * 3) + currentPlane);
+
+                // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
+
+                // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
+
+            }
+
+            if (enemy.getEntityType() == EntityType::Spider) {
+
+                uint24_t imageIdx = getStanceImg(enemy.getStance());
+                SpritesU::drawPlusMaskFX(x, enemy.getY(), 16, 16, Images::Spider, (imageIdx * 3) + currentPlane);
+
+                // gEnemyRect = enemy.getRect(world.getForeground() + world.getXOffset());
+                // if (gEnemyRect.x != 0 && currentPlane == 2) DEBUG_BREAK
+
+            }
 
         }
 

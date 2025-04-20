@@ -24,7 +24,7 @@ extern ArduboyGBase_Config<ABG_Mode::L4_Triplane> a;
 decltype(a) a;
 
 #define SYNTHU_IMPLEMENTATION
-#define SYNTHU_NUM_CHANNELS 2
+#define SYNTHU_NUM_CHANNELS 4
 #define SYNTHU_UPDATE_EVERY_N_FRAMES 3
 #define SYNTHU_ENABLE_SFX 1
 #define SYNTHU_FX_READDATABYTES_FUNC FX::readDataBytes

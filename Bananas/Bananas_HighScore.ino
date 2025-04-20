@@ -6,7 +6,7 @@ uint8_t highScore_Char = 0;
 
 void highScore_Init() {
 
-
+world.setBananas(12);
     world.setGameState(GameState::HighScore_Edit);
 
     highScore_Entry = 0;

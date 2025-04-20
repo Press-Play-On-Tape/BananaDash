@@ -159,5 +159,5 @@ def convert_sym(sym, outfile, **args):
 
 # convert_sym('../music/Empty', 'Empty', tracks=6, vol=1)
 # convert_sym('../music/BillieEilish', 'MainTheme', tracks=6, vol=1)
-convert_sym('../music/Gorillas', 'MainTheme', tracks=2, vol=0.5)
-# convert_sym('../music/cc-fast-intro', 'FastIntro', tracks=2)
+#convert_sym('../music/Gorillas', 'MainTheme', tracks=2, vol=0.5)
+convert_sym('../music/BananaPancakes', 'MainTheme', tracks=4, vol=0.5)
