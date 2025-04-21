@@ -11,8 +11,25 @@ void launchPuff(PuffType puffType, Item &item) {
 
     Item &puff = world.getItem(0);
 
-    puff.setX(item.getX());
-    puff.setY(item.getY() - (puffType == PuffType::Heart ? 3 : 0));
+    switch (puffType) {
+    
+        case PuffType::Fruit:
+            puff.setX(item.getX() + 3);
+            puff.setY(item.getY());
+            break;
+    
+        case PuffType::Heart:
+            puff.setX(item.getX());
+            puff.setY(item.getY() - 3);
+            break;
+
+        default:
+            puff.setX(item.getX());
+            puff.setY(item.getY());
+            break;
+    
+    }
+
     puff.setFrame(0);
     puff.setData(puffType == PuffType::Heart ? 7 : 0);
     item.setCounter(3);

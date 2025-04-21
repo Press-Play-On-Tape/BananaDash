@@ -149,3 +149,4 @@ convert_header(IMAGES + 'Enemies/Bird.png',                                     
 convert_header(IMAGES + 'Enemies/Spider.png',                                                     BASE + 'Images.hpp', 'Spider', 4, 16, 16)
 convert_header(IMAGES + 'Enemies/Heart.png',                                                      BASE + 'Images.hpp', 'Heart', 4, 9, 8)
 convert_header(IMAGES + 'Enemies/Fire.png',                                                       BASE + 'Images.hpp', 'Fire', 4, 16, 16)
+convert_header(IMAGES + 'Enemies/Fruits.png',                                                     BASE + 'Images.hpp', 'Fruits', 4, 16, 16)
