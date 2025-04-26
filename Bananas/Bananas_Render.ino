@@ -74,7 +74,7 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
     if (getReadyCount == -1) {
         
-        for (uint8_t i = 0; i < Constants::Item_Count; i++) {    
+        for (uint8_t i = 2; i < Constants::Item_Count; i++) {    
 
             Item &item = world.getItem(i);
 
@@ -199,7 +199,6 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
     }
 
-
     if (timeCounter > 0) {
 
         timeCounter = timeCounter - 1;
@@ -233,6 +232,16 @@ void playGame_Render(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, uint8_t curr
 
         uint8_t frame = (item.getFrame() / 8) + item.getData();
         SpritesU::drawPlusMaskFX(55 + item.getX() + world.getForeground(), item.getY(), Images::Puff, (frame * 3) +  currentPlane);
+
+    }
+
+
+    Item &item1 = world.getItem(1);
+
+    if (item1.getFrame() < Constants::Puff_Max) {
+
+        uint8_t frame = (item1.getFrame() / 8) + item.getData();
+        SpritesU::drawPlusMaskFX(55 + item1.getX() + world.getForeground(), item1.getY(), Images::Puff, (frame * 3) +  currentPlane);
 
     }
 

@@ -47,8 +47,8 @@ int8_t gameOverCount = -1;
 int8_t timesUpCount = -1;
 int8_t getReadyCount = -1;
 
-Rect gPlayerRect;
-Rect gEnemyRect;
+// Rect gPlayerRect;
+// Rect gEnemyRect;
 
 void setup(void) {
 

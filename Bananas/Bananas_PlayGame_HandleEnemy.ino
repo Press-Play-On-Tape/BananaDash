@@ -126,7 +126,7 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
                                     DEBUG_PRINTLN(-world.getForeground() - enemy.getX());
                                     #endif
 
-                                    launchBird_LH(enemy);                                    
+                                    launchBird_LH(enemy, false);                                    
                                     enemy.pushSequence(Stance::Enemy_Flying_LH_00, Stance::Enemy_Flying_LH_19);
                                     break;
 
@@ -141,7 +141,7 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
                                     DEBUG_PRINTLN(-world.getForeground() - enemy.getX());
                                     #endif
 
-                                    launchBird_RH(enemy);   
+                                    launchBird_RH(enemy, false);   
                                     enemy.pushSequence(Stance::Enemy_Flying_RH_00, Stance::Enemy_Flying_RH_19);
                                     break;
 
@@ -349,9 +349,9 @@ void playGame_HandleEnemies(ArduboyGBase_Config<ABG_Mode::L4_Triplane> &a, GameS
 
 }
 
-void launchBird_LH(Enemy &enemy) {
+void launchBird_LH(Enemy &enemy, bool forceMovement) {
 
-    if (-world.getForeground() - enemy.getX() > 100) {
+    if (forceMovement || -world.getForeground() - enemy.getX() > 100) {
 
         if (world.getGameState() == GameState::PlayGame) {
 
@@ -363,9 +363,9 @@ void launchBird_LH(Enemy &enemy) {
                                     
 }
 
-void launchBird_RH(Enemy &enemy) {
+void launchBird_RH(Enemy &enemy, bool forceMovement) {
 
-    if (-world.getForeground() - enemy.getX() < -100) {
+    if (forceMovement || -world.getForeground() - enemy.getX() < -100) {
 
         if (world.getGameState() == GameState::PlayGame) {
 
@@ -452,7 +452,7 @@ void launchBanana(Item &bananaToLaunch) {
 
     while (contTile) {
 
-        uint16_t r = a.randomLFSR(0, Constants::Tile_Count);
+        uint16_t r = a.randomLFSR(worldRepeat == 0 ? 1 : 0, Constants::Tile_Count);
         uint16_t h = a.randomLFSR(0, 3);
         
         if (abs(world.getForeground() + (r * 16) + (worldRepeat * Constants::Tile_Count * 16)) < 100) continue;
@@ -649,31 +649,31 @@ bool doesBananaOrFireOrHeartOrFruitExistHere(int16_t x, uint8_t y) {
 
     // Make sure there is not an existing banana in the same location ..
 
-    for (uint8_t i = 1; i < Constants::Item_Count; i++) {
+    for (uint8_t i = 2; i < Constants::Item_Count - 4; i++) {
     
         Item item = world.getItem(i);
 
         if (item.getItemType() == ItemType::Banana && 
-            abs(item.getY() - y) < 8 && 
-            item.getX() == x) {
+            abs(item.getY() - y) <=8 && 
+            abs(item.getX() - x) <= 8) {
             return true;
         }
 
         if (item.getItemType() == ItemType::Fire && 
-            abs(item.getY() - y) < 8 && 
-            item.getX() == x) {
+            abs(item.getY() - y) <= 8 && 
+            abs(item.getX() - x) <= 8) {
             return true;
         }
 
         if (item.getItemType() == ItemType::Heart && 
-            abs(item.getY() - y) < 8 && 
-            item.getX() == x) {
+            abs(item.getY() - y) <= 8 && 
+            abs(item.getX() - x) <= 8) {
             return true;
         }
 
         if (item.getItemType() == ItemType::Fruit && 
-            abs(item.getY() - y) < 8 && 
-            item.getX() == x) {
+            abs(item.getY() - y) <= 8 && 
+            abs(item.getX() - x) <= 8) {
             return true;
         }
 

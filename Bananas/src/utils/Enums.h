@@ -91,6 +91,7 @@ enum class PuffType : uint8_t {
     Banana,
     Heart,
     Fruit,
+    Enemy,
 };
 
 enum class GameState : uint8_t {

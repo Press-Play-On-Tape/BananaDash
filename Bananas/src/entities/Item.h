@@ -102,8 +102,8 @@ class Item {
 
                     if (this->getY() >= -16) {
                     
-                        this->setY(this->getY() - 2);
-                        this->setX(this->getX() - 2);
+                        this->setY(this->getY() - 3);
+                        this->setX(this->getX() - 3);
                         this->setData((this->getData() + 1) % 8);
                     
                     }
@@ -114,8 +114,8 @@ class Item {
 
                     if (this->getY() >= -16) {
                     
-                        this->setY(this->getY() - 2);
-                        this->setX(this->getX() + 2);
+                        this->setY(this->getY() - 3);
+                        this->setX(this->getX() + 3);
                         this->setData((this->getData() + 1) % 8);
                     
                     }
@@ -126,8 +126,8 @@ class Item {
 
                     if (this->getY() <= 64) {
                     
-                        this->setY(this->getY() + 2);
-                        this->setX(this->getX() - 2);
+                        this->setY(this->getY() + 3);
+                        this->setX(this->getX() - 3);
                         this->setData((this->getData() + 1) % 8);
                     
                     }
@@ -138,8 +138,8 @@ class Item {
 
                     if (this->getY() <= 64) {
                     
-                        this->setY(this->getY() + 2);
-                        this->setX(this->getX() + 2);
+                        this->setY(this->getY() + 3);
+                        this->setX(this->getX() + 3);
                         this->setData((this->getData() + 1) % 8);
                     
                     }
