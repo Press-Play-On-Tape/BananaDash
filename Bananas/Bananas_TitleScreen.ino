@@ -43,14 +43,19 @@ void titleScreen_Update() {
     const uint8_t justPressed = getJustPressedButtons();
     const uint8_t pressed = getPressedButtons();
 
-    // frameCount = frameCount + 1;
+    frameCount = frameCount + 1;
 
     // if ((frameCount % 3) == 0) {
     
     //     for (uint8_t i = 0; i < 4; i++) {
         
-    //         world.getItem(i).setY(world.getItem(i).getY() + 2);
+    //         world.getItem(i).setY(world.getItem(i).getY() + 4);
     //         world.getItem(i).setCounter((world.getItem(i).getCounter() + 1) % 8);
+
+    //         if (world.getItem(i).getY() > 64) {
+    //             world.getItem(i).setX(a.randomLFSR(0, 104));
+    //             world.getItem(i).setY(a.randomLFSR(80, 240));
+    //         }
             
     //     }
 

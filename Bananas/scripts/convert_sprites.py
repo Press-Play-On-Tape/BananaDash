@@ -112,7 +112,7 @@ IMAGES = '../images/'
 deleteFile(BASE + 'Images.hpp')
 
 convert_header(IMAGES + 'Titles/PPOT.png',                                                        BASE + 'Images.hpp', 'PPOT', 4, 128, 64)
-convert_header(IMAGES + 'Titles/Title.png',                                                       BASE + 'Images.hpp', 'Title', 4, 128, 64)
+convert_header(IMAGES + 'Titles/Title.png',                                                       BASE + 'Images.hpp', 'Title', 4, 128, 64, maskImage=False)
 convert_header(IMAGES + 'Titles/HUD_Banana.png',                                                  BASE + 'Images.hpp', 'HUD_Banana', 4, 35, 8)
 convert_header(IMAGES + 'Titles/HUD_Time.png',                                                    BASE + 'Images.hpp', 'HUD_Time', 4, 26, 8)
 convert_header(IMAGES + 'Titles/HUD_Directions.png',                                              BASE + 'Images.hpp', 'HUD_Directions', 4, 13, 8)
@@ -151,4 +151,4 @@ convert_header(IMAGES + 'Enemies/Heart.png',                                    
 convert_header(IMAGES + 'Enemies/Fire.png',                                                       BASE + 'Images.hpp', 'Fire', 4, 16, 16)
 convert_header(IMAGES + 'Enemies/Fruits.png',                                                     BASE + 'Images.hpp', 'Fruits', 4, 16, 16)
 
-convert_header(IMAGES + 'Gorilla6_2.png',                                                     BASE + 'Images.hpp', 'Gorilla', 4, 48, 48)
+#convert_header(IMAGES + 'Gorilla6_2.png',                                                     BASE + 'Images.hpp', 'Gorilla', 4, 48, 48)
